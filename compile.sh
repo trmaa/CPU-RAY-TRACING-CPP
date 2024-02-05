@@ -5,7 +5,7 @@ delete() {
   choice=${choice,,}
 
   if [ "$choice" == "y" ]; then
-    rm Magyk.exe
+    rm renderer.exe
     echo "Ejecutable borrado."
   else
     echo "No se ha borrado el ejecutable."
@@ -13,11 +13,11 @@ delete() {
 }
 
 compile() {
-  mcs -out:Magyk.exe -r:System.Windows.Forms.dll -r:System.Drawing.dll *.cs
+  mcs -out:renderer.exe -r:System.Windows.Forms.dll -r:System.Drawing.dll *.cs
 
   if [ $? -eq 0 ]; then
     echo "Compilación exitosa. Ejecutando..."
-    mono "$(pwd)/Magyk.exe"
+    mono "$(pwd)/renderer.exe"
 
     delete
   else

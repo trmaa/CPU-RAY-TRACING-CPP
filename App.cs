@@ -2,7 +2,7 @@ using System;
 using System.Windows.Forms;
 
 public class App {
-    public static Window window = new Window("Magyk",new vec2(1280,720));
+    public static Window window = new Window("Renderer",new vec2(1280,720));
     public static Camara camara = new Camara();
 
     public static void Main(){
