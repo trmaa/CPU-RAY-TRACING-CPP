@@ -24,4 +24,16 @@ public class vec3{
     public static vec3 operator *(vec3 left, vec3 right) {
         return new vec3(left.x * right.x, left.y * right.y, left.z * right.z);
     }
+
+    public static vec3 operator -(vec3 left, vec3 right) {
+	    return new vec3(left.x - right.x, left.y - right.y, left.z - right.z);
+	}
+
+	public static vec3 operator /(vec3 left, vec3 right) {
+	    if (right.x != 0 && right.y != 0 && right.z != 0) {
+	        return new vec3(left.x / right.x, left.y / right.y, left.z / right.z);
+	    } else {
+	        return new vec3(float.NaN, float.NaN, float.NaN);
+	    }
+	}
 };

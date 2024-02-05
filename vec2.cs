@@ -23,4 +23,16 @@ public class vec2 {
     public static vec2 operator *(vec2 left, vec2 right) {
         return new vec2(left.x * right.x, left.y * right.y);
     }
+
+    public static vec2 operator -(vec2 left, vec2 right) {
+	    return new vec2(left.x - right.x, left.y - right.y);
+	}
+
+	public static vec2 operator /(vec2 left, vec2 right) {
+	    if (right.x != 0 && right.y != 0) {
+	        return new vec2(left.x / right.x, left.y / right.y);
+	    } else {
+	        return new vec2(float.NaN, float.NaN);
+	    }
+	}
 }
