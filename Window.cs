@@ -20,21 +20,26 @@ public class Window : Form {
         }
 	}
 
+	public void print(Graphics g,Color col,vec2 p,vec2 size){
+		g.FillRectangle(new SolidBrush(col), p.x, p.y, size.x, size.y);
+	}
+
 	public void repaint(Graphics g) {
-        g.Clear(Color.Black);
+	    g.Clear(Color.Black);
 
-        foreach(var p in this.pixel){
-            g.FillRectangle(new SolidBrush(p.color), p.id.x, p.id.y, 1, 1);
-        }
+	    foreach(var p in this.pixel){
+	        this.print(g,p.color, p.id, new vec2(1, 1));
+	    }
 
-		g.FillRectangle(new SolidBrush(Color.FromArgb(255,255,0,255)), App.camara.project(new vec3(1,1,5)).x, App.camara.project(new vec3(1,1,5)).y, 10, 10);        
-		g.FillRectangle(new SolidBrush(Color.FromArgb(255,255,0,255)), App.camara.project(new vec3(-1,1,5)).x, App.camara.project(new vec3(-1,1,5)).y, 10, 10);        
-		g.FillRectangle(new SolidBrush(Color.FromArgb(255,255,0,255)), App.camara.project(new vec3(1,-1,5)).x, App.camara.project(new vec3(1,-1,5)).y, 10, 10);        
-		g.FillRectangle(new SolidBrush(Color.FromArgb(255,255,0,255)), App.camara.project(new vec3(-1,-1,5)).x, App.camara.project(new vec3(-1,-1,5)).y, 10, 10);
+	    // Utiliza la función print para imprimir los rectángulos
+	    this.print(g,Color.FromArgb(255, 255, 0, 255), App.camara.project(new vec3(1, 1, 5)), new vec2(10, 10));
+	    this.print(g,Color.FromArgb(255, 255, 0, 255), App.camara.project(new vec3(-1, 1, 5)), new vec2(10, 10));
+	    this.print(g,Color.FromArgb(255, 255, 0, 255), App.camara.project(new vec3(1, -1, 5)), new vec2(10, 10));
+	    this.print(g,Color.FromArgb(255, 255, 0, 255), App.camara.project(new vec3(-1, -1, 5)), new vec2(10, 10));
 
-		g.FillRectangle(new SolidBrush(Color.FromArgb(255,255,0,255)), App.camara.project(new vec3(1,1,4)).x, App.camara.project(new vec3(1,1,4)).y, 15, 15);        
-		g.FillRectangle(new SolidBrush(Color.FromArgb(255,255,0,255)), App.camara.project(new vec3(-1,1,4)).x, App.camara.project(new vec3(-1,1,4)).y, 15, 15);        
-		g.FillRectangle(new SolidBrush(Color.FromArgb(255,255,0,255)), App.camara.project(new vec3(1,-1,4)).x, App.camara.project(new vec3(1,-1,4)).y, 15, 15);        
-		g.FillRectangle(new SolidBrush(Color.FromArgb(255,255,0,255)), App.camara.project(new vec3(-1,-1,4)).x, App.camara.project(new vec3(-1,-1,4)).y, 15, 15);        
-    }
+	    this.print(g,Color.FromArgb(255, 255, 0, 255), App.camara.project(new vec3(1, 1, 4)), new vec2(15, 15));
+	    this.print(g,Color.FromArgb(255, 255, 0, 255), App.camara.project(new vec3(-1, 1, 4)), new vec2(15, 15));
+	    this.print(g,Color.FromArgb(255, 255, 0, 255), App.camara.project(new vec3(1, -1, 4)), new vec2(15, 15));
+	    this.print(g,Color.FromArgb(255, 255, 0, 255), App.camara.project(new vec3(-1, -1, 4)), new vec2(15, 15));
+	}
 };
