@@ -29,9 +29,10 @@ public class Window : Form {
 	public void repaint(Graphics g) {
 	    g.Clear(Color.Black);
 
-	    /*foreach(var p in this.pixel){
+	    foreach(var p in this.pixel){
+	    	//definir color con los rayos
 	        this.print(g,p.color, p.id, new vec2(1, 1));
-	    }*/
+	    }
 
 	    this.print(g, Color.FromArgb(255, 255, 0, 255), App.camara.project(new vec3(1, 1, 6)), new vec2((1280 / App.camara.distance(new vec3(1, 1, 6)) * 0.1f), (1280 / App.camara.distance(new vec3(1, 1, 6)) * 0.1f)));
 		this.print(g, Color.FromArgb(255, 255, 0, 255), App.camara.project(new vec3(-1, 1, 6)), new vec2((1280 / App.camara.distance(new vec3(-1, 1, 6)) * 0.1f), (1280 / App.camara.distance(new vec3(-1, 1, 6)) * 0.1f)));
