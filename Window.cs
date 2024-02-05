@@ -39,14 +39,6 @@ public class Window : Form {
 	        this.print(g,p.color, p.id*this.aspectratio, this.aspectratio);
 	    }
 
-	    this.print(g, Color.FromArgb(255, 255, 0, 255), App.camara.project(new vec3(1, 1, 6)), new vec2((1280 / App.camara.distance(new vec3(1, 1, 6)) * 0.1f), (1280 / App.camara.distance(new vec3(1, 1, 6)) * 0.1f)));
-		this.print(g, Color.FromArgb(255, 255, 0, 255), App.camara.project(new vec3(-1, 1, 6)), new vec2((1280 / App.camara.distance(new vec3(-1, 1, 6)) * 0.1f), (1280 / App.camara.distance(new vec3(-1, 1, 6)) * 0.1f)));
-		this.print(g, Color.FromArgb(255, 255, 0, 255), App.camara.project(new vec3(1, -1, 6)), new vec2((1280 / App.camara.distance(new vec3(1, -1, 6)) * 0.1f), (1280 / App.camara.distance(new vec3(1, -1, 6)) * 0.1f)));
-		this.print(g, Color.FromArgb(255, 255, 0, 255), App.camara.project(new vec3(-1, -1, 6)), new vec2((1280 / App.camara.distance(new vec3(-1, -1, 6)) * 0.1f), (1280 / App.camara.distance(new vec3(-1, -1, 6)) * 0.1f)));
-
-		this.print(g, Color.FromArgb(255, 255, 0, 255), App.camara.project(new vec3(1, 1, 4)), new vec2((1280 / App.camara.distance(new vec3(1, 1, 4)) * 0.1f), (1280 / App.camara.distance(new vec3(1, 1, 4)) * 0.1f)));
-		this.print(g, Color.FromArgb(255, 255, 0, 255), App.camara.project(new vec3(-1, 1, 4)), new vec2((1280 / App.camara.distance(new vec3(-1, 1, 4)) * 0.1f), (1280 / App.camara.distance(new vec3(-1, 1, 4)) * 0.1f)));
-		this.print(g, Color.FromArgb(255, 255, 0, 255), App.camara.project(new vec3(1, -1, 4)), new vec2((1280 / App.camara.distance(new vec3(1, -1, 4)) * 0.1f), (1280 / App.camara.distance(new vec3(1, -1, 4)) * 0.1f)));
-		this.print(g, Color.FromArgb(255, 255, 0, 255), App.camara.project(new vec3(-1, -1, 4)), new vec2((1280 / App.camara.distance(new vec3(-1, -1, 4)) * 0.1f), (1280 / App.camara.distance(new vec3(-1, -1, 4)) * 0.1f)));
+	    Cube.render(g);
 	}
 };
