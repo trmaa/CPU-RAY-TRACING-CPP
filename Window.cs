@@ -26,5 +26,15 @@ public class Window : Form {
         foreach(var p in this.pixel){
             g.FillRectangle(new SolidBrush(p.color), p.id.x, p.id.y, 1, 1);
         }
+
+		g.FillRectangle(new SolidBrush(Color.FromArgb(255,255,0,255)), App.camara.project(new vec3(1,1,5)).x, App.camara.project(new vec3(1,1,5)).y, 10, 10);        
+		g.FillRectangle(new SolidBrush(Color.FromArgb(255,255,0,255)), App.camara.project(new vec3(-1,1,5)).x, App.camara.project(new vec3(-1,1,5)).y, 10, 10);        
+		g.FillRectangle(new SolidBrush(Color.FromArgb(255,255,0,255)), App.camara.project(new vec3(1,-1,5)).x, App.camara.project(new vec3(1,-1,5)).y, 10, 10);        
+		g.FillRectangle(new SolidBrush(Color.FromArgb(255,255,0,255)), App.camara.project(new vec3(-1,-1,5)).x, App.camara.project(new vec3(-1,-1,5)).y, 10, 10);
+
+		g.FillRectangle(new SolidBrush(Color.FromArgb(255,255,0,255)), App.camara.project(new vec3(1,1,4)).x, App.camara.project(new vec3(1,1,4)).y, 15, 15);        
+		g.FillRectangle(new SolidBrush(Color.FromArgb(255,255,0,255)), App.camara.project(new vec3(-1,1,4)).x, App.camara.project(new vec3(-1,1,4)).y, 15, 15);        
+		g.FillRectangle(new SolidBrush(Color.FromArgb(255,255,0,255)), App.camara.project(new vec3(1,-1,4)).x, App.camara.project(new vec3(1,-1,4)).y, 15, 15);        
+		g.FillRectangle(new SolidBrush(Color.FromArgb(255,255,0,255)), App.camara.project(new vec3(-1,-1,4)).x, App.camara.project(new vec3(-1,-1,4)).y, 15, 15);        
     }
 };
