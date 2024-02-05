@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -8,6 +9,7 @@ public class Window : Form {
 	public Window(String title,vec2 size){
 		this.Text = title;
         this.Size = new Size((int)size.x, (int)size.y);
+
         this.Paint += (sender, e) => repaint(e.Graphics);
 
         this.pixel = new Pixel[(int)size.x * (int)size.y];

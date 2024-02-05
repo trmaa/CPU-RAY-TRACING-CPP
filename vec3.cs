@@ -17,11 +17,11 @@ public class vec3{
 		return this.x*v.x+this.y*v.y+this.z*v.z;
 	}
 
-	public vec3 add(vec3 v) {
-	    return new vec3(this.x + v.x, this.y + v.y, this.z + v.z);
-	}
+	public static vec3 operator +(vec3 left, vec3 right) {
+        return new vec3(left.x + right.x, left.y + right.y, left.z + right.z);
+    }
 
-	public vec3 product(vec3 v) {
-	    return new vec3(this.x * v.x, this.y * v.y, this.z * v.z);
-	}
+    public static vec3 operator *(vec3 left, vec3 right) {
+        return new vec3(left.x * right.x, left.y * right.y, left.z * right.z);
+    }
 };
