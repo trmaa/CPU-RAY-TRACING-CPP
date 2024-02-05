@@ -13,7 +13,7 @@ public class Window : Form {
         this.pixel = new Pixel[(int)size.x * (int)size.y];
         for(int y = 0;y < size.y;y++){
         	for(int x = 0;x < size.x;x++){
-        		this.pixel[x+y*(int)size.x] = new Pixel(Color.FromArgb(255,(int)new Random().Next(255),0,0),new vec2(x,y));
+        		this.pixel[x+y*(int)size.x] = new Pixel(Color.FromArgb(255,(int)(255*y/size.y),(int)(255*x/size.x),0),new vec2(x,y));
         	}
         }
 	}
