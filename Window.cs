@@ -12,7 +12,7 @@ public class Window : Form {
 		this.Text = title;
         this.Size = new Size((int)size.x, (int)size.y);
 
-        this.viewport = new vec2(19,11);
+        this.viewport = new vec2(128,72);
         this.aspectratio = size/viewport;
 
         this.Paint += (sender, e) => repaint(e.Graphics);
