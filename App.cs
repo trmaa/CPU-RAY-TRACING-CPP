@@ -6,15 +6,16 @@ public class App {
     public static Camara camara = new Camara();
 
     public static void Main(){
-        Application.Run(window);
-
         Timer timer = new Timer();
         timer.Interval = 16;
         timer.Tick += (sender, e) => update();
         timer.Start();
+    
+        Application.Run(window);
     }
 
     private static void update(){
+        App.camara.move();
         window.Invalidate();
     }
 };

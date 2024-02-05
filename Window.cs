@@ -18,6 +18,8 @@ public class Window : Form {
         		this.pixel[x+y*(int)size.x] = new Pixel(Color.FromArgb(255,(int)(255*y/size.y),(int)(255*x/size.x),0),new vec2(x,y));
         	}
         }
+
+        this.DoubleBuffered = true;
 	}
 
 	public void print(Graphics g,Color col,vec2 p,vec2 size){
@@ -27,19 +29,18 @@ public class Window : Form {
 	public void repaint(Graphics g) {
 	    g.Clear(Color.Black);
 
-	    foreach(var p in this.pixel){
+	    /*foreach(var p in this.pixel){
 	        this.print(g,p.color, p.id, new vec2(1, 1));
-	    }
+	    }*/
 
-	    // Utiliza la función print para imprimir los rectángulos
-	    this.print(g,Color.FromArgb(255, 255, 0, 255), App.camara.project(new vec3(1, 1, 5)), new vec2(10, 10));
-	    this.print(g,Color.FromArgb(255, 255, 0, 255), App.camara.project(new vec3(-1, 1, 5)), new vec2(10, 10));
-	    this.print(g,Color.FromArgb(255, 255, 0, 255), App.camara.project(new vec3(1, -1, 5)), new vec2(10, 10));
-	    this.print(g,Color.FromArgb(255, 255, 0, 255), App.camara.project(new vec3(-1, -1, 5)), new vec2(10, 10));
+	    this.print(g, Color.FromArgb(255, 255, 0, 255), App.camara.project(new vec3(1, 1, 6)), new vec2((1280 / App.camara.distance(new vec3(1, 1, 6)) * 0.1f), (1280 / App.camara.distance(new vec3(1, 1, 6)) * 0.1f)));
+		this.print(g, Color.FromArgb(255, 255, 0, 255), App.camara.project(new vec3(-1, 1, 6)), new vec2((1280 / App.camara.distance(new vec3(-1, 1, 6)) * 0.1f), (1280 / App.camara.distance(new vec3(-1, 1, 6)) * 0.1f)));
+		this.print(g, Color.FromArgb(255, 255, 0, 255), App.camara.project(new vec3(1, -1, 6)), new vec2((1280 / App.camara.distance(new vec3(1, -1, 6)) * 0.1f), (1280 / App.camara.distance(new vec3(1, -1, 6)) * 0.1f)));
+		this.print(g, Color.FromArgb(255, 255, 0, 255), App.camara.project(new vec3(-1, -1, 6)), new vec2((1280 / App.camara.distance(new vec3(-1, -1, 6)) * 0.1f), (1280 / App.camara.distance(new vec3(-1, -1, 6)) * 0.1f)));
 
-	    this.print(g,Color.FromArgb(255, 255, 0, 255), App.camara.project(new vec3(1, 1, 4)), new vec2(15, 15));
-	    this.print(g,Color.FromArgb(255, 255, 0, 255), App.camara.project(new vec3(-1, 1, 4)), new vec2(15, 15));
-	    this.print(g,Color.FromArgb(255, 255, 0, 255), App.camara.project(new vec3(1, -1, 4)), new vec2(15, 15));
-	    this.print(g,Color.FromArgb(255, 255, 0, 255), App.camara.project(new vec3(-1, -1, 4)), new vec2(15, 15));
+		this.print(g, Color.FromArgb(255, 255, 0, 255), App.camara.project(new vec3(1, 1, 4)), new vec2((1280 / App.camara.distance(new vec3(1, 1, 4)) * 0.1f), (1280 / App.camara.distance(new vec3(1, 1, 4)) * 0.1f)));
+		this.print(g, Color.FromArgb(255, 255, 0, 255), App.camara.project(new vec3(-1, 1, 4)), new vec2((1280 / App.camara.distance(new vec3(-1, 1, 4)) * 0.1f), (1280 / App.camara.distance(new vec3(-1, 1, 4)) * 0.1f)));
+		this.print(g, Color.FromArgb(255, 255, 0, 255), App.camara.project(new vec3(1, -1, 4)), new vec2((1280 / App.camara.distance(new vec3(1, -1, 4)) * 0.1f), (1280 / App.camara.distance(new vec3(1, -1, 4)) * 0.1f)));
+		this.print(g, Color.FromArgb(255, 255, 0, 255), App.camara.project(new vec3(-1, -1, 4)), new vec2((1280 / App.camara.distance(new vec3(-1, -1, 4)) * 0.1f), (1280 / App.camara.distance(new vec3(-1, -1, 4)) * 0.1f)));
 	}
 };

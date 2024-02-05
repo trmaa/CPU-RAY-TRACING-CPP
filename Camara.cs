@@ -1,10 +1,12 @@
 using System;
 
 public class Camara {
-    public vec3 position = new vec3(0,0,0);
+    public vec3 position = new vec3(0,0,-10);
     public vec2 angle = new vec2(0,(float)Math.PI/2);
 
     public Ray[] ray;
+
+    public Controler controls = new Controler();
 
     public Camara(){
         this.ray = new Ray[App.window.pixel.Length];
@@ -17,8 +19,8 @@ public class Camara {
         }
     }
 
-    public double distance(vec3 point){
-        return Math.Sqrt(
+    public float distance(vec3 point){
+        return (float)Math.Sqrt(
             Math.Pow(point.x - App.camara.position.x, 2) +
             Math.Pow(point.y - App.camara.position.y, 2) +
             Math.Pow(point.z - App.camara.position.z, 2)
@@ -55,4 +57,30 @@ public class Camara {
         else
             return new vec2(1000, 1000);
     }
+
+    public void move(){
+		if(this.controls.wDown){
+			this.position.x += (float)Math.Cos(this.angle.y)*0.2f;
+			this.position.z += (float)Math.Sin(this.angle.y)*0.2f;
+		} 
+		if(this.controls.sDown){
+			this.position.x -= (float)Math.Cos(this.angle.y)*0.2f;
+			this.position.z -= (float)Math.Sin(this.angle.y)*0.2f;
+		}
+		if(this.controls.dDown){
+			this.position.x -= (float)Math.Cos(this.angle.y+Math.PI/2)*0.2f;
+			this.position.z -= (float)Math.Sin(this.angle.y+Math.PI/2)*0.2f;
+		} 
+		if(this.controls.aDown){
+			this.position.x += (float)Math.Cos(this.angle.y+Math.PI/2)*0.2f;
+			this.position.z += (float)Math.Sin(this.angle.y+Math.PI/2)*0.2f;
+		}
+		this.position.y += this.controls.eDown?0.2f:0;
+		this.position.y -= this.controls.qDown?0.2f:0;
+
+		this.angle.x += this.controls.uArrow?0.02f:0;
+		this.angle.x -= this.controls.dArrow?0.02f:0;
+		this.angle.y -= this.controls.rArrow?0.02f:0;
+		this.angle.y += this.controls.lArrow?0.02f:0;
+	}
 };
