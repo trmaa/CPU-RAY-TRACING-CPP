@@ -17,7 +17,7 @@ compile() {
 
   if [ $? -eq 0 ]; then
     echo "Compilación exitosa. Ejecutando..."
-    mono "$(pwd)/Magyk.exe"  # Utiliza la ruta completa al ejecutable
+    mono "$(pwd)/Magyk.exe"
 
     delete
   else
