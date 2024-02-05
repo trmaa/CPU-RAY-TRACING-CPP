@@ -4,16 +4,16 @@ using System.Windows.Forms;
 public class App {
     private static Window window = new Window("Magyk",new vec2(1280,720));
 
-    public static void Main() {
+    public static void Main(){
+        Application.Run(window);
+
         Timer timer = new Timer();
         timer.Interval = 16;
         timer.Tick += (sender, e) => update();
         timer.Start();
-
-        Application.Run(window);
     }
 
-    private static void update() {
+    private static void update(){
         window.Invalidate();
     }
 };
