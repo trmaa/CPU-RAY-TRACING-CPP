@@ -5,6 +5,8 @@ public class Camara {
     public vec3 position = new vec3(0,0,0);
     public vec2 angle = new vec2(0,(float)Math.PI/2);
 
+    public float fov = 50;
+
     public Ray[] ray;
 
     public Controler controls = new Controler();
@@ -16,8 +18,8 @@ public class Camara {
             this.ray[(int)(p.id.x + p.id.y * App.window.viewport.x)] = new Ray(
                 this.position,//xcosay zsinay ycosax
                 new vec3(
-                    p.id.x-(int)(App.window.viewport.x*0.5),
-                    p.id.y-(int)(App.window.viewport.y*0.5), 
+                    (float)((p.id.x-App.window.viewport.x*0.5)/this.fov),
+                    (float)((p.id.y-App.window.viewport.y*0.5)/this.fov), 
                     1
                 )
             );
@@ -27,7 +29,7 @@ public class Camara {
     public void shader(Graphics g,vec2 id){
         Ray currentr = this.ray[(int)(id.x+id.y*App.window.viewport.x)];
 
-        App.window.print(g, Color.FromArgb(255, 150, 0, 255), App.camara.project(currentr.direction), new vec2((1280 / App.camara.distance(currentr.direction) * 0.1f), (1280 / App.camara.distance(currentr.direction) * 0.1f)));
+        App.window.print(g, Color.FromArgb(255, 150, 0, 255), App.camara.project(currentr.direction-currentr.origin), new vec2((1280 / App.camara.distance(currentr.direction-currentr.origin) * 0.1f), (1280 / App.camara.distance(currentr.direction-currentr.origin) * 0.1f)));
 
         float time = Sphere.colision(currentr);
         if(time == 0)
@@ -36,6 +38,15 @@ public class Camara {
             vec3 normal = currentr.f(time) - Sphere.position;
             App.window.pixel[(int)(id.x+id.y*App.window.viewport.x)].color = Color.White;
         }
+    }
+
+    public void castRays(vec2 id){
+        this.ray[(int)(id.x+id.y*App.window.viewport.x)].origin = this.position;
+        this.ray[(int)(id.x+id.y*App.window.viewport.x)].direction = new vec3(
+            (float)((id.x-App.window.viewport.x*0.5)/this.fov),
+            (float)((id.y-App.window.viewport.y*0.5)/this.fov), 
+            1
+        );
     }
 
     public float distance(vec3 point){
