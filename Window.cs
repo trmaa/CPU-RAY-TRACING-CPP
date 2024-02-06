@@ -13,7 +13,7 @@ public class Window : Form {
         this.Size = new Size((int)size.x, (int)size.y);
 
         this.viewport = new vec2(128,72);
-        this.aspectratio = size/viewport;
+        this.aspectratio = size/this.viewport;
 
         this.Paint += (sender, e) => repaint(e.Graphics);
 
@@ -32,6 +32,9 @@ public class Window : Form {
 	}
 
 	public void repaint(Graphics g) {
+		vec2 size = new vec2(App.window.ClientSize.Width,App.window.ClientSize.Height);
+		this.aspectratio = size/this.viewport;
+		
 	    g.Clear(Color.Black);
 
 	    foreach(var p in this.pixel){
