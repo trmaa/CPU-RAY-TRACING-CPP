@@ -6,6 +6,7 @@ public class Camara {
     public vec2 angle = new vec2(0,(float)Math.PI/2);
 
     public float fov = 50;
+    public float near = 5;
 
     public Ray[] ray;
 
@@ -20,7 +21,7 @@ public class Camara {
                 new vec3(
                     (float)((p.id.x-App.window.viewport.x*0.5)/this.fov),
                     (float)((p.id.y-App.window.viewport.y*0.5)/this.fov), 
-                    1
+                    this.near
                 )
             );
         }
@@ -29,7 +30,7 @@ public class Camara {
     public void shader(Graphics g,vec2 id){
         Ray currentr = this.ray[(int)(id.x+id.y*App.window.viewport.x)];
 
-        App.window.print(g, Color.FromArgb(255, 150, 0, 255), App.camara.project(currentr.direction-currentr.origin), new vec2((1280 / App.camara.distance(currentr.direction-currentr.origin) * 0.1f), (1280 / App.camara.distance(currentr.direction-currentr.origin) * 0.1f)));
+        App.window.print(g, Color.FromArgb(255, 150, 0, 255), App.camara.project(currentr.direction+currentr.origin), new vec2((1280 / App.camara.distance(currentr.direction+currentr.origin) * 0.1f), (1280 / App.camara.distance(currentr.direction+currentr.origin) * 0.1f)));
 
         float time = Sphere.colision(currentr);
         if(time == 0)
@@ -41,11 +42,11 @@ public class Camara {
     }
 
     public void castRays(vec2 id){
-        this.ray[(int)(id.x+id.y*App.window.viewport.x)].origin = this.position;
-        this.ray[(int)(id.x+id.y*App.window.viewport.x)].direction = new vec3(
-            (float)((id.x-App.window.viewport.x*0.5)/this.fov),
-            (float)((id.y-App.window.viewport.y*0.5)/this.fov), 
-            1
+        this.ray[(int)(id.x + id.y * App.window.viewport.x)].origin = new vec3(0,0,0);
+        this.ray[(int)(id.x + id.y * App.window.viewport.x)].direction = new vec3(
+            (float)(Math.Cos(this.angle.y)*(id.x-App.window.viewport.x*0.5)/this.fov),
+            (float)(Math.Cos(this.angle.x)*(id.y-App.window.viewport.y*0.5)/this.fov), 
+            (float)Math.Cos(this.angle.y)*this.near
         );
     }
 
