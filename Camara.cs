@@ -6,7 +6,7 @@ public class Camara {
     public vec2 angle = new vec2(0,(float)Math.PI/2);
 
     public float fov = 50;
-    public float near = 5;
+    public float near = 2;
 
     public Ray[] ray;
 
@@ -42,12 +42,22 @@ public class Camara {
     }
 
     public void castRays(vec2 id){
-        this.ray[(int)(id.x + id.y * App.window.viewport.x)].origin = new vec3(0,0,0);
-        this.ray[(int)(id.x + id.y * App.window.viewport.x)].direction = new vec3(
-            (float)(Math.Cos(this.angle.y)*(id.x-App.window.viewport.x*0.5)/this.fov),
-            (float)(Math.Cos(this.angle.x)*(id.y-App.window.viewport.y*0.5)/this.fov), 
-            (float)Math.Cos(this.angle.y)*this.near
+        vec3 init = new vec3(
+            (float)((id.x-App.window.viewport.x*0.5)/this.fov),
+            (float)((id.y-App.window.viewport.y*0.5)/this.fov), 
+            (float)this.near
         );
+
+        float angle = (float)Math.Atan2(init.x,init.z) + this.angle.y;
+
+        vec3 targuet = new vec3(
+            init.modul()*(float)Math.Cos(angle),
+            init.y,
+            init.modul()*(float)Math.Sin(angle)
+        );
+
+        this.ray[(int)(id.x + id.y * App.window.viewport.x)].origin = this.position;
+        this.ray[(int)(id.x + id.y * App.window.viewport.x)].direction = targuet;
     }
 
     public float distance(vec3 point){
