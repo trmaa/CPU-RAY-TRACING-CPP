@@ -38,7 +38,7 @@ public class Window : Form {
 	    g.Clear(Color.Black);
 
 	    foreach(var p in this.pixel){
-	    	//definir color con los rayos
+	    	App.camara.shader(p.id);
 	        this.print(g,p.color, p.id*this.aspectratio, this.aspectratio);
 	    }
 

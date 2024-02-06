@@ -1,4 +1,5 @@
 using System;
+using System.Drawing;
 
 public class Camara {
     public vec3 position = new vec3(0,0,-10);
@@ -14,9 +15,18 @@ public class Camara {
         foreach (var p in App.window.pixel) {
             this.ray[(int)(p.id.x + p.id.y * App.window.viewport.x)] = new Ray(
                 this.position,//xcosay zsinay ycosax
-                new vec3(p.id.x-(int)(App.window.ClientSize.Width*0.5),p.id.y-(int)(App.window.ClientSize.Height*0.5), 1)
+                new vec3(
+                    p.id.x-(int)(App.window.ClientSize.Width*0.5),
+                    p.id.y-(int)(App.window.ClientSize.Height*0.5), 
+                    1
+                )
             );
         }
+    }
+
+    public void shader(vec2 id){
+        //App.window.pixel[(int)(id.x+id.y*App.window.viewport.x)].color = Color.Black;
+        //return-^ sin return
     }
 
     public float distance(vec3 point){
