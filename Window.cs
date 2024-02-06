@@ -12,6 +12,9 @@ public class Window : Form {
 		this.Text = title;
         this.Size = new Size((int)size.x, (int)size.y);
 
+        Bitmap bitmap = new Bitmap("ico.png");
+        this.Icon = Icon.FromHandle(bitmap.GetHicon());
+
         this.viewport = new vec2(128,72);
         this.aspectratio = size/this.viewport;
 
