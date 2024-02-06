@@ -2,7 +2,7 @@ using System;
 using System.Drawing;
 
 public class Camara {
-    public vec3 position = new vec3(0,0,-10);
+    public vec3 position = new vec3(0,0,0);
     public vec2 angle = new vec2(0,(float)Math.PI/2);
 
     public Ray[] ray;
@@ -25,8 +25,15 @@ public class Camara {
     }
 
     public void shader(vec2 id){
-        //App.window.pixel[(int)(id.x+id.y*App.window.viewport.x)].color = Color.Black;
-        //return-^ sin return
+        Ray currentr = this.ray[(int)(id.x+id.y*App.window.viewport.x)];
+
+        float time = Sphere.colision(currentr);
+        if(time == 0)
+            return;
+        else{
+            vec3 normal = currentr.f(time) - Sphere.position;
+            App.window.pixel[(int)(id.x+id.y*App.window.viewport.x)].color = Color.White;
+        }
     }
 
     public float distance(vec3 point){
