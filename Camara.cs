@@ -30,7 +30,7 @@ public class Camara {
     public void shader(Graphics g,vec2 id){
         Ray currentr = this.ray[(int)(id.x+id.y*App.window.viewport.x)];
 
-        App.window.print(g, Color.FromArgb(255, 150, 0, 255), App.camara.project(currentr.direction+currentr.origin), new vec2((128 / App.camara.distance(currentr.direction+currentr.origin) * 0.1f), (128 / App.camara.distance(currentr.direction+currentr.origin) * 0.1f)));
+        App.window.print(g, Color.FromArgb(255, 50, 0, 150), App.camara.project(currentr.direction+currentr.origin), new vec2((128 / App.camara.distance(currentr.direction+currentr.origin) * 0.1f), (128 / App.camara.distance(currentr.direction+currentr.origin) * 0.1f)));
 
         float time = Sphere.colision(currentr);
         if(time == 0)
@@ -54,7 +54,7 @@ public class Camara {
         vec3 targuet = new vec3(
             init.modul()*(float)Math.Cos(angle),
             init.modul()*(float)Math.Sin(bngle),
-            init.modul()*(float)Math.Sin(angle)
+            init.modul()*(float)Math.Cos(bngle)*(float)Math.Sin(angle)
         );
 
         this.ray[(int)(id.x + id.y * App.window.viewport.x)].origin = this.position;
