@@ -41,8 +41,8 @@ public class Window : Form {
 	    g.Clear(Color.Black);
 
 	    foreach(var p in this.pixel){
-	    	App.camara.shader(p.id);
-	        this.print(g,p.color, p.id*this.aspectratio, this.aspectratio);
+	    	App.camara.shader(g,p.id);
+	        //this.print(g,p.color, p.id*this.aspectratio, this.aspectratio);
 	    }
 
 	    Cube.render(g);

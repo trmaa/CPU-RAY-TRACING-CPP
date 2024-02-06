@@ -16,16 +16,18 @@ public class Camara {
             this.ray[(int)(p.id.x + p.id.y * App.window.viewport.x)] = new Ray(
                 this.position,//xcosay zsinay ycosax
                 new vec3(
-                    p.id.x-(int)(App.window.ClientSize.Width*0.5),
-                    p.id.y-(int)(App.window.ClientSize.Height*0.5), 
+                    p.id.x-(int)(App.window.viewport.x*0.5),
+                    p.id.y-(int)(App.window.viewport.y*0.5), 
                     1
                 )
             );
         }
     }
 
-    public void shader(vec2 id){
+    public void shader(Graphics g,vec2 id){
         Ray currentr = this.ray[(int)(id.x+id.y*App.window.viewport.x)];
+
+        App.window.print(g, Color.FromArgb(255, 150, 0, 255), App.camara.project(currentr.direction), new vec2((1280 / App.camara.distance(currentr.direction) * 0.1f), (1280 / App.camara.distance(currentr.direction) * 0.1f)));
 
         float time = Sphere.colision(currentr);
         if(time == 0)
