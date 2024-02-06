@@ -13,7 +13,7 @@ public class Camara {
 
         foreach (var p in App.window.pixel) {
             this.ray[(int)(p.id.x + p.id.y * App.window.viewport.x)] = new Ray(
-                this.position,
+                this.position,//xcosay zsinay ycosax
                 new vec3(p.id.x-(int)(App.window.ClientSize.Width*0.5),p.id.y-(int)(App.window.ClientSize.Height*0.5), 1)
             );
         }
