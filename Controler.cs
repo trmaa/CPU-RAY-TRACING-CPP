@@ -44,10 +44,10 @@ public class Controler {
             case Keys.D:
                 dDown = isDown;
                 break;
-            case Keys.Q:
+            case Keys.ShiftKey:
                 qDown = isDown;
                 break;
-            case Keys.E:
+            case Keys.Space:
                 eDown = isDown;
                 break;
             case Keys.Up:
