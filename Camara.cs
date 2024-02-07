@@ -58,9 +58,9 @@ public class Camara {
         float bngle = (float)Math.Atan2(init.y,init.z) + this.angle.x;
 
         vec3 targuet = new vec3(
-            this.near*(float)Math.Cos(angle),
-            this.near*(float)Math.Sin(bngle),
-            this.near*(float)Math.Cos(bngle)*(float)Math.Sin(angle)
+            init.modul()*(float)Math.Cos(angle),
+            init.modul()*(float)Math.Sin(bngle),
+            init.modul()*(float)Math.Cos(bngle)*(float)Math.Sin(angle)
         );
 
         this.ray[(int)(id.x + id.y * App.window.viewport.x)].origin = this.position;
