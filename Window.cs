@@ -35,7 +35,7 @@ public class Window : Form {
 	}
 
 	public void repaint(Graphics g) {
-		vec2 size = new vec2(App.window.ClientSize.Width,App.window.ClientSize.Height);
+		vec2 size = new vec2(this.ClientSize.Width,this.ClientSize.Height);
 		this.aspectratio = size/this.viewport;
 		
 	    g.Clear(Color.Black);
@@ -43,7 +43,7 @@ public class Window : Form {
 	    foreach(var p in this.pixel){
 	    	App.camara.castRays(p.id);
 	    	App.camara.shader(g,p.id);
-	        //this.print(g,p.color, p.id*this.aspectratio, this.aspectratio);
+	        this.print(g,p.color, p.id*this.aspectratio, this.aspectratio);
 	    }
 
 	    this.print(g,Color.FromArgb(255,0,155,255),App.camara.project(new vec3(0,0,0)),new vec2(10,10));

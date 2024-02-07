@@ -30,7 +30,12 @@ public class Camara {
     public void shader(Graphics g,vec2 id){
         Ray currentr = this.ray[(int)(id.x+id.y*App.window.viewport.x)];
 
-        App.window.print(g, Color.FromArgb(255, 50, 0, 150), App.camara.project(currentr.direction+currentr.origin), new vec2((128 / App.camara.distance(currentr.direction+currentr.origin) * 0.1f), (128 / App.camara.distance(currentr.direction+currentr.origin) * 0.1f)));
+        /*App.window.print(g, Color.FromArgb(255, 50, 0, 150), 
+            this.project(currentr.direction+currentr.origin), 
+            new vec2((128 / this.distance(currentr.direction+currentr.origin) * 0.1f),
+                (128 / App.camara.distance(currentr.direction+currentr.origin) * 0.1f)
+            )
+        );*/
 
         float time = Sphere.colision(currentr);
         if(time == 0)
