@@ -38,7 +38,7 @@ public class Camara {
             )
         );*/
 
-        float time = App.sphere.colision(currentr);
+        float time = (App.sphere.colision(currentr)!=0||App.sphere2.colision(currentr)!=0)?1:0;
         if(time == 0) {
             App.window.pixel[(int)(id.x+id.y*App.window.viewport.x)].color = Color.FromArgb(0,0,0,0);
         } else{
