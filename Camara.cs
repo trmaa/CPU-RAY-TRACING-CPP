@@ -38,11 +38,11 @@ public class Camara {
             )
         );*/
 
-        float time = Sphere.colision(currentr);
+        float time = App.sphere.colision(currentr);
         if(time == 0) {
             App.window.pixel[(int)(id.x+id.y*App.window.viewport.x)].color = Color.FromArgb(0,0,0,0);
         } else{
-            vec3 normal = currentr.f(time) - Sphere.position;
+            vec3 normal = currentr.f(time) - App.sphere.position;
             App.window.pixel[(int)(id.x+id.y*App.window.viewport.x)].color = Color.White;
         }
     }
