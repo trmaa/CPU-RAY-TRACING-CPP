@@ -5,10 +5,13 @@ commit() {
     choice=${choice,,}
 
     if [ "$choice" == "y" ]; then
-        read -p "título del commit: " msg
+        read -p "Título del commit: " msg
         msg=${msg,,}
+        echo "ADD"
         git add .
+        echo "COMMIT"
         git commit -m "$msg"
+        echo "PUSH"
         git push
     else
         echo "No se ha borrado el ejecutable."
