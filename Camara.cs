@@ -13,7 +13,7 @@ public class Camara {
     public Controler controls = new Controler();
 
     public Camara(){
-        this.fov = App.window.aspectratio.x*10;
+        this.fov = App.window.aspectratio.x*this.fov/5;
         this.near = this.fov/100;
         
         this.ray = new Ray[App.window.pixel.Length];
