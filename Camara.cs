@@ -40,7 +40,7 @@ public class Camara {
 
         float time = Sphere.colision(currentr);
         if(time == 0) {
-            App.window.pixel[(int)(id.x+id.y*App.window.viewport.x)].color = Color.Black;
+            App.window.pixel[(int)(id.x+id.y*App.window.viewport.x)].color = Color.FromArgb(0,0,0,0);
         } else{
             vec3 normal = currentr.f(time) - Sphere.position;
             App.window.pixel[(int)(id.x+id.y*App.window.viewport.x)].color = Color.White;
