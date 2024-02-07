@@ -45,9 +45,9 @@ public class Camara {
             vec3 normal = currentr.f(time) - App.sphere.position;
             vec3 unitN = normal.unit();
             App.window.pixel[(int)(id.x+id.y*App.window.viewport.x)].color = Color.FromArgb(
-                (int)Math.Abs(unitN.x*255),
-                (int)Math.Abs(unitN.y*255),
-                (int)Math.Abs(unitN.z*255)
+                (int)(unitN.x>0?unitN.x*255:0),
+                (int)(unitN.y>0?unitN.y*255:0),
+                (int)(unitN.z>0?unitN.z*255:0)
             );
         }
     }

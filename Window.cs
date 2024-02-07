@@ -43,7 +43,7 @@ public class Window : Form {
         vec2 size = new vec2(this.ClientSize.Width, this.ClientSize.Height);
         this.aspectratio = size / this.viewport;
 
-        g.Clear(Color.Black);
+        g.Clear(Color.FromArgb(255,150,150,50));
 
         foreach(var p in this.pixel){
             vec2 invertId = this.viewport - p.id;
