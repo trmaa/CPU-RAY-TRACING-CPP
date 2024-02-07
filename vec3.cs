@@ -17,6 +17,11 @@ public class vec3{
 		return (float)(this.x*v.x+this.y*v.y+this.z*v.z);
 	}
 
+	public vec3 unit(){
+		float d = this.modul();
+		return this/new vec3(d,d,d);
+	}
+
 	public static vec3 operator +(vec3 left, vec3 right) {
         return new vec3(left.x + right.x, left.y + right.y, left.z + right.z);
     }

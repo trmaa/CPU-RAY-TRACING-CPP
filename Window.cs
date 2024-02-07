@@ -21,8 +21,8 @@ public class Window : Form {
         this.Paint += (sender, e) => repaint(e.Graphics);
 
         this.pixel = new Pixel[(int)viewport.x * (int)viewport.y];
-        for (int y = 0; y < viewport.y; y++){
-            for (int x = 0; x < viewport.x; x++){
+        for(int y = 0; y < viewport.y; y++){
+            for(int x = 0; x < viewport.x; x++){
                 this.pixel[x + y * (int)viewport.x] = new Pixel(Color.FromArgb(255, (int)(255 * y / viewport.y), (int)(255 * x / viewport.x), 0), new vec2(x, y));
             }
         }
@@ -45,7 +45,7 @@ public class Window : Form {
 
         g.Clear(Color.Black);
 
-        foreach (var p in this.pixel){
+        foreach(var p in this.pixel){
             vec2 invertId = this.viewport - p.id;
 
             App.camara.castRays(p.id);

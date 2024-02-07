@@ -16,6 +16,11 @@ public class vec2 {
         return this.x * v.x + this.y * v.y;
     }
 
+    public vec2 unit(){
+        float d = this.modul();
+        return this/new vec2(d,d);
+    }
+
     public static vec2 operator +(vec2 left, vec2 right) {
         return new vec2(left.x + right.x, left.y + right.y);
     }

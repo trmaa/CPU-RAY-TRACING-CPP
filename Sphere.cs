@@ -1,3 +1,5 @@
+using System;
+
 public class Sphere {
 	public vec3 position;
 	public float radius;
@@ -16,6 +18,6 @@ public class Sphere {
 
 	    float discriminant = b*b - 4*a*c;
 
-		return discriminant>=0?1:0;
+		return discriminant<0?0:((float)Math.Sqrt(discriminant)-b)/(2*a);
 	}
 };

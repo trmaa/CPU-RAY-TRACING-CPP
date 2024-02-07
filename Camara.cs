@@ -39,11 +39,16 @@ public class Camara {
         );*/
 
         float time = (App.sphere.colision(currentr)!=0||App.sphere2.colision(currentr)!=0)?1:0;
-        if(time == 0) {
+        if(time <= 0) {
             App.window.pixel[(int)(id.x+id.y*App.window.viewport.x)].color = Color.FromArgb(0,0,0,0);
         } else{
             vec3 normal = currentr.f(time) - App.sphere.position;
-            App.window.pixel[(int)(id.x+id.y*App.window.viewport.x)].color = Color.White;
+            vec3 unitN = normal.unit();
+            App.window.pixel[(int)(id.x+id.y*App.window.viewport.x)].color = Color.FromArgb(
+                (int)Math.Abs(unitN.x*255),
+                (int)Math.Abs(unitN.y*255),
+                (int)Math.Abs(unitN.z*255)
+            );
         }
     }
 

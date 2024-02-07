@@ -13,8 +13,6 @@ commit() {
         git commit -m "$msg"
         echo "PUSH"
         git push
-    else
-        echo "No se ha borrado el ejecutable."
     fi
 }
 
