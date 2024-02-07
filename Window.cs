@@ -41,9 +41,11 @@ public class Window : Form {
 	    g.Clear(Color.Black);
 
 	    foreach(var p in this.pixel){
+	    	vec2 invertId = this.viewport-p.id;
+
 	    	App.camara.castRays(p.id);
 	    	App.camara.shader(g,p.id);
-	        this.print(g,p.color, p.id*this.aspectratio, this.aspectratio);
+	        this.print(g,p.color, invertId*this.aspectratio, this.aspectratio);
 	    }
 
 	    this.print(g,Color.FromArgb(255,0,155,255),App.camara.project(new vec3(0,0,0)),new vec2(10,10));

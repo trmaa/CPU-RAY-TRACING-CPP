@@ -14,7 +14,7 @@ public class vec3{
 	}
 
 	public float dot(vec3 v){
-		return this.x*v.x+this.y*v.y+this.z*v.z;
+		return (float)(this.x*v.x+this.y*v.y+this.z*v.z);
 	}
 
 	public static vec3 operator +(vec3 left, vec3 right) {

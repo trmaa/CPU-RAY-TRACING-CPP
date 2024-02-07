@@ -28,6 +28,7 @@ public class Camara {
     }
 
     public void shader(Graphics g,vec2 id){
+        int index = (int)(id.x+id.y*App.window.viewport.x);
         Ray currentr = this.ray[(int)(id.x+id.y*App.window.viewport.x)];
 
         /*App.window.print(g, Color.FromArgb(255, 50, 0, 150), 
@@ -38,9 +39,9 @@ public class Camara {
         );*/
 
         float time = Sphere.colision(currentr);
-        if(time == 0)
-            return;
-        else{
+        if(time == 0) {
+            App.window.pixel[(int)(id.x+id.y*App.window.viewport.x)].color = Color.Black;
+        } else{
             vec3 normal = currentr.f(time) - Sphere.position;
             App.window.pixel[(int)(id.x+id.y*App.window.viewport.x)].color = Color.White;
         }
@@ -57,9 +58,9 @@ public class Camara {
         float bngle = (float)Math.Atan2(init.y,init.z) + this.angle.x;
 
         vec3 targuet = new vec3(
-            init.modul()*(float)Math.Cos(angle),
-            init.modul()*(float)Math.Sin(bngle),
-            init.modul()*(float)Math.Cos(bngle)*(float)Math.Sin(angle)
+            this.near*(float)Math.Cos(angle),
+            this.near*(float)Math.Sin(bngle),
+            this.near*(float)Math.Cos(bngle)*(float)Math.Sin(angle)
         );
 
         this.ray[(int)(id.x + id.y * App.window.viewport.x)].origin = this.position;
