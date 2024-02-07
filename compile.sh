@@ -1,12 +1,15 @@
 #!/bin/bash
 
-delete() {
-    read -p "¿Quieres borrar el ejecutable? (N/y): " choice
+commit() {
+    read -p "¿Quieres comitear? (N/y): " choice
     choice=${choice,,}
 
     if [ "$choice" == "y" ]; then
-        rm renderer.exe
-        echo "Ejecutable borrado."
+        read -p "título del commit: " msg
+        msg=${msg,,}
+        git add .
+        git commit -m "$msg"
+        git push
     else
         echo "No se ha borrado el ejecutable."
     fi
@@ -19,7 +22,7 @@ compile() {
         echo "Compilación exitosa. Ejecutando..."
         mono "$(pwd)/renderer.exe"
 
-        delete
+        commit
     else
         echo "Error durante la compilación."
     fi
