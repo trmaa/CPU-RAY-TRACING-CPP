@@ -43,7 +43,13 @@ public class Window : Form {
         vec2 size = new vec2(this.ClientSize.Width, this.ClientSize.Height);
         this.aspectratio = size / this.viewport;
 
-        g.Clear(Color.FromArgb(255,150,150,50));
+        g.Clear(Color.FromArgb(255,150,150,150));
+
+        this.print(g,
+            Color.FromArgb(255,40,40,40),
+            new vec2(0,(float)(Math.Sin(App.camara.angle.x)*App.window.ClientSize.Height*2+App.window.ClientSize.Height/2)/*+App.camara.position.y*0.01*/),
+            new vec2(App.window.ClientSize.Width,(float)(Math.Sin(App.camara.angle.x)*App.window.ClientSize.Height*2+App.window.ClientSize.Height*4)/*+App.camara.position.y*0.01*/)
+        );
 
         foreach(var p in this.pixel){
             vec2 invertId = this.viewport - p.id;
@@ -53,8 +59,8 @@ public class Window : Form {
             this.print(g, p.color, invertId * this.aspectratio-this.aspectratio, this.aspectratio);
         }
 
-        this.print(g, Color.FromArgb(255, 0, 155, 255), App.camara.project(new vec3(0, 0, 0)), new vec2(10, 10));
-        Cube.render(g);
+        //this.print(g, Color.FromArgb(255, 0, 155, 255), App.camara.project(new vec3(0, 0, 0)), new vec2(10, 10));
+        //Cube.render(g);
         Brujula.render(g);
     }
 }
