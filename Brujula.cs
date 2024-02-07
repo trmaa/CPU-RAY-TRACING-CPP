@@ -29,12 +29,12 @@ public class Brujula{
     App.window.println(g,
         App.camara.project(Brujula.position) + new vec2((float)(App.window.ClientSize.Width * 0.5 - 100), (float)(100 - App.window.ClientSize.Height * 0.5)),
         App.camara.project(new vec3(Brujula.vertex.x, Brujula.position.y, Brujula.position.z)) + new vec2((float)(App.window.ClientSize.Width * 0.5 - 100), (float)(100 - App.window.ClientSize.Height * 0.5)),
-        3, Color.Green
+        3, Color.Red
     );
     App.window.println(g,
         App.camara.project(Brujula.position) + new vec2((float)(App.window.ClientSize.Width * 0.5 - 100), (float)(100 - App.window.ClientSize.Height * 0.5)),
         App.camara.project(new vec3(Brujula.position.x, Brujula.vertex.y, Brujula.position.z)) + new vec2((float)(App.window.ClientSize.Width * 0.5 - 100), (float)(100 - App.window.ClientSize.Height * 0.5)),
-        3, Color.Red
+        3, Color.Green
     );
   }
 }
