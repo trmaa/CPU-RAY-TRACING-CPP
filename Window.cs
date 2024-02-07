@@ -55,22 +55,6 @@ public class Window : Form {
 
         this.print(g, Color.FromArgb(255, 0, 155, 255), App.camara.project(new vec3(0, 0, 0)), new vec2(10, 10));
         Cube.render(g);
-
-        Brujula.update();
-        Window.println(g,
-            App.camara.project(Brujula.position) + new vec2((float)(App.window.ClientSize.Width * 0.5 - 100), (float)(100 - App.window.ClientSize.Height * 0.5)),
-            App.camara.project(new vec3(Brujula.position.x, Brujula.position.y, Brujula.vertex.z)) + new vec2((float)(App.window.ClientSize.Width * 0.5 - 100), (float)(100 - App.window.ClientSize.Height * 0.5)),
-            3, Color.Blue
-        );
-        Window.println(g,
-            App.camara.project(Brujula.position) + new vec2((float)(App.window.ClientSize.Width * 0.5 - 100), (float)(100 - App.window.ClientSize.Height * 0.5)),
-            App.camara.project(new vec3(Brujula.vertex.x, Brujula.position.y, Brujula.position.z)) + new vec2((float)(App.window.ClientSize.Width * 0.5 - 100), (float)(100 - App.window.ClientSize.Height * 0.5)),
-            3, Color.Green
-        );
-        Window.println(g,
-            App.camara.project(Brujula.position) + new vec2((float)(App.window.ClientSize.Width * 0.5 - 100), (float)(100 - App.window.ClientSize.Height * 0.5)),
-            App.camara.project(new vec3(Brujula.position.x, Brujula.vertex.y, Brujula.position.z)) + new vec2((float)(App.window.ClientSize.Width * 0.5 - 100), (float)(100 - App.window.ClientSize.Height * 0.5)),
-            3, Color.Red
-        );
+        Brujula.render(g);
     }
 }
