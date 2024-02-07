@@ -34,7 +34,7 @@ public class Window : Form {
         g.FillRectangle(new SolidBrush(col), p.x, p.y, size.x, size.y);
     }
 
-    public static void println(Graphics g, vec2 pointo, vec2 pointf, float thich, Color color){
+    public void println(Graphics g, vec2 pointo, vec2 pointf, float thich, Color color){
         Pen pen = new Pen(color, thich);
         g.DrawLine(pen, (int)(pointo.x), (int)(pointo.y), (int)(pointf.x), (int)(pointf.y));
     }
