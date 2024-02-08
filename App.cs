@@ -6,7 +6,6 @@ public class App {
     public static Camara camara;
 
     public static Sphere sphere = new Sphere(new vec3(0,0,5),2);
-    public static Sphere sphere2 = new Sphere(new vec3(20,15,10),5);
 
     public static void Main(){
         App.camara = new Camara();

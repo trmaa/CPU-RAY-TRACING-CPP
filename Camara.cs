@@ -13,7 +13,7 @@ public class Camara {
     public Controler controls = new Controler();
 
     public Camara(){
-        this.fov = App.window.aspectratio.x*this.fov/5;
+        this.fov = (App.window.aspectratio.x*(100-this.fov)/5);
         this.near = this.fov/100;
         
         this.ray = new Ray[App.window.pixel.Length];
@@ -32,7 +32,7 @@ public class Camara {
 
     public void shader(Graphics g,vec2 id){
         int index = (int)(id.x+id.y*App.window.viewport.x);
-        Ray currentr = this.ray[(int)(id.x+id.y*App.window.viewport.x)];
+        Ray currentr = this.ray[index];
 
         /*App.window.print(g, Color.FromArgb(255, 50, 0, 150), 
             this.project(currentr.direction+currentr.origin), 
@@ -41,21 +41,23 @@ public class Camara {
             )
         );*/
 
-        float time = (App.sphere.colision(currentr)!=0||App.sphere2.colision(currentr)!=0)?1:0;
+        float time = App.sphere.colision(currentr);
         if(time <= 0) {
-            App.window.pixel[(int)(id.x+id.y*App.window.viewport.x)].color = Color.FromArgb(0,0,0,0);
+            App.window.pixel[index].color = Color.FromArgb(0,0,0,0);
         } else{
             vec3 normal = currentr.f(time) - App.sphere.position;
             vec3 unitN = normal.unit();
-            App.window.pixel[(int)(id.x+id.y*App.window.viewport.x)].color = Color.FromArgb(
-                (int)(unitN.x>0?unitN.x*255:0),
-                (int)(unitN.y>0?unitN.y*255:0),
-                (int)(unitN.z>0?unitN.z*255:0)
+            App.window.pixel[index].color = Color.FromArgb(
+                (int)(Math.Abs(unitN.x)*255),
+                (int)(Math.Abs(unitN.y)*255),
+                (int)(Math.Abs(unitN.z)*255)
             );
         }
     }
 
     public void castRays(vec2 id){
+        int index = (int)(id.x+id.y*App.window.viewport.x);
+
         vec3 init = new vec3(
             (float)((id.x-App.window.viewport.x*0.5)/this.fov),
             (float)((id.y-App.window.viewport.y*0.5)/this.fov), 
@@ -71,8 +73,8 @@ public class Camara {
             this.near*(float)Math.Cos(bngle)*(float)Math.Sin(angle)
         );
 
-        this.ray[(int)(id.x + id.y * App.window.viewport.x)].origin = this.position;
-        this.ray[(int)(id.x + id.y * App.window.viewport.x)].direction = targuet;
+        this.ray[index].origin = this.position;
+        this.ray[index].direction = targuet;
     }
 
     public float distance(vec3 point){
