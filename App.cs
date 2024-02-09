@@ -5,6 +5,7 @@ public class App {
     public static Window window = new Window("Renderer",new vec2(1280,720));
     public static Camara camara;
 
+    public static Light light;
     public static Sphere sphere = new Sphere(new vec3(0,0,5),2);
 
     public static void Main(){

@@ -46,11 +46,12 @@ public class Camara {
             App.window.pixel[index].color = Color.FromArgb(0,0,0,0);
         } else{
             vec3 normal = currentr.f(time) - App.sphere.position;
-            vec3 unitN = normal.unit();
+            float bright = normal.unit().x;
+            
             App.window.pixel[index].color = Color.FromArgb(
-                (int)(Math.Abs(unitN.x)*255),
-                (int)(Math.Abs(unitN.y)*255),
-                (int)(Math.Abs(unitN.z)*255)
+                (int)(bright>0?bright*255:0),
+                (int)(bright>0?bright*255:0),
+                (int)(bright>0?bright*255:0)
             );
         }
     }
