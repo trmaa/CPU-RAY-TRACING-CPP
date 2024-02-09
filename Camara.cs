@@ -2,7 +2,7 @@ using System;
 using System.Drawing;
 
 public class Camara {
-    public vec3 position = new vec3(0,0,0);
+    public vec3 position = new vec3(0,0,-50);
     public vec2 angle = new vec2(0,(float)Math.PI/2);
 
     public float fov = 50;
@@ -13,7 +13,7 @@ public class Camara {
     public Controler controls = new Controler();
 
     public Camara(){
-        this.fov = (App.window.aspectratio.x*(100-this.fov)/5);
+        this.fov = (100-this.fov/(App.window.aspectratio.x*5));
         this.near = this.fov/100;
         
         this.ray = new Ray[App.window.pixel.Length];
