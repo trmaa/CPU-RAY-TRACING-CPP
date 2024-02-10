@@ -28,7 +28,7 @@ public class Sphere {
 	    float theta = (float)Math.Atan2(this.position.z, this.position.x);
 	    float phi = (float)Math.Acos(this.position.y / radius);
 
-	    theta += 0.1f;
+	    theta += 1*App.deltaTime;
 
 	    float newX = radius * (float)(Math.Sin(phi) * Math.Cos(theta));
 	    float newY = radius * (float)Math.Cos(phi);

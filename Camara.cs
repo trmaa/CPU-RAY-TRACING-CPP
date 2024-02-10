@@ -138,29 +138,31 @@ public class Camara {
             return new vec2(1000, 1000);
     }
 
-    public void move(){
-		if(this.controls.wDown){
-			this.position.x += (float)Math.Cos(this.angle.y)*1f;
-			this.position.z += (float)Math.Sin(this.angle.y)*1f;
-		} 
-		if(this.controls.sDown){
-			this.position.x -= (float)Math.Cos(this.angle.y)*1f;
-			this.position.z -= (float)Math.Sin(this.angle.y)*1f;
-		}
-		if(this.controls.dDown){
-			this.position.x -= (float)Math.Cos(this.angle.y+Math.PI/2)*1f;
-			this.position.z -= (float)Math.Sin(this.angle.y+Math.PI/2)*1f;
-		} 
-		if(this.controls.aDown){
-			this.position.x += (float)Math.Cos(this.angle.y+Math.PI/2)*1f;
-			this.position.z += (float)Math.Sin(this.angle.y+Math.PI/2)*1f;
-		}
-		this.position.y += this.controls.eDown?1f:0;
-		this.position.y -= this.controls.qDown?1f:0;
+    public void move() {
+        float speed = 50.0f;
 
-		this.angle.x += this.controls.uArrow?0.02f:0;
-		this.angle.x -= this.controls.dArrow?0.02f:0;
-		this.angle.y -= this.controls.rArrow?0.02f:0;
-		this.angle.y += this.controls.lArrow?0.02f:0;
-	}
+        if (controls.wDown) {
+            position.x += (float)Math.Cos(angle.y) * speed * App.deltaTime;
+            position.z += (float)Math.Sin(angle.y) * speed * App.deltaTime;
+        }
+        if (controls.sDown) {
+            position.x -= (float)Math.Cos(angle.y) * speed * App.deltaTime;
+            position.z -= (float)Math.Sin(angle.y) * speed * App.deltaTime;
+        }
+        if (controls.dDown) {
+            position.x -= (float)Math.Cos(angle.y + Math.PI / 2) * speed * App.deltaTime;
+            position.z -= (float)Math.Sin(angle.y + Math.PI / 2) * speed * App.deltaTime;
+        }
+        if (controls.aDown) {
+            position.x += (float)Math.Cos(angle.y + Math.PI / 2) * speed * App.deltaTime;
+            position.z += (float)Math.Sin(angle.y + Math.PI / 2) * speed * App.deltaTime;
+        }
+        position.y += controls.eDown ? speed * App.deltaTime : 0;
+        position.y -= controls.qDown ? speed * App.deltaTime : 0;
+
+        angle.x += controls.uArrow ? 0.5f * App.deltaTime : 0; // Velocidad de rotación ajustable
+        angle.x -= controls.dArrow ? 0.5f * App.deltaTime : 0;
+        angle.y -= controls.rArrow ? 0.5f * App.deltaTime : 0;
+        angle.y += controls.lArrow ? 0.5f * App.deltaTime : 0;
+    }
 };
