@@ -15,7 +15,7 @@ public class Window : Form {
         Bitmap bitmap = new Bitmap("ico.png");
         this.Icon = Icon.FromHandle(bitmap.GetHicon());
 
-        this.viewport = new vec2(128, 72);
+        this.viewport = new vec2(128*1, 72*1);
         this.aspectratio = new vec2(this.ClientSize.Width,this.ClientSize.Height) / this.viewport;
 
         this.Paint += (sender, e) => repaint(e.Graphics);
@@ -60,7 +60,7 @@ public class Window : Form {
         }
 
         this.print(g, Color.FromArgb(255, 0, 155, 255), App.camara.project(new vec3(0, 0, 0)), new vec2(10, 10));
-        Cube.render(g);
+        //Cube.render(g);
         Brujula.render(g);
     }
 }

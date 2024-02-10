@@ -13,8 +13,10 @@ public class Camara {
     public Controler controls = new Controler();
 
     public Camara(){
-        this.fov = (100-this.fov/(App.window.aspectratio.x*5));
-        this.near = this.fov/100;
+        float scalefactor = App.window.viewport.x/128;
+
+        this.fov = (100-App.window.aspectratio.x*this.fov/50);
+        this.near = this.fov/(scalefactor>3?(100+(70/2)-(70/2)*scalefactor):30);
         
         this.ray = new Ray[App.window.pixel.Length];
 
