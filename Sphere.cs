@@ -3,10 +3,12 @@ using System;
 public class Sphere {
 	public vec3 position;
 	public float radius;
+	public vec3 color;
 
-	public Sphere(vec3 position, float radius){
+	public Sphere(vec3 position, float radius, vec3 col){
 		this.position = position;
 		this.radius = radius;
+		this.color = col;
 	}
 
 	public float colision(Ray ray){
