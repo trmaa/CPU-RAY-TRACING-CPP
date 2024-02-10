@@ -53,7 +53,7 @@ public class Camara {
             App.window.pixel[index].color = Color.FromArgb(
                 (int)(bright>0?bright*255:0),
                 (int)(bright>0?bright*155:0),
-                (int)(0*255)
+                0
             );
         }
     }
