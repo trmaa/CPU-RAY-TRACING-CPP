@@ -2,10 +2,10 @@ using System;
 using System.Windows.Forms;
 
 public class App {
-    public static Window window = new Window("Renderer",new vec2(1280,720));
+    public static Window window = new Window("Renderer",new vec2(720,720));
     public static Camara camara;
 
-    public static Light light = new Light(new vec3(-1,-1,0));
+    public static Light light = new Light(new vec3(-1,-2,0));
     public static Sphere sphere = new Sphere(new vec3(0,0,10),10);
 
     public static void Main(){

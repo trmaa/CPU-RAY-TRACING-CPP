@@ -8,7 +8,7 @@ public class Light{
 	}
 
 	public void orbit() {
-	    float angle = (float)Math.Atan2(normal.z, normal.x) + 0.01f;
+	    float angle = (float)Math.Atan2(normal.z, normal.x) + 0.1f;
 
 	    float newX = (float)Math.Cos(angle);
 	    float newZ = (float)Math.Sin(angle);

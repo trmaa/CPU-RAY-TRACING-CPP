@@ -2,7 +2,7 @@ using System;
 using System.Drawing;
 
 public class Camara {
-    public vec3 position = new vec3(0,0,-50);
+    public vec3 position = new vec3(0,0,-100);
     public vec2 angle = new vec2(0,(float)Math.PI/2);
 
     public float fov = 50;
