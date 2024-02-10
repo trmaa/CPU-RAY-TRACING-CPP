@@ -1,5 +1,6 @@
 using System;
 using System.Drawing;
+using System.Linq;
 
 public class Camara {
     public vec3 position = new vec3(0,0,-100);
@@ -43,11 +44,25 @@ public class Camara {
             )
         );*/
 
-        float time = App.sphere.colision(currentr);
-        if(time <= 0) {
+        float[] time = new float[App.sphere.Length];
+        for(int i = 0;i < App.sphere.Length;i++){
+            time[i] = App.sphere[i].colision(currentr);
+        }
+        int t = time.Select((v, i) => new {Value=v,Index=i}).Aggregate(
+            (a, b) => {
+                if(a.Value<b.Value&&a.Value>0){
+                    return a;
+                } else if(b.Value>0){
+                    return b;
+                } else {
+                    return a;
+                }
+        }).Index;
+
+        if(time[t] <= 0) {
             App.window.pixel[index].color = Color.Black;
         } else{
-            vec3 normal = currentr.f(time) - App.sphere.position;
+            vec3 normal = currentr.f(time[t]) - App.sphere[t].position;
             float bright = normal.unit().dot(App.light.normal.unit());
 
             App.window.pixel[index].color = Color.FromArgb(

@@ -6,7 +6,11 @@ public class App {
     public static Camara camara;
 
     public static Light light = new Light(new vec3(-1,-2,0));
-    public static Sphere sphere = new Sphere(new vec3(0,0,10),10);
+    public static Sphere[] sphere = {
+        new Sphere(new vec3(0,0,10),10),
+        new Sphere(new vec3(20,20,20),5),
+        new Sphere(new vec3(-10,25,-10),15)
+    };
 
     public static void Main(){
         App.camara = new Camara();
