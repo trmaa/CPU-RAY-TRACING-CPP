@@ -22,4 +22,18 @@ public class Sphere {
 
 		return discriminant<0?0:(-(float)Math.Sqrt(discriminant)-b)/(2*a);
 	}
+
+	public void orbit() {
+	    float radius = this.position.modul();
+	    float theta = (float)Math.Atan2(this.position.z, this.position.x);
+	    float phi = (float)Math.Acos(this.position.y / radius);
+
+	    theta += 0.1f;
+
+	    float newX = radius * (float)(Math.Sin(phi) * Math.Cos(theta));
+	    float newY = radius * (float)Math.Cos(phi);
+	    float newZ = radius * (float)(Math.Sin(phi) * Math.Sin(theta));
+
+	    this.position = new vec3(newX, newY, newZ);
+	}
 };

@@ -25,7 +25,10 @@ public class App {
 
     private static void update(){
         App.camara.move();
-        App.light.orbit();
+        //App.light.orbit();
+        foreach(var s in App.sphere){
+            s.orbit();
+        }
         App.window.Invalidate();
     }
 };
