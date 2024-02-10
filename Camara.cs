@@ -48,8 +48,8 @@ public class Camara {
             App.window.pixel[index].color = Color.FromArgb(0,0,0,0);
         } else{
             vec3 normal = currentr.f(time) - App.sphere.position;
-            float bright = normal.unit().x;
-            
+            float bright = normal.unit().dot(App.light.normal.unit());
+
             App.window.pixel[index].color = Color.FromArgb(
                 (int)(bright>0?bright*255:0),
                 (int)(bright>0?bright*155:0),
@@ -121,23 +121,23 @@ public class Camara {
 
     public void move(){
 		if(this.controls.wDown){
-			this.position.x += (float)Math.Cos(this.angle.y)*0.2f;
-			this.position.z += (float)Math.Sin(this.angle.y)*0.2f;
+			this.position.x += (float)Math.Cos(this.angle.y)*1f;
+			this.position.z += (float)Math.Sin(this.angle.y)*1f;
 		} 
 		if(this.controls.sDown){
-			this.position.x -= (float)Math.Cos(this.angle.y)*0.2f;
-			this.position.z -= (float)Math.Sin(this.angle.y)*0.2f;
+			this.position.x -= (float)Math.Cos(this.angle.y)*1f;
+			this.position.z -= (float)Math.Sin(this.angle.y)*1f;
 		}
 		if(this.controls.dDown){
-			this.position.x -= (float)Math.Cos(this.angle.y+Math.PI/2)*0.2f;
-			this.position.z -= (float)Math.Sin(this.angle.y+Math.PI/2)*0.2f;
+			this.position.x -= (float)Math.Cos(this.angle.y+Math.PI/2)*1f;
+			this.position.z -= (float)Math.Sin(this.angle.y+Math.PI/2)*1f;
 		} 
 		if(this.controls.aDown){
-			this.position.x += (float)Math.Cos(this.angle.y+Math.PI/2)*0.2f;
-			this.position.z += (float)Math.Sin(this.angle.y+Math.PI/2)*0.2f;
+			this.position.x += (float)Math.Cos(this.angle.y+Math.PI/2)*1f;
+			this.position.z += (float)Math.Sin(this.angle.y+Math.PI/2)*1f;
 		}
-		this.position.y += this.controls.eDown?0.2f:0;
-		this.position.y -= this.controls.qDown?0.2f:0;
+		this.position.y += this.controls.eDown?1f:0;
+		this.position.y -= this.controls.qDown?1f:0;
 
 		this.angle.x += this.controls.uArrow?0.02f:0;
 		this.angle.x -= this.controls.dArrow?0.02f:0;

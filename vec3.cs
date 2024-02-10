@@ -18,8 +18,11 @@ public class vec3{
 	}
 
 	public vec3 unit(){
-		float d = this.modul();
-		return this/new vec3(d,d,d);
+	    float d = this.modul();
+	    if (d != 0)
+	        return this / new vec3(d, d, d);
+	    else
+	        return new vec3(0, 0, 0);
 	}
 
 	public static vec3 operator +(vec3 left, vec3 right) {

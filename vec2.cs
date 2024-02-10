@@ -18,7 +18,10 @@ public class vec2 {
 
     public vec2 unit(){
         float d = this.modul();
-        return this/new vec2(d,d);
+        if (d != 0)
+            return this / new vec2(d, d);
+        else
+            return new vec2(0, 0);
     }
 
     public static vec2 operator +(vec2 left, vec2 right) {
