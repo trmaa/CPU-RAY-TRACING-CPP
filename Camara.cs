@@ -77,7 +77,7 @@ public class Camara {
         );
 
         this.ray[index].origin = this.position;
-        this.ray[index].direction = targuet;
+        this.ray[index].direction = targuet.unit();
     }
 
     public float distance(vec3 point){

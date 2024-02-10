@@ -60,7 +60,7 @@ public class Window : Form {
         }
 
         //this.print(g, Color.FromArgb(255, 0, 155, 255), App.camara.project(new vec3(0, 0, 0)), new vec2(10, 10));
-        //Cube.render(g);
+        Cube.render(g);
         Brujula.render(g);
     }
 }
