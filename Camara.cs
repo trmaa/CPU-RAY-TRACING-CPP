@@ -45,7 +45,7 @@ public class Camara {
 
         float time = App.sphere.colision(currentr);
         if(time <= 0) {
-            App.window.pixel[index].color = Color.FromArgb(0,0,0,0);
+            App.window.pixel[index].color = Color.Black;
         } else{
             vec3 normal = currentr.f(time) - App.sphere.position;
             float bright = normal.unit().dot(App.light.normal.unit());
@@ -83,7 +83,7 @@ public class Camara {
         );
 
         this.ray[index].origin = this.position;
-        this.ray[index].direction = targuet.unit();
+        this.ray[index].direction = targuet;
     }
 
     public float distance(vec3 point){

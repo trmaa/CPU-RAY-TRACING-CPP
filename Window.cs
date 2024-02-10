@@ -15,7 +15,7 @@ public class Window : Form {
         Bitmap bitmap = new Bitmap("ico.png");
         this.Icon = Icon.FromHandle(bitmap.GetHicon());
 
-        this.viewport = new vec2(120*1, 120*1);
+        this.viewport = new vec2(192*1.5f, 108*1.5f);
         this.aspectratio = new vec2(this.ClientSize.Width,this.ClientSize.Height) / this.viewport;
 
         this.Paint += (sender, e) => repaint(e.Graphics);
@@ -47,8 +47,8 @@ public class Window : Form {
 
         this.print(g,
             Color.FromArgb(255,40,40,40),
-            new vec2(0,(float)(Math.Sin(App.camara.angle.x)*App.window.ClientSize.Height*2+App.window.ClientSize.Height/2)/*+App.camara.position.y*0.01*/),
-            new vec2(App.window.ClientSize.Width,(float)(Math.Sin(App.camara.angle.x)*App.window.ClientSize.Height*2+App.window.ClientSize.Height*4)/*+App.camara.position.y*0.01*/)
+            new vec2(0,(float)(Math.Sin(App.camara.angle.x)*size.y*2+size.y/2)/*+App.camara.position.y*0.01*/),
+            new vec2(size.x,(float)(Math.Sin(App.camara.angle.x)*size.y*2+size.y*40)/*+App.camara.position.y*0.01*/)
         );
 
         foreach(var p in this.pixel){
@@ -56,7 +56,8 @@ public class Window : Form {
 
             App.camara.castRays(p.id);
             App.camara.shader(g, p.id);
-            this.print(g, p.color, invertId * this.aspectratio-this.aspectratio, this.aspectratio);
+            if(p.color != Color.Black)
+                this.print(g, p.color, invertId * this.aspectratio-this.aspectratio, this.aspectratio);
         }
 
         //this.print(g, Color.FromArgb(255, 0, 155, 255), App.camara.project(new vec3(0, 0, 0)), new vec2(10, 10));
