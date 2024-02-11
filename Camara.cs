@@ -76,7 +76,7 @@ public class Camara {
                 App.window.pixel[index].color = Color.FromArgb(255,(int)col.x,(int)col.y,(int)col.z);
 
                 currentr.origin = currentr.f(time[t]) + normal.unit();
-                currentr.direction = normal.unit();
+                currentr.direction = currentr.direction.unit()*normal.unit();
             }
         }
     }
