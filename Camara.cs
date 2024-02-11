@@ -34,6 +34,8 @@ public class Camara {
     }
 
     public void shader(Graphics g,vec2 id){
+        this.castRays(id);
+
         int index = (int)(id.x+id.y*App.window.viewport.x);
         Ray currentr = this.ray[index];
 
@@ -44,30 +46,38 @@ public class Camara {
             )
         );*/
 
-        float[] time = new float[App.sphere.Length];
-        for(int i = 0;i < App.sphere.Length;i++){
-            time[i] = App.sphere[i].colision(currentr);
-        }
-        int t = time.Select((v, i) => new {Value=v,Index=i}).Aggregate(
-            (a, b) => {
-                if(a.Value<b.Value&&a.Value>0){
-                    return a;
-                } else if(b.Value>0){
-                    return b;
-                } else {
-                    return a;
-                }
-        }).Index;
+        App.window.pixel[index].color = Color.Black;
 
-        if(time[t] <= 0) {
-            App.window.pixel[index].color = Color.Black;
-        } else{
-            vec3 normal = currentr.f(time[t]) - App.sphere[t].position;
-            float bright = normal.unit().dot(App.light.normal.unit());
+        int bounces = 2;
+        for(int j = 0;j < bounces;j++){
+            float[] time = new float[App.sphere.Length];
+            for(int i = 0;i < App.sphere.Length;i++){
+                time[i] = App.sphere[i].colision(currentr);
+            }
+            int t = time.Select((v, i) => new {Value=v,Index=i}).Aggregate(
+                (a, b) => {
+                    if(a.Value<b.Value&&a.Value>0){
+                        return a;
+                    } else if(b.Value>0){
+                        return b;
+                    } else {
+                        return a;
+                    }
+            }).Index;
 
-            vec3 col = (bright>0?new vec3(bright,bright,bright):new vec3(0,0,0)) * App.sphere[t].color; 
+            if(time[t] <= 0)
+                break;
+            else {
+                vec3 normal = currentr.f(time[t]) - App.sphere[t].position;
+                float bright = normal.unit().dot(App.light.normal.unit());
 
-            App.window.pixel[index].color = Color.FromArgb(255,(int)col.x,(int)col.y,(int)col.z);
+                vec3 col = (bright>0?new vec3(bright,bright,bright):new vec3(0,0,0)) * App.sphere[t].color; 
+
+                App.window.pixel[index].color = Color.FromArgb(255,(int)col.x,(int)col.y,(int)col.z);
+
+                currentr.origin = currentr.f(time[t]) + normal.unit();
+                currentr.direction = normal.unit();
+            }
         }
     }
 
