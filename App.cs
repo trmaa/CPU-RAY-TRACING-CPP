@@ -11,9 +11,9 @@ public class App {
 
     public static Light light = new Light(new vec3(-1,-2,3));
     public static Sphere[] sphere = {
-        new Sphere(new vec3(0,0,10),10,new vec3(255,0,0)),
-        new Sphere(new vec3(20,20,20),5,new vec3(0,255,0)),
-        new Sphere(new vec3(-10,25,-10),15,new vec3(0,0,255))
+        new Sphere(new vec3(0,0,10*2),10,new vec3(255,0,0)),
+        new Sphere(new vec3(20*2,20,20*2),5,new vec3(0,255,0)),
+        new Sphere(new vec3(-10*2,25,-10*2),15,new vec3(0,0,255))
     };
 
     public static void Main() {
@@ -33,10 +33,10 @@ public class App {
         App.stopwatch.Restart();
 
         App.camara.move();
+        
         //App.light.orbit();
-        foreach(var s in App.sphere){
-            //s.orbit();
-        }
+        App.sphere[1].orbit();
+
         App.window.Invalidate();
     }
 };
