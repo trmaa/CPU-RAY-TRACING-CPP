@@ -16,5 +16,5 @@ exit /b %errorlevel%
 :: Compilación usando el compilador de C# de .NET
 :: Asegúrate de que el compilador está en el PATH o provee la ruta completa
 :: Si los ensamblados .dll necesarios no están en el GAC, debes proveer la ruta completa o relativa a ellos
-csc /out:renderer.exe /reference:System.Windows.Forms.dll /reference:System.Drawing.dll *.cs
+csc /out:renderer.exe /reference:System.Windows.Forms.dll /reference:System.Drawing.dll ./src/*.cs
 exit /b %errorlevel%

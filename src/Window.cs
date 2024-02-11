@@ -12,7 +12,9 @@ public class Window : Form {
         this.Text = title;
         this.Size = new Size((int)size.x, (int)size.y);
 
-        Bitmap bitmap = new Bitmap("ico.png");
+        string currentDirectory = Environment.CurrentDirectory;
+        string imagePath = System.IO.Path.Combine(currentDirectory, "img", "ico.png");
+        Bitmap bitmap = new Bitmap(imagePath);
         this.Icon = Icon.FromHandle(bitmap.GetHicon());
 
         this.viewport = new vec2(192*1.5f, 108*1.5f);

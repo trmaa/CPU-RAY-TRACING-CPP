@@ -17,7 +17,7 @@ commit() {
 }
 
 compile() {
-    mcs -out:renderer.exe -r:System.Windows.Forms.dll -r:System.Drawing.dll *.cs
+    mcs -out:renderer.exe -r:System.Windows.Forms.dll -r:System.Drawing.dll ./src/*.cs
 
     if [ $? -eq 0 ]; then
         echo "Compilación exitosa. Ejecutando..."
