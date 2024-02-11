@@ -75,8 +75,10 @@ public class Camara {
 
                 App.window.pixel[index].color = Color.FromArgb(255,(int)col.x,(int)col.y,(int)col.z);
 
+                float dotp = 2*currentr.direction.unit().dot(normal.unit());
+
                 currentr.origin = currentr.f(time[t]) + normal.unit();
-                currentr.direction = currentr.direction*normal;
+                currentr.direction = currentr.direction.unit()-normal.unit()*new vec3(dotp,dotp,dotp);
             }
         }
     }
