@@ -20,20 +20,7 @@ public class Sphere {
 
 	    float discriminant = b*b - 4*a*c;
 
-	    if(discriminant<0)  
-	    	return 0;
-	    else {
-		    float[] time = {
-		    	(-(float)Math.Sqrt(discriminant)-b)/(2*a),
-		    	((float)Math.Sqrt(discriminant)-b)/(2*a)
-		    };
-		    if(time[0]<=0 || time[1]<=0)
-		    	return 0;
-		    if(time[0]<time[1])
-	            return time[0];
-	        else
-	            return time[1];
-	    }
+	    return (discriminant<0)?0:(-(float)Math.Sqrt(discriminant)-b)/(2*a);
 	}
 
 	public void orbit() {
