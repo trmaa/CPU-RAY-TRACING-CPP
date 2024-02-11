@@ -48,7 +48,7 @@ public class Camara {
 
         App.window.pixel[index].color = Color.Black;
 
-        int bounces = 2;
+        const int bounces = 2;
         for(int j = 0;j < bounces;j++){
             float[] time = new float[App.sphere.Length];
             for(int i = 0;i < App.sphere.Length;i++){
