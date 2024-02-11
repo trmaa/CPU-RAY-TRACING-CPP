@@ -68,17 +68,17 @@ public class Camara {
             if(time[t] <= 0)
                 break;
             else {
-                vec3 normal = currentr.f(time[t]) - App.sphere[t].position;
-                float bright = normal.unit().dot(App.light.normal.unit());
+                vec3 normal = (currentr.f(time[t]) - App.sphere[t].position).unit();
+                float bright = normal.dot(App.light.normal);
 
                 vec3 col = (bright>0?new vec3(bright,bright,bright):new vec3(0,0,0)) * App.sphere[t].color; 
 
                 App.window.pixel[index].color = Color.FromArgb(255,(int)col.x,(int)col.y,(int)col.z);
 
-                float dotp = 2*currentr.direction.unit().dot(normal.unit());
+                float dotp = 2*currentr.direction.dot(normal);
 
-                currentr.origin = currentr.f(time[t]) + normal.unit();
-                currentr.direction = currentr.direction.unit()-normal.unit()*new vec3(dotp,dotp,dotp);
+                currentr.origin = currentr.f(time[t]) + normal;
+                currentr.direction = currentr.direction-normal*new vec3(dotp,dotp,dotp);
             }
         }
     }
@@ -108,7 +108,7 @@ public class Camara {
         );
 
         this.ray[index].origin = this.position;
-        this.ray[index].direction = targuet;
+        this.ray[index].direction = targuet.unit();
     }
 
     public float distance(vec3 point){

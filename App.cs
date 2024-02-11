@@ -35,7 +35,7 @@ public class App {
         App.camara.move();
         //App.light.orbit();
         foreach(var s in App.sphere){
-            s.orbit();
+            //s.orbit();
         }
         App.window.Invalidate();
     }
