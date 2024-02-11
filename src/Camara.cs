@@ -71,14 +71,16 @@ public class Camara {
                 vec3 normal = (currentr.f(time[t]) - App.sphere[t].position).unit();
                 float bright = normal.dot(App.light.normal);
 
-                vec3 col = (bright>0?new vec3(bright,bright,bright):new vec3(0,0,0)) * App.sphere[t].color; 
+                vec3 col = (bright>0?new vec3(bright,bright,bright):new vec3(0,0,0)) * App.sphere[t].material.color; 
 
                 App.window.pixel[index].color = Color.FromArgb(255,(int)col.x,(int)col.y,(int)col.z);
 
-                float dotp = 2*currentr.direction.dot(normal);
+                //float dotp = 2*currentr.direction.dot(normal);
+                //currentr.direction = currentr.direction-normal*new vec3(dotp,dotp,dotp);
 
                 currentr.origin = currentr.f(time[t]) + normal;
-                currentr.direction = currentr.direction-normal*new vec3(dotp,dotp,dotp);
+                currentr.direction = currentr.direction + normal + normal;
+                
             }
         }
     }
