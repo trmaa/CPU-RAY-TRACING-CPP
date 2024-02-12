@@ -3,7 +3,7 @@ using System.Drawing;
 using System.Linq;
 
 public class Camara {
-    public vec3 position = new vec3(0,10,-70);
+    public vec3 position = new vec3(0,10,-100);
     public vec2 angle = new vec2(0,(float)Math.PI/2);
 
     public float fov = 50;
@@ -73,7 +73,7 @@ public class Camara {
             }
             else {
                 vec3 normal = (currentr.f(time[t]) - App.sphere[t].position).unit();
-                float bright = normal.dot(App.light.normal);
+                float bright = 1;//normal.dot(App.light.normal);
 
                 vec3 col = (bright>0?new vec3(bright,bright,bright):new vec3(0,0,0)) * App.sphere[t].material.color*skycolor; 
                 pcolor = col;
@@ -83,8 +83,14 @@ public class Camara {
                 //float dotp = 2*currentr.direction.dot(normal);
                 //currentr.direction = currentr.direction-normal*new vec3(dotp,dotp,dotp);
 
+                vec3 difusion = new vec3(
+                    (float) new Random().Next((int)App.sphere[t].material.roughnes),
+                    (float) new Random().Next((int)App.sphere[t].material.roughnes),
+                    (float) new Random().Next((int)App.sphere[t].material.roughnes)
+                ).unit();
+
                 currentr.origin = currentr.f(time[t]) + normal;
-                currentr.direction = currentr.direction + normal + normal;
+                currentr.direction = (difusion*currentr.direction + normal + normal);
                 
                 if(j>0)
                     skycolor = skycolor*new vec3(0.5f,0.5f,0.5f);
