@@ -11,14 +11,15 @@ public class App {
 
     public static Light light = new Light(new vec3(-1,-2,3));
     public static Sphere[] sphere = {
-        new Sphere(new vec3(0,0,10*2),10,new vec3(255,0,0)),
+        new Sphere(new vec3(0,10,15*2),20,new vec3(255,0,0)),
         new Sphere(new vec3(20*2,20,20*2),5,new vec3(0,255,0)),
         new Sphere(new vec3(-10*2,25,-10*2),15,new vec3(0,0,255)),
-        new Sphere(new vec3(0,-35,10*2),25,new vec3(255,255,255))
+        new Sphere(new vec3(0,-60,5*2),50,new vec3(255,255,255))
     };
 
     public static void Main() {
         App.camara = new Camara();
+        App.sphere[0].material.roughnes = 10;
 
         Timer timer = new Timer();
         timer.Interval = 16;
@@ -36,7 +37,7 @@ public class App {
         App.camara.move();
         
         //App.light.orbit();
-        App.sphere[1].orbit();
+        //App.sphere[1].orbit();
 
         App.window.Invalidate();
     }

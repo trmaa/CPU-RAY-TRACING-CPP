@@ -3,8 +3,8 @@ using System.Drawing;
 using System.Linq;
 
 public class Camara {
-    public vec3 position = new vec3(0,10,-100);
-    public vec2 angle = new vec2(0,(float)Math.PI/2);
+    public vec3 position = new vec3(0,0,-100);
+    public vec2 angle = new vec2(0,(float)Math.PI*0.5f);
 
     public float fov = 50;
     public float near = 2;
@@ -49,8 +49,9 @@ public class Camara {
         App.window.pixel[index].color = Color.Black;
         vec3 skycolor = new vec3(1,1,1);
         vec3 pcolor = new vec3(0,0,0);
+        vec3 multiplier = new vec3(1,1,1);
 
-        const int bounces = 20;
+        const int bounces = 200;
         for(int j = 0;j < bounces;j++){
             float[] time = new float[App.sphere.Length];
             for(int i = 0;i < App.sphere.Length;i++){
@@ -66,7 +67,7 @@ public class Camara {
                 if(j<1)
                     break;
                 else {
-                    vec3 col = (skycolor*pcolor);
+                    vec3 col = (multiplier*skycolor*pcolor);
                     App.window.pixel[index].color = Color.FromArgb(255,(int)col.x,(int)col.y,(int)col.z);
                     break;
                 }
@@ -75,7 +76,7 @@ public class Camara {
                 vec3 normal = (currentr.f(time[t]) - App.sphere[t].position).unit();
                 float bright = normal.dot(App.light.normal); 
 
-                vec3 col = (bright>0?new vec3(bright,bright,bright):new vec3(0,0,0)) * App.sphere[t].material.color*skycolor; 
+                vec3 col = (bright>0?new vec3(bright,bright,bright):new vec3(0,0,0))*App.sphere[t].material.color*skycolor*multiplier;
                 pcolor = col;
 
                 App.window.pixel[index].color = Color.FromArgb(255,(int)col.x,(int)col.y,(int)col.z);
@@ -96,7 +97,7 @@ public class Camara {
                 currentr.direction = (difusion*currentr.direction + normal + normal);
                 
                 if(j>0)
-                    skycolor = skycolor*new vec3(0.5f,0.5f,0.5f);
+                    multiplier = multiplier*new vec3(0.9f,0.9f,0.9f);
             }
         }
     }
@@ -108,25 +109,19 @@ public class Camara {
             (float)((id.x-App.window.viewport.x*0.5)/this.fov),
             (float)((id.y-App.window.viewport.y*0.5)/this.fov), 
             (float)this.near
-        );
+        ).unit();
 
-        float angle = (float)Math.Atan2(init.x,init.z);
-        float bngle = (float)Math.Atan2(init.y,init.z);
-
-        float cNear = this.near/(float)Math.Cos(angle);
-
-        angle += this.angle.y;
-        bngle += this.angle.x;
-        init.z = cNear;
+        float angle = (float)Math.Atan2(init.x,init.z)+this.angle.y;
+        float bngle = (float)Math.Atan2(init.y,init.z)+this.angle.x;
 
         vec3 targuet = new vec3(
             init.z*(float)Math.Cos(angle),
             init.z*(float)Math.Sin(bngle),
             init.z*(float)Math.Cos(bngle)*(float)Math.Sin(angle)
-        );
+        ).unit();
 
         this.ray[index].origin = this.position;
-        this.ray[index].direction = targuet.unit();
+        this.ray[index].direction = targuet;
     }
 
     public float distance(vec3 point){
