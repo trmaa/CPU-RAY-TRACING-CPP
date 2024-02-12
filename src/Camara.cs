@@ -50,7 +50,7 @@ public class Camara {
         vec3 skycolor = new vec3(1,1,1);
         vec3 pcolor = new vec3(0,0,0);
 
-        const int bounces = 100;
+        const int bounces = 2;
         for(int j = 0;j < bounces;j++){
             float[] time = new float[App.sphere.Length];
             for(int i = 0;i < App.sphere.Length;i++){
@@ -73,7 +73,7 @@ public class Camara {
             }
             else {
                 vec3 normal = (currentr.f(time[t]) - App.sphere[t].position).unit();
-                float bright = 1;//normal.dot(App.light.normal);
+                float bright = normal.dot(App.light.normal); 
 
                 vec3 col = (bright>0?new vec3(bright,bright,bright):new vec3(0,0,0)) * App.sphere[t].material.color*skycolor; 
                 pcolor = col;
