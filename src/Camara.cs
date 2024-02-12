@@ -50,7 +50,7 @@ public class Camara {
         vec3 skycolor = new vec3(1,1,1);
         vec3 pcolor = new vec3(0,0,0);
 
-        const int bounces = 2;
+        const int bounces = 20;
         for(int j = 0;j < bounces;j++){
             float[] time = new float[App.sphere.Length];
             for(int i = 0;i < App.sphere.Length;i++){
@@ -83,11 +83,14 @@ public class Camara {
                 //float dotp = 2*currentr.direction.dot(normal);
                 //currentr.direction = currentr.direction-normal*new vec3(dotp,dotp,dotp);
 
-                vec3 difusion = new vec3(
-                    (float) new Random().Next((int)App.sphere[t].material.roughnes),
-                    (float) new Random().Next((int)App.sphere[t].material.roughnes),
-                    (float) new Random().Next((int)App.sphere[t].material.roughnes)
-                ).unit();
+                vec3 difusion = new vec3(1,1,1);
+                if(App.sphere[t].material.roughnes>0){
+                    difusion = new vec3(
+                        (float) new Random().Next((int)App.sphere[t].material.roughnes),
+                        (float) new Random().Next((int)App.sphere[t].material.roughnes),
+                        (float) new Random().Next((int)App.sphere[t].material.roughnes)
+                    ).unit();
+                }
 
                 currentr.origin = currentr.f(time[t]) + normal;
                 currentr.direction = (difusion*currentr.direction + normal + normal);

@@ -17,7 +17,7 @@ public class Window : Form {
         Bitmap bitmap = new Bitmap(imagePath);
         this.Icon = Icon.FromHandle(bitmap.GetHicon());
 
-        this.viewport = new vec2((int)128,(int)72);
+        this.viewport = new vec2((int)192*1.5f,(int)108*1.5f);
         this.aspectratio = new vec2(this.ClientSize.Width,this.ClientSize.Height) / this.viewport;
 
         this.Paint += (sender, e) => repaint(e.Graphics);
