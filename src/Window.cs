@@ -17,7 +17,7 @@ public class Window : Form {
         Bitmap bitmap = new Bitmap(imagePath);
         this.Icon = Icon.FromHandle(bitmap.GetHicon());
 
-        this.viewport = new vec2((int)192*1.5f,(int)108*1.5f);
+        this.viewport = new vec2((int)192,(int)108);
         this.aspectratio = new vec2(this.ClientSize.Width,this.ClientSize.Height) / this.viewport;
 
         this.Paint += (sender, e) => repaint(e.Graphics);
@@ -44,14 +44,6 @@ public class Window : Form {
     public void repaint(Graphics g) {
         vec2 size = new vec2(this.ClientSize.Width, this.ClientSize.Height);
         this.aspectratio = size / this.viewport;
-
-        g.Clear(Color.FromArgb(255,150,150,150));
-
-        this.print(g,
-            Color.FromArgb(255,40,40,40),
-            new vec2(0,(float)(Math.Sin(App.camara.angle.x)*size.y*2+size.y/2)/*+App.camara.position.y*0.01*/),
-            new vec2(size.x,(float)(Math.Sin(App.camara.angle.x)*size.y*2+size.y*40)/*+App.camara.position.y*0.01*/)
-        );
 
         foreach(var p in this.pixel){
             vec2 invertId = this.viewport - p.id;
