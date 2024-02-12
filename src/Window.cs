@@ -48,7 +48,7 @@ public class Window : Form {
         foreach(var p in this.pixel){
             vec2 invertId = this.viewport - p.id;
 
-            App.camara.shader(g, p.id);
+            Shader.update(p.id);
             if(p.color != Color.Black)
                 this.print(g, p.color, invertId * this.aspectratio-this.aspectratio, this.aspectratio);
         }

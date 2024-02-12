@@ -19,7 +19,6 @@ public class App {
 
     public static void Main() {
         App.camara = new Camara();
-        App.sphere[0].material.roughnes = 10;
 
         Timer timer = new Timer();
         timer.Interval = 16;
