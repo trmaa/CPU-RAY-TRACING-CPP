@@ -14,7 +14,7 @@ public class App {
         new Sphere(new vec3(0,10,15*2),20,new vec3(255,0,0)),
         new Sphere(new vec3(20*2,20,20*2),5,new vec3(0,255,0)),
         new Sphere(new vec3(-10*2,25,-10*2),15,new vec3(0,0,255)),
-        new Sphere(new vec3(0,-60,5*2),50,new vec3(255,255,255))
+        new Sphere(new vec3(0,-120,20*2),105,new vec3(255,255,255))
     };
 
     public static void Main() {
