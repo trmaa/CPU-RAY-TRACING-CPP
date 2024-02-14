@@ -23,10 +23,12 @@ public class Controler {
     }
 
     private void Form_KeyDown(object sender, KeyEventArgs e) {
+        App.camara.moving = true;
         updateKeyState(e.KeyCode, true);
     }
 
     private void Form_KeyUp(object sender, KeyEventArgs e) {
+        App.camara.moving = false;
         updateKeyState(e.KeyCode, false);
     }
 

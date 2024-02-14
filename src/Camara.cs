@@ -12,6 +12,7 @@ public class Camara {
     public Ray[] ray;
 
     public Controler controls = new Controler();
+    public bool moving = false;
 
     public Camara(){
         float scalefactor = App.window.viewport.x/128;
