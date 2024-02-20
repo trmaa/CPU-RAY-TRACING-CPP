@@ -1,12 +1,15 @@
 using System;
-using System.IO;
 using System.Drawing;
 using System.Windows.Forms;
+using System.Threading.Tasks;
 
 public class Window : Form {
     public vec2 viewport;
     public vec2 aspectratio;
     public Pixel[] pixel;
+
+    private readonly object graphicsLock = new object();
+    private SolidBrush brush = new SolidBrush(Color.Black);
 
     public Window(String title, vec2 size){
         this.Text = title;
@@ -17,8 +20,8 @@ public class Window : Form {
         Bitmap bitmap = new Bitmap(imagePath);
         this.Icon = Icon.FromHandle(bitmap.GetHicon());
 
-        this.viewport = new vec2((int)128*3.5f,(int)72*3.5f);
-        this.aspectratio = new vec2(this.ClientSize.Width,this.ClientSize.Height) / this.viewport;
+        this.viewport = new vec2(192, 108);
+        this.aspectratio = new vec2(this.ClientSize.Width, this.ClientSize.Height) / this.viewport;
 
         this.Paint += (sender, e) => repaint(e.Graphics);
 
@@ -33,7 +36,10 @@ public class Window : Form {
     }
 
     public void print(Graphics g, Color col, vec2 p, vec2 size){
-        g.FillRectangle(new SolidBrush(col), p.x, p.y, size.x, size.y);
+        lock (brush) {
+            brush.Color = col;
+            g.FillRectangle(brush, p.x, p.y, size.x, size.y);
+        }
     }
 
     public void println(Graphics g, vec2 pointo, vec2 pointf, float thich, Color color){
@@ -45,12 +51,15 @@ public class Window : Form {
         vec2 size = new vec2(this.ClientSize.Width, this.ClientSize.Height);
         this.aspectratio = size / this.viewport;
 
-        foreach(var p in this.pixel){
-            vec2 invertId = this.viewport - p.id;
+        lock (graphicsLock)
+        {
+            Parallel.ForEach(this.pixel, (p) => {
+                vec2 invertId = this.viewport - p.id;
 
-            Shader.update(p.id);
-            if(p.color != Color.Black)
-                this.print(g, p.color, invertId * this.aspectratio-this.aspectratio, this.aspectratio);
+                Shader.update(p.id);
+                if(p.color != Color.Black)
+                    this.print(g, p.color, invertId * this.aspectratio - this.aspectratio, this.aspectratio);
+            });
         }
 
         //this.print(g, Color.FromArgb(255, 0, 155, 255), App.camara.project(new vec3(0, 0, 0)), new vec2(10, 10));
