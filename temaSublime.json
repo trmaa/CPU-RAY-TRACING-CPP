@@ -1,4 +1,3 @@
-// Documentation at https://www.sublimetext.com/docs/color_schemes.html
 {
     "name": "Example Warm and Legible Color Scheme",
     "globals":
@@ -43,9 +42,15 @@
             "font_style": "bold"
         },
         {
-            "name": "Keyword",
-            "scope": "keyword",
+            "name": "Control Keywords",
+            "scope": "keyword.control",
             "foreground": "#f05",
+            "font_style": "bold"
+        },
+        {
+            "name": "Other Keywords",
+            "scope": "keyword.other",
+            "foreground": "#b77",
             "font_style": "bold"
         },
         {
@@ -89,6 +94,21 @@
             "foreground": "#f70",
             "font_style": "bold italic"
         },
+        {
+            "name": "Brackets",
+            "scope": "punctuation.section",
+            "foreground": "#fff"
+        },
+        {
+            "name": "Selection",
+            "scope": "meta.selection",
+            "background": "#777"
+        },
+        {
+            "name": "PublicPrivateStatic",
+            "scope": "storage.modifier.access.cs, storage.modifier.static.cs",
+            "foreground": "#f77"
+        }
     ],
     "variables":
     {
@@ -111,5 +131,5 @@
         "white": "hsl(0, 0%, 100%)",
         "white2": "hsl(0, 0%, 97%)",
         "white3": "hsl(219, 28%, 88%)"
-    },
+    }
 }
