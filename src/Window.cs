@@ -20,7 +20,7 @@ public class Window : Form {
         Bitmap bitmap = new Bitmap(imagePath);
         this.Icon = Icon.FromHandle(bitmap.GetHicon());
 
-        this.viewport = new vec2(192, 108);
+        this.viewport = new vec2(128, 72);
         this.aspectratio = new vec2(this.ClientSize.Width, this.ClientSize.Height) / this.viewport;
 
         this.Paint += (sender, e) => repaint(e.Graphics);
@@ -50,6 +50,8 @@ public class Window : Form {
     public void repaint(Graphics g) {
         vec2 size = new vec2(this.ClientSize.Width, this.ClientSize.Height);
         this.aspectratio = size / this.viewport;
+
+        this.print(g,Color.FromArgb(0,150,255),new vec2(0,0),size);
 
         lock (graphicsLock)
         {

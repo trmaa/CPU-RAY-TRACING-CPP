@@ -19,11 +19,11 @@ Ray currentr = App.camara.ray[index];
 );*/
 
 App.window.pixel[index].color = Color.Black;
-vec3 skycolor = new vec3(1,1,1);
+vec3 skycolor = new vec3(0.8f,0.9f,1);
 vec3 pcolor = new vec3(0,0,0);
 vec3 multiplier = new vec3(1,1,1);
 
-const int bounces = 20;
+const int bounces = 10;
 for(int j = 0;j < bounces;j++){
     float[] time = new float[App.sphere.Length];
     for(int i = 0;i < App.sphere.Length;i++){
@@ -69,7 +69,7 @@ for(int j = 0;j < bounces;j++){
         currentr.direction = (difusion*currentr.direction + normal+normal);
         
         if(j>0)
-            multiplier = multiplier*new vec3(0.9f,0.9f,0.9f);
+            multiplier = multiplier*new vec3(0.85f,0.85f,0.85f);
     }
 }
 
