@@ -20,10 +20,9 @@ Ray currentr = App.camara.ray[index];
 
 App.window.pixel[index].color = Color.Black;
 vec3 skycolor = new vec3(0.8f,0.9f,1);
-vec3 pcolor = new vec3(0,0,0);
-vec3 multiplier = new vec3(1,1,1);
+vec3 pcolor = new vec3(255,255,255);
 
-const int bounces = 10;
+const int bounces = 200;
 for(int j = 0;j < bounces;j++){
     float[] time = new float[App.sphere.Length];
     for(int i = 0;i < App.sphere.Length;i++){
@@ -39,37 +38,31 @@ for(int j = 0;j < bounces;j++){
         if(j<1)
             break;
         else {
-            vec3 col = (multiplier*skycolor*pcolor);
+            vec3 col = (skycolor*pcolor);
             App.window.pixel[index].color = Color.FromArgb(255,(int)col.x,(int)col.y,(int)col.z);
             break;
         }
     }
     else {
         vec3 normal = (currentr.f(time[t]) - App.sphere[t].position).unit();
-        float bright = normal.dot(App.light.normal); 
 
-        vec3 col = (bright>0?new vec3(bright,bright,bright):new vec3(0,0,0))*App.sphere[t].material.color*skycolor*multiplier;
-        pcolor = col;
+        vec3 col = App.sphere[t].material.color*skycolor;
+        pcolor = col.unit()*pcolor;
 
         App.window.pixel[index].color = Color.FromArgb(255,(int)col.x,(int)col.y,(int)col.z);
 
-        //float dotp = 2*currentr.direction.dot(normal);
-        //currentr.direction = currentr.direction-normal*new vec3(dotp,dotp,dotp);
-
+        int threshold = 3;
         vec3 difusion = new vec3(1,1,1);
-        if(App.sphere[t].material.roughnes>0){
+        if(App.sphere[t].material.roughnes>0 && j <= threshold){
             difusion = new vec3(
                 (float) new Random().Next((int)App.sphere[t].material.roughnes),
                 (float) new Random().Next((int)App.sphere[t].material.roughnes),
                 (float) new Random().Next((int)App.sphere[t].material.roughnes)
-            ).unit();
+            );
         }
 
         currentr.origin = currentr.f(time[t]) + normal;
-        currentr.direction = (difusion*currentr.direction + normal+normal);
-        
-        if(j>0)
-            multiplier = multiplier*new vec3(0.85f,0.85f,0.85f);
+        currentr.direction = (difusion*currentr.direction.unit() + 2*normal.unit());
     }
 }
 
