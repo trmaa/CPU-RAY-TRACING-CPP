@@ -50,18 +50,19 @@ for(int j = 0;j < bounces;j++){
 
         App.window.pixel[index].color = Color.FromArgb(255,(int)col.x,(int)col.y,(int)col.z);
 
+        Random rand = new Random();
         int threshold = 4;
         vec3 difusion = new vec3(1,1,1);
-        if(App.sphere[t].material.roughnes>0 && j <= threshold){
+        if(App.sphere[t].material.roughnes!=0 && j <= threshold){
             difusion = new vec3(
-                (float) new Random().Next((int)App.sphere[t].material.roughnes),
-                (float) new Random().Next((int)App.sphere[t].material.roughnes),
-                (float) new Random().Next((int)App.sphere[t].material.roughnes)
+                (float) rand.Next((int)App.sphere[t].material.roughnes*2),
+                (float) rand.Next((int)App.sphere[t].material.roughnes*2),
+                (float) rand.Next((int)App.sphere[t].material.roughnes*2)
             );
         }
 
         currentr.origin = currentr.f(time[t]) + normal;
-        currentr.direction = (difusion*currentr.direction.unit() + 2*normal.unit());
+        currentr.direction = (difusion*(currentr.direction.unit() + 2*normal.unit()));
     }
 }
 
