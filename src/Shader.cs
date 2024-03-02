@@ -42,8 +42,7 @@ for(int j = 0;j < bounces;j++){
             App.window.pixel[index].color = Color.FromArgb(255,(int)col.x,(int)col.y,(int)col.z);
             break;
         }
-    }
-    else {
+    } else {
         vec3 normal = (currentr.f(time[t]) - App.sphere[t].position).unit();
 
         vec3 col = App.sphere[t].material.color*skycolor;
@@ -51,7 +50,7 @@ for(int j = 0;j < bounces;j++){
 
         App.window.pixel[index].color = Color.FromArgb(255,(int)col.x,(int)col.y,(int)col.z);
 
-        int threshold = 3;
+        int threshold = 4;
         vec3 difusion = new vec3(1,1,1);
         if(App.sphere[t].material.roughnes>0 && j <= threshold){
             difusion = new vec3(
