@@ -22,7 +22,7 @@ App.window.pixel[index].color = Color.Black;
 vec3 skycolor = new vec3(0.8f,0.9f,1);
 vec3 pcolor = new vec3(255,255,255);
 
-const int bounces = 5;
+const int bounces = 50;
 for(int j = 0;j < bounces;j++){
     float[] time = new float[App.sphere.Length];
     for(int i = 0;i < App.sphere.Length;i++){
@@ -46,11 +46,7 @@ for(int j = 0;j < bounces;j++){
     } else {
         vec3 normal = (currentr.f(time[t]) - App.sphere[t].position).unit();
 
-        vec3 col = (App.sphere[t].material.emissive+App.sphere[t].material.color*skycolor).unit();
-        if(pcolor == 255*col){
-            App.window.pixel[index].color = Color.Black;
-            break;
-        }
+        vec3 col = (App.sphere[t].material.color*skycolor).unit();
         pcolor = col*pcolor;
 
         App.window.pixel[index].color = Color.FromArgb(255,(int)col.x*255,(int)col.y*255,(int)col.z*255);
