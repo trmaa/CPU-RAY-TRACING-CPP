@@ -22,7 +22,7 @@ App.window.pixel[index].color = Color.Black;
 vec3 skycolor = new vec3(0.8f,0.9f,1);
 vec3 pcolor = new vec3(255,255,255);
 
-const int bounces = 200;
+const int bounces = 5;
 for(int j = 0;j < bounces;j++){
     float[] time = new float[App.sphere.Length];
     for(int i = 0;i < App.sphere.Length;i++){
@@ -57,17 +57,17 @@ for(int j = 0;j < bounces;j++){
 
         Random rand = new Random();
         int threshold = 4;
-        vec3 difusion = new vec3(1,1,1);
+        vec3 difusion = new vec3(0,0,0);
         if(App.sphere[t].material.roughnes!=0 && j <= threshold){
             difusion = new vec3(
-                (float) rand.NextDouble()*App.sphere[t].material.roughnes,
-                (float) rand.NextDouble()*App.sphere[t].material.roughnes,
-                (float) rand.NextDouble()*App.sphere[t].material.roughnes
+                (float) rand.NextDouble()*App.sphere[t].material.roughnes*2-App.sphere[t].material.roughnes,
+                (float) rand.NextDouble()*App.sphere[t].material.roughnes*2-App.sphere[t].material.roughnes,
+                (float) rand.NextDouble()*App.sphere[t].material.roughnes*2-App.sphere[t].material.roughnes
             );
         }
 
         currentr.origin = currentr.f(time[t]) + normal;
-        currentr.direction = (currentr.direction - 2*currentr.direction.dot(difusion*normal)*difusion*normal);
+        currentr.direction = (currentr.direction - 2*currentr.direction.dot(normal)*normal)+difusion;
     }
 }
 

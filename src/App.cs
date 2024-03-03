@@ -20,7 +20,7 @@ public class App {
         App.camara = new Camara();
 
         Timer timer = new Timer();
-        timer.Interval = 16;
+        timer.Interval = 160;
         timer.Tick += (sender, e) => App.update();
         timer.Start();
 
@@ -34,7 +34,7 @@ public class App {
 
         App.camara.move();
         
-        App.sphere[1].orbit();
+        //App.sphere[1].orbit();
 
         App.window.Invalidate();
     }

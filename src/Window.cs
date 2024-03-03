@@ -7,6 +7,8 @@ public class Window : Form {
     public vec2 viewport;
     public vec2 aspectratio;
     public Pixel[] pixel;
+    public vec3[] lastp;
+    public int frames;
 
     private readonly object graphicsLock = new object();
     private SolidBrush brush = new SolidBrush(Color.Black);
@@ -20,15 +22,17 @@ public class Window : Form {
         Bitmap bitmap = new Bitmap(imagePath);
         this.Icon = Icon.FromHandle(bitmap.GetHicon());
 
-        this.viewport = new vec2(192, 108);
+        this.viewport = new vec2(192,108);
         this.aspectratio = new vec2(this.ClientSize.Width, this.ClientSize.Height) / this.viewport;
 
         this.Paint += (sender, e) => repaint(e.Graphics);
 
         this.pixel = new Pixel[(int)viewport.x * (int)viewport.y];
-        for(int y = 0; y < viewport.y; y++){
-            for(int x = 0; x < viewport.x; x++){
-                this.pixel[x + y * (int)viewport.x] = new Pixel(Color.FromArgb(255, (int)(255 * y / viewport.y), (int)(255 * x / viewport.x), 0), new vec2(x, y));
+        this.lastp = new vec3[(int)viewport.x * (int)viewport.y];
+        for(int y = 0; y < this.viewport.y; y++){
+            for(int x = 0; x < this.viewport.x; x++){
+                this.pixel[x + y * (int)this.viewport.x] = new Pixel(Color.FromArgb(255, (int)(255 * y / viewport.y), (int)(255 * x / viewport.x), 0), new vec2(x, y));
+                this.lastp[x + y * (int)this.viewport.x] = new vec3(this.pixel[x + y * (int)this.viewport.x].color.R / 255f, this.pixel[x + y * (int)this.viewport.x].color.G / 255f, this.pixel[x + y * (int)this.viewport.x].color.B / 255f);
             }
         }
 
@@ -48,6 +52,13 @@ public class Window : Form {
     }
 
     public void repaint(Graphics g) {
+        if(App.camara.moving){
+            for (int i = 0; i < lastp.Length; i++) lastp[i] = new vec3(0, 0, 0);
+            this.frames = 0;
+        }
+
+        this.frames++;
+        
         vec2 size = new vec2(this.ClientSize.Width, this.ClientSize.Height);
         this.aspectratio = size / this.viewport;
 
@@ -57,10 +68,15 @@ public class Window : Form {
         {
             Parallel.ForEach(this.pixel, (p) => {
                 vec2 invertId = this.viewport - p.id;
+                int index = (int)(p.id.x+p.id.y*this.viewport.x);
 
                 Shader.update(p.id);
+                this.lastp[index] += new vec3(p.color.R, p.color.G, p.color.B);
+
+                Color thecolor = Color.FromArgb(255,(int)(this.lastp[index].x/this.frames),(int)(this.lastp[index].y/this.frames),(int)(this.lastp[index].z/this.frames));
+
                 if(p.color != Color.Black)
-                    this.print(g, p.color, invertId * this.aspectratio - this.aspectratio, this.aspectratio);
+                    this.print(g, thecolor, invertId * this.aspectratio - this.aspectratio, this.aspectratio);
             });
         }
 
