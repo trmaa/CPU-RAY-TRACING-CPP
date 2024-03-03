@@ -35,9 +35,10 @@ for(int j = 0;j < bounces;j++){
         .FirstOrDefault();
 
     if(time[t] <= 0){
-        if(j<1)
+        if(j<1){
+            App.window.pixel[index].color = Color.Black;
             break;
-        else {
+        } else {
             vec3 col = (skycolor*pcolor);
             App.window.pixel[index].color = Color.FromArgb(255,(int)col.x,(int)col.y,(int)col.z);
             break;
@@ -45,24 +46,28 @@ for(int j = 0;j < bounces;j++){
     } else {
         vec3 normal = (currentr.f(time[t]) - App.sphere[t].position).unit();
 
-        vec3 col = App.sphere[t].material.color*skycolor;
-        pcolor = col.unit()*pcolor;
+        vec3 col = (App.sphere[t].material.emissive+App.sphere[t].material.color*skycolor).unit();
+        if(pcolor == 255*col){
+            App.window.pixel[index].color = Color.Black;
+            break;
+        }
+        pcolor = col*pcolor;
 
-        App.window.pixel[index].color = Color.FromArgb(255,(int)col.x,(int)col.y,(int)col.z);
+        App.window.pixel[index].color = Color.FromArgb(255,(int)col.x*255,(int)col.y*255,(int)col.z*255);
 
         Random rand = new Random();
         int threshold = 4;
         vec3 difusion = new vec3(1,1,1);
         if(App.sphere[t].material.roughnes!=0 && j <= threshold){
             difusion = new vec3(
-                (float) rand.Next((int)App.sphere[t].material.roughnes*2),
-                (float) rand.Next((int)App.sphere[t].material.roughnes*2),
-                (float) rand.Next((int)App.sphere[t].material.roughnes*2)
+                (float) rand.NextDouble()*App.sphere[t].material.roughnes,
+                (float) rand.NextDouble()*App.sphere[t].material.roughnes,
+                (float) rand.NextDouble()*App.sphere[t].material.roughnes
             );
         }
 
         currentr.origin = currentr.f(time[t]) + normal;
-        currentr.direction = (difusion*(currentr.direction.unit() + 2*normal.unit()));
+        currentr.direction = (currentr.direction - 2*currentr.direction.dot(difusion*normal)*difusion*normal);
     }
 }
 

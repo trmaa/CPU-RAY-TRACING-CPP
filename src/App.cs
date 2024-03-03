@@ -9,7 +9,6 @@ public class App {
     public static float deltaTime;
     public static Stopwatch stopwatch = new Stopwatch();
 
-    public static Light light = new Light(new vec3(-1,-2,3));
     public static Sphere[] sphere = {
         new Sphere(new vec3(0,8,15*2),20,new vec3(255,100,100)),
         new Sphere(new vec3(20*2,20,20*2),5,new vec3(100,255,100)),
@@ -35,8 +34,7 @@ public class App {
 
         App.camara.move();
         
-        //App.light.orbit();
-        //App.sphere[1].orbit();
+        App.sphere[1].orbit();
 
         App.window.Invalidate();
     }
