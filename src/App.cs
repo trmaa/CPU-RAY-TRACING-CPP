@@ -17,7 +17,7 @@ public class App {
     };
 
     public static void Main() {
-        App.sphere[3].material.roughnes = 1;
+        App.sphere[2].material.roughnes = 1;
         App.sphere[2].material.emissive = 1;
 
         App.camara = new Camara();
