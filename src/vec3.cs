@@ -25,6 +25,14 @@ public class vec3{
 	        return new vec3(0, 0, 0);
 	}
 
+	public vec3 cunit(){
+		vec3 raw = (float)Math.Sqrt(3)*this.unit();
+		raw.x = raw.x>1?1:raw.x;
+		raw.y = raw.y>1?1:raw.y;
+		raw.z = raw.z>1?1:raw.z;
+		return raw;
+	}
+
 	public static vec3 operator +(vec3 left, vec3 right) {
         return new vec3(left.x + right.x, left.y + right.y, left.z + right.z);
     }

@@ -21,6 +21,7 @@ Ray currentr = App.camara.ray[index];
 App.window.pixel[index].color = Color.Black;
 vec3 skycolor = new vec3(0.8f,0.9f,1);
 vec3 pcolor = new vec3(255,255,255);
+float importance = 1;
 
 const int bounces = 50;
 for(int j = 0;j < bounces;j++){
@@ -46,8 +47,8 @@ for(int j = 0;j < bounces;j++){
     } else {
         vec3 normal = (currentr.f(time[t]) - App.sphere[t].position).unit();
 
-        vec3 col = (App.sphere[t].material.color*skycolor).unit();
-        pcolor = col*pcolor;
+        vec3 col = (App.sphere[t].material.color*skycolor).cunit();
+        pcolor = importance*col*pcolor;
 
         App.window.pixel[index].color = Color.FromArgb(255,(int)col.x*255,(int)col.y*255,(int)col.z*255);
 
@@ -64,6 +65,8 @@ for(int j = 0;j < bounces;j++){
 
         currentr.origin = currentr.f(time[t]) + normal;
         currentr.direction = (currentr.direction - 2*currentr.direction.dot(normal)*normal)+difusion;
+
+        importance*=0.9f;
     }
 }
 
