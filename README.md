@@ -1,4 +1,5 @@
 # Ray tracing
 
-![screenshot2](./img/foto2.png "v0.1")
-![screenshot1](./img/foto.png "v0.0")
+![screenshot2](./img/foto3.png "roughnes 1")
+![screenshot2](./img/foto2.png "roughnes 0.1")
+![screenshot1](./img/foto.png "roughnes 0")
