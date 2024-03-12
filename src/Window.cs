@@ -22,7 +22,7 @@ public class Window : Form {
         Bitmap bitmap = new Bitmap(imagePath);
         this.Icon = Icon.FromHandle(bitmap.GetHicon());
 
-        this.viewport = new vec2(128*3.5f,72*3.5f);
+        this.viewport = new vec2(128,72);
         this.aspectratio = new vec2(this.ClientSize.Width, this.ClientSize.Height) / this.viewport;
 
         this.Paint += (sender, e) => repaint(e.Graphics);
@@ -54,7 +54,7 @@ public class Window : Form {
     public void repaint(Graphics g) {
         if(App.camara.moving){
             for (int i = 0; i < lastp.Length; i++) lastp[i] = new vec3(0, 0, 0);
-            this.frames = 0;
+            this.frames = 1;
         }
 
         this.frames++;
@@ -74,6 +74,13 @@ public class Window : Form {
                 this.lastp[index] += new vec3(p.color.R, p.color.G, p.color.B);
 
                 Color thecolor = Color.FromArgb(255,(int)(this.lastp[index].x/this.frames),(int)(this.lastp[index].y/this.frames),(int)(this.lastp[index].z/this.frames));
+
+                /*App.window.print(g, Color.FromArgb(255, 50, 0, 150), 
+                    App.camara.project(App.camara.ray[index].direction+App.camara.ray[index].origin), 
+                    new vec2((64 / App.camara.distance(App.camara.ray[index].direction+App.camara.ray[index].origin) * 0.1f),
+                        (64 / App.camara.distance(App.camara.ray[index].direction+App.camara.ray[index].origin) * 0.1f)
+                    )
+                );*/
 
                 if(p.color != Color.Black)
                     this.print(g, thecolor, invertId * this.aspectratio - this.aspectratio, this.aspectratio);

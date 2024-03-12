@@ -11,12 +11,6 @@ App.camara.castRays(id);
 int index = (int)(id.x+id.y*App.window.viewport.x);
 Ray currentr = App.camara.ray[index];
 
-/*App.window.print(g, Color.FromArgb(255, 50, 0, 150), 
-    this.project(currentr.direction+currentr.origin), 
-    new vec2((64 / this.distance(currentr.direction+currentr.origin) * 0.1f),
-        (64 / App.camara.distance(currentr.direction+currentr.origin) * 0.1f)
-    )
-);*/
 
 App.window.pixel[index].color = Color.Black;
 vec3 skycolor = new vec3(0.8f,0.9f,1);
@@ -47,7 +41,7 @@ for(int j = 0;j < bounces;j++){
     } else {
         vec3 normal = (currentr.f(time[t]) - App.sphere[t].position).unit();
 
-        vec3 col = (App.sphere[t].material.color*skycolor).cunit();
+        vec3 col = (1/255)*(App.sphere[t].material.color*skycolor);
         pcolor = importance*col*pcolor;
 
         App.window.pixel[index].color = Color.FromArgb(255,(int)col.x*255,(int)col.y*255,(int)col.z*255);

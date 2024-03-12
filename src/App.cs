@@ -10,7 +10,7 @@ public class App {
     public static Stopwatch stopwatch = new Stopwatch();
 
     public static Sphere[] sphere = {
-        new Sphere(new vec3(0,6,15*2),20,new vec3(255,35,25)),
+        new Sphere(new vec3(0,6,15*2),20,new vec3(255,35,35)),
         new Sphere(new vec3(20*2,20,20*2),5,new vec3(35,255,25)),
         new Sphere(new vec3(-10*2,25,-10*2),15,new vec3(25,60,255)),
         new Sphere(new vec3(0,-320,20*2),305,new vec3(255,255,255))
