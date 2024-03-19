@@ -4,7 +4,8 @@ using System.Linq;
 
 public class Camara {
     public vec3 position = new vec3(0,0,-250);
-    public vec2 angle = new vec2(0,(float)Math.PI*0.5f);
+    public vec3 angle = new vec3(0,(float)Math.PI*0.5f,0);
+    public vec3 direction = new vec3(0,0,1);
 
     public float fov = 50;
     public float near = 2;
@@ -22,14 +23,15 @@ public class Camara {
         
         this.ray = new Ray[App.window.pixel.Length];
 
-        foreach (var p in App.window.pixel) {
-            this.ray[(int)(p.id.x + p.id.y * App.window.viewport.x)] = new Ray(
+        foreach (Pixel p in App.window.pixel) {
+            int index = (int)(p.id.x + p.id.y * App.window.viewport.x);
+            this.ray[index] = new Ray(
                 this.position,//xcosay zsinay ycosax
                 new vec3(
                     (float)((p.id.x-App.window.viewport.x*0.5)/this.fov),
                     (float)((p.id.y-App.window.viewport.y*0.5)/this.fov), 
-                    this.near
-                )
+                    (float)this.near
+                ).unit()
             );
         }
     }
@@ -37,23 +39,16 @@ public class Camara {
     public void castRays(vec2 id){
         int index = (int)(id.x+id.y*App.window.viewport.x);
 
-        vec3 init = new vec3(
-            (float)((id.x-App.window.viewport.x*0.5)/this.fov),
-            (float)((id.y-App.window.viewport.y*0.5)/this.fov), 
-            (float)this.near
-        ).unit();
-
-        float angle = (float)Math.Atan2(init.x,init.z)+this.angle.y;
-        float bngle = (float)Math.Atan2(init.y,init.z)+this.angle.x;
+        vec3 angTarg = this.ray[index].idleA+this.angle;
 
         vec3 targuet = new vec3(
-            init.z*(float)Math.Cos(angle),
-            init.z*(float)Math.Sin(bngle),
-            init.z*(float)Math.Cos(bngle)*(float)Math.Sin(angle)
+            this.ray[index].idleD.z*(float)Math.Cos(angTarg.y),
+            this.ray[index].idleD.z*(float)Math.Sin(angTarg.x),
+            this.ray[index].idleD.z*(float)Math.Cos(angTarg.x)*(float)Math.Sin(angTarg.y)
         ).unit();
 
         this.ray[index].origin = this.position;
-        this.ray[index].direction = targuet;
+        this.ray[index].direction = this.ray[index].idleD.unit().z*targuet;
     }
 
     public float distance(vec3 point){
@@ -97,6 +92,12 @@ public class Camara {
 
     public void move() {
         float speed = 50.0f;
+        
+        float x = (float)Math.Cos(angle.y);
+        float y = (float)Math.Sin(angle.x);
+        float z = (float)(Math.Sin(angle.y)*Math.Cos(angle.x));
+
+        this.direction = new vec3(x, y, z).unit();
 
         if (controls.wDown) {
             position.x += (float)Math.Cos(angle.y) * speed * App.deltaTime;
@@ -117,9 +118,9 @@ public class Camara {
         position.y += controls.eDown ? speed * App.deltaTime : 0;
         position.y -= controls.qDown ? speed * App.deltaTime : 0;
 
-        angle.x += controls.uArrow ? 0.5f * App.deltaTime : 0; // Velocidad de rotación ajustable
+        angle.x += controls.uArrow ? 0.5f * App.deltaTime : 0;
         angle.x -= controls.dArrow ? 0.5f * App.deltaTime : 0;
-        angle.y -= controls.rArrow ? 0.5f * App.deltaTime : 0;
         angle.y += controls.lArrow ? 0.5f * App.deltaTime : 0;
+        angle.y -= controls.rArrow ? 0.5f * App.deltaTime : 0;
     }
 };

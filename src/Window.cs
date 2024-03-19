@@ -22,7 +22,7 @@ public class Window : Form {
         Bitmap bitmap = new Bitmap(imagePath);
         this.Icon = Icon.FromHandle(bitmap.GetHicon());
 
-        this.viewport = new vec2(192,108);
+        this.viewport = new vec2(128*2,72*2);
         this.aspectratio = new vec2(this.ClientSize.Width, this.ClientSize.Height) / this.viewport;
 
         this.Paint += (sender, e) => repaint(e.Graphics);
@@ -79,7 +79,7 @@ public class Window : Form {
                     this.print(g, thecolor, invertId * this.aspectratio - this.aspectratio, this.aspectratio);
 
                 /*App.window.print(g, Color.FromArgb(255, 50, 0, 150), 
-                    App.camara.project(App.camara.ray[index].direction+App.camara.ray[index].origin), 
+                    App.camara.project(App.camara.ray[index].direction+App.camara.position), 
                     new vec2((64 / App.camara.distance(App.camara.ray[index].direction+App.camara.ray[index].origin) * 0.05f),
                         (64 / App.camara.distance(App.camara.ray[index].direction+App.camara.ray[index].origin) * 0.05f)
                     )

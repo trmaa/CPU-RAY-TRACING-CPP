@@ -28,6 +28,10 @@ public class vec2 {
         return new vec2(left.x + right.x, left.y + right.y);
     }
 
+    public static vec2 operator +(float left, vec2 right) {
+        return new vec2(left + right.x, left + right.y);
+    }
+
     public static vec2 operator *(vec2 left, vec2 right) {
         return new vec2(left.x * right.x, left.y * right.y);
     }
