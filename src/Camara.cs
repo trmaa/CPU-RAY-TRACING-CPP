@@ -42,7 +42,7 @@ public class Camara {
         vec3 angTarg = this.ray[index].idleA+this.angle;
 
         vec3 targuet = new vec3(
-            this.ray[index].idleD.z*(float)Math.Cos(angTarg.y),
+            this.ray[index].idleD.z*(float)Math.Cos(angTarg.y)*(float)Math.Cos(angTarg.x),
             this.ray[index].idleD.z*(float)Math.Sin(angTarg.x),
             this.ray[index].idleD.z*(float)Math.Cos(angTarg.x)*(float)Math.Sin(angTarg.y)
         ).unit();
@@ -93,7 +93,7 @@ public class Camara {
     public void move() {
         float speed = 50.0f;
         
-        float x = (float)Math.Cos(angle.y);
+        float x = (float)(Math.Cos(angle.y)*Math.Cos(angle.x));
         float y = (float)Math.Sin(angle.x);
         float z = (float)(Math.Sin(angle.y)*Math.Cos(angle.x));
 
