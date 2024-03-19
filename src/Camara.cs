@@ -48,7 +48,7 @@ public class Camara {
         ).unit();
 
         this.ray[index].origin = this.position;
-        this.ray[index].direction = this.ray[index].idleD.unit().z*targuet;
+        this.ray[index].direction = (this.ray[index].idleD.unit().z*targuet).unit();
     }
 
     public float distance(vec3 point){

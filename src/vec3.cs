@@ -2,6 +2,7 @@ using System;
 
 public class vec3{
 	public float x, y, z;
+	public static vec3 up = new vec3(0,1,0);
 
 	public vec3(float x, float y, float z){
 		this.x = x;
@@ -33,6 +34,14 @@ public class vec3{
 		return raw;
 	}
 
+	public vec3 cross(vec3 v){
+        return new vec3(
+            this.y * v.z - this.z * v.y,
+            this.z * v.x - this.x * v.z,
+            this.x * v.y - this.y * v.x
+        );
+    }
+
 	public static vec3 operator +(vec3 left, vec3 right) {
         return new vec3(left.x + right.x, left.y + right.y, left.z + right.z);
     }
@@ -46,6 +55,10 @@ public class vec3{
     }
 
     public static vec3 operator *(float left, vec3 right) {
+        return new vec3(left * right.x, left * right.y, left * right.z);
+    }
+
+    public static vec3 operator *(vec3 right, float left) {
         return new vec3(left * right.x, left * right.y, left * right.z);
     }
 
