@@ -22,7 +22,7 @@ public class Window : Form {
         Bitmap bitmap = new Bitmap(imagePath);
         this.Icon = Icon.FromHandle(bitmap.GetHicon());
 
-        this.viewport = new vec2(128*2,72*2);
+        this.viewport = new vec2(192,108);
         this.aspectratio = new vec2(this.ClientSize.Width, this.ClientSize.Height) / this.viewport;
 
         this.Paint += (sender, e) => repaint(e.Graphics);
@@ -55,9 +55,8 @@ public class Window : Form {
         if(App.camara.moving){
             for (int i = 0; i < lastp.Length; i++) lastp[i] = new vec3(0, 0, 0);
             this.frames = 1;
-        }
-
-        this.frames++;
+        } else
+            this.frames++;
         
         vec2 size = new vec2(this.ClientSize.Width, this.ClientSize.Height);
         this.aspectratio = size / this.viewport;
