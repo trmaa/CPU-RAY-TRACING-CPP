@@ -2,7 +2,6 @@ using System;
 
 public class vec3{
 	public float x, y, z;
-	public static vec3 up = new vec3(0,1,0);
 
 	public vec3(float x, float y, float z){
 		this.x = x;
@@ -28,9 +27,9 @@ public class vec3{
 
 	public vec3 cunit(){
 		vec3 raw = (float)Math.Sqrt(3)*this.unit();
-		raw.x = raw.x>1?1:raw.x;
-		raw.y = raw.y>1?1:raw.y;
-		raw.z = raw.z>1?1:raw.z;
+		raw.x = raw.x>1?1:Math.Abs(raw.x);
+		raw.y = raw.y>1?1:Math.Abs(raw.y);
+		raw.z = raw.z>1?1:Math.Abs(raw.z);
 		return raw;
 	}
 

@@ -18,6 +18,6 @@ public class Ray{
 	}
 
 	public vec3 f(float x){
-		return this.origin + this.direction * new vec3(x,x,x);
+		return this.origin + this.direction * x;
 	}
 };

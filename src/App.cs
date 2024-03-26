@@ -9,6 +9,7 @@ public class App {
     public static float deltaTime;
     public static Stopwatch stopwatch = new Stopwatch();
 
+    public static Light light = new Light(new vec3(-20,-10,20));
     public static Sphere[] sphere = {
         new Sphere(new vec3(0,-1000,0),1000,new vec3(100,255,100)),
         new Sphere(new vec3(0,11,0),10,new vec3(255,255,255)),
@@ -18,6 +19,7 @@ public class App {
 
     public static void Main() {
         App.sphere[0].material.roughnes = 2;
+        App.sphere[1].material.roughnes = 1;
         App.sphere[2].material.roughnes = 0;
         App.sphere[3].material.roughnes = 0;
         App.camara = new Camara();

@@ -42,9 +42,9 @@ public class Camara {
         vec3 angTarg = this.ray[index].idleA+this.angle;
 
         vec3 targuet = new vec3(
-            this.ray[index].idleD.z*(float)Math.Cos(angTarg.y)*(float)Math.Cos(angTarg.x),
-            this.ray[index].idleD.z*(float)Math.Sin(angTarg.x),
-            this.ray[index].idleD.z*(float)Math.Cos(angTarg.x)*(float)Math.Sin(angTarg.y)
+            this.near*(float)Math.Cos(angTarg.y)*(float)Math.Cos(angTarg.x),
+            this.near*(float)Math.Sin(angTarg.x),
+            this.near*(float)Math.Cos(angTarg.x)*(float)Math.Sin(angTarg.y)
         ).unit();
 
         this.ray[index].origin = this.position;

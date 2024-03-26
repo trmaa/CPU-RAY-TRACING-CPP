@@ -61,7 +61,7 @@ public class Window : Form {
         vec2 size = new vec2(this.ClientSize.Width, this.ClientSize.Height);
         this.aspectratio = size / this.viewport;
 
-        this.print(g,Color.FromArgb(0,150,255),new vec2(0,0),size);
+        //this.print(g,Color.FromArgb(0,150,255),new vec2(0,0),size);
 
         lock (graphicsLock)
         {
@@ -72,8 +72,12 @@ public class Window : Form {
                 Shader.update(p.id);
                 this.lastp[index] += new vec3(p.color.R, p.color.G, p.color.B);
 
-                Color thecolor = Color.FromArgb(255,(int)(this.lastp[index].x/this.frames),(int)(this.lastp[index].y/this.frames),(int)(this.lastp[index].z/this.frames));
-
+                Color thecolor;
+                if(this.frames>=3)
+                    thecolor = Color.FromArgb(255,(int)(this.lastp[index].x/this.frames),(int)(this.lastp[index].y/this.frames),(int)(this.lastp[index].z/this.frames));
+                else
+                    thecolor = p.color;
+                
                 if(p.color != Color.Black)
                     this.print(g, thecolor, invertId * this.aspectratio - this.aspectratio, this.aspectratio);
 
@@ -85,7 +89,6 @@ public class Window : Form {
                 );*/
             });
         }
-
         //this.print(g, Color.FromArgb(255, 0, 155, 255), App.camara.project(new vec3(0, 0, 0)), new vec2(10, 10));
         //Cube.render(g);
         Brujula.render(g);

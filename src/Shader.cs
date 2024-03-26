@@ -32,16 +32,17 @@ for(int j = 0;j < bounces;j++){
     if(time[t] <= 0){
         if(j<1){
             App.window.pixel[index].color = Color.Black;
-            break;
+            return;
         } else {
             vec3 col = (skycolor*pcolor);
             App.window.pixel[index].color = Color.FromArgb(255,(int)col.x,(int)col.y,(int)col.z);
-            break;
+            return;
         }
     } else {
         vec3 normal = (currentr.f(time[t]) - App.sphere[t].position).unit();
+        float bright = 1;//normal.dot(App.light.normal);
 
-        vec3 col = (App.sphere[t].material.color*skycolor).cunit();
+        vec3 col = (App.sphere[t].material.color).cunit() * (bright>0?new vec3(bright,bright,bright):new vec3(0,0,0));
         pcolor = importance*col*pcolor;
 
         App.window.pixel[index].color = Color.FromArgb(255,(int)col.x*255,(int)col.y*255,(int)col.z*255);
