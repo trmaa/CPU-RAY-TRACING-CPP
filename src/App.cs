@@ -14,14 +14,14 @@ public class App {
         new Sphere(new vec3(0,-1000,0),1000,new vec3(100,255,100)),
         new Sphere(new vec3(0,11,0),10,new vec3(255,255,255)),
         new Sphere(new vec3(21,11,0),10,new vec3(255,50,50)),
-        new Sphere(new vec3(-21,11,0),10,new vec3(50,50,255))
+        new Sphere(new vec3(-21,11,0),10,new vec3(50,50,255)),
+        new Sphere(new vec3(1200,1200,0),1000,new vec3(255,255,255))
     };
 
     public static void Main() {
         App.sphere[1].material.roughnes = 1;
         App.sphere[2].material.roughnes = 10;
-        App.sphere[2].material.emission = 1;
-        App.sphere[3].material.roughnes = 0;
+        App.sphere[4].material.emission = 1;
         App.camara = new Camara();
 
         Timer timer = new Timer();

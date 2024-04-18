@@ -69,7 +69,7 @@ public class Window : Form {
         vec2 size = new vec2(this.ClientSize.Width, this.ClientSize.Height);
         this.aspectratio = size / this.viewport;
 
-        this.print(g,Color.Black,new vec2(0,0),size);
+        this.print(g,Color.FromArgb(255,(int)((Shader.skycolor.x)*255),(int)((Shader.skycolor.y)*255),(int)((Shader.skycolor.z)*255)),new vec2(0,0),size);
 
         lock (graphicsLock)
         {
@@ -97,6 +97,7 @@ public class Window : Form {
                 );*/
             });
         }
-        Brujula.render(g);
+
+        //Brujula.render(g);
     }
 }

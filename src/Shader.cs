@@ -4,6 +4,8 @@ using System.Linq;
 
 public class Shader
 {
+    public static vec3 skycolor = new vec3(0.1f*0.5f, 0.2f*0.5f, 0.3f*0.5f);
+
     public static void update(vec2 id)
     {
         App.camara.castRays(id);
@@ -12,7 +14,6 @@ public class Shader
         Ray currentr = App.camara.ray[index];
 
         App.window.pixel[index].color = Color.Black;
-        vec3 skycolor = new vec3(0.1f, 0.2f, 0.3f);
         vec3 pcolor = new vec3(255, 255, 255);
         float importance = 1;
 
@@ -41,6 +42,11 @@ public class Shader
                 {
                     vec3 col = pcolor * skycolor;
                     App.window.pixel[index].color = Color.FromArgb(255, (int)col.x, (int)col.y, (int)col.z);
+
+                    //if(col.x < 10 && col.y < 10 && col.z < 10){
+                    //    App.window.pixel[index].color = Color.Black;
+                    //}
+
                     return;
                 }
             }
@@ -62,6 +68,10 @@ public class Shader
                     pcolor = (pcolor.cunit()*col*255*App.sphere[t].material.emission);
 
                     App.window.pixel[index].color = Color.FromArgb(255, (int)pcolor.x, (int)pcolor.y, (int)pcolor.z);
+
+                    //if(pcolor.x < 10 && pcolor.y < 10 && pcolor.z < 10){
+                    //    App.window.pixel[index].color = Color.Black;
+                    //} optimization
 
                     return;
                 }
