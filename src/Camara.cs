@@ -15,6 +15,8 @@ public class Camara {
     public Controler controls = new Controler();
     public bool moving = false;
 
+    public bool acumulation = true;
+
     public Camara(){
         float scalefactor = App.window.viewport.x/128;
 
@@ -45,10 +47,10 @@ public class Camara {
             this.near*(float)Math.Cos(angTarg.y)*(float)Math.Cos(angTarg.x),
             this.near*(float)Math.Sin(angTarg.x),
             this.near*(float)Math.Cos(angTarg.x)*(float)Math.Sin(angTarg.y)
-        ).unit();
+        );
 
         this.ray[index].origin = this.position;
-        this.ray[index].direction = (this.ray[index].idleD.unit().z*targuet).unit();
+        this.ray[index].direction = (this.ray[index].idleD.z*targuet).unit();
     }
 
     public float distance(vec3 point){

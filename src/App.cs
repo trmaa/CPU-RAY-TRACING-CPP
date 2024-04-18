@@ -3,7 +3,7 @@ using System.Windows.Forms;
 using System.Diagnostics;
 
 public class App {
-    public static Window window = new Window("Renderer",new vec2(1280,720));
+    public static Window window = new Window("Renderer",new vec2(192,108));
     public static Camara camara;
 
     public static float deltaTime;
@@ -18,9 +18,9 @@ public class App {
     };
 
     public static void Main() {
-        App.sphere[0].material.roughnes = 2;
         App.sphere[1].material.roughnes = 1;
-        App.sphere[2].material.roughnes = 0;
+        App.sphere[2].material.roughnes = 10;
+        App.sphere[2].material.emission = 1;
         App.sphere[3].material.roughnes = 0;
         App.camara = new Camara();
 

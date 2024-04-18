@@ -20,16 +20,16 @@ public class vec3{
 	public vec3 unit(){
 	    float d = this.modul();
 	    if (d != 0)
-	        return this / new vec3(d, d, d);
+	        return this * (1/d);
 	    else
 	        return new vec3(0, 0, 0);
 	}
 
 	public vec3 cunit(){
 		vec3 raw = (float)Math.Sqrt(3)*this.unit();
-		raw.x = raw.x>1?1:Math.Abs(raw.x);
-		raw.y = raw.y>1?1:Math.Abs(raw.y);
-		raw.z = raw.z>1?1:Math.Abs(raw.z);
+		raw.x = raw.x>1?1:raw.x<0?0:raw.x;
+		raw.y = raw.y>1?1:raw.x<0?0:raw.y;
+		raw.z = raw.z>1?1:raw.x<0?0:raw.z;
 		return raw;
 	}
 
