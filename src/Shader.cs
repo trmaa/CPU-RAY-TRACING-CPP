@@ -4,7 +4,7 @@ using System.Linq;
 
 public class Shader
 {
-    public static vec3 skycolor = new vec3(0.1f*0.5f, 0.2f*0.5f, 0.3f*0.5f);
+    public static vec3 skycolor = new vec3(0.2f*0, 0.25f*0, 0.3f*0);
 
     public static void update(vec2 id)
     {
@@ -17,7 +17,7 @@ public class Shader
         vec3 pcolor = new vec3(255, 255, 255);
         float importance = 1;
 
-        const int bounces = 50;
+        int bounces = App.camara.moving?10:50;
         for (int j = 0; j < bounces; j++)
         {
             float[] time = new float[App.sphere.Length];
