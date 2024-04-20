@@ -53,6 +53,18 @@ public class Window : Form {
         bufferGraphics = Graphics.FromImage(buffer);
     }
 
+    public void print(Graphics g, Color col, vec2 p, vec2 size){
+        lock (brush) {
+            brush.Color = col;
+            g.FillRectangle(brush, (p.x-1)*this.scale.x, (p.y-1)*this.scale.y, size.x*this.scale.x, size.y*this.scale.y);
+        }
+    }
+
+    public void println(Graphics g, vec2 pointo, vec2 pointf, float thich, Color color){
+        Pen pen = new Pen(color, thich);
+        g.DrawLine(pen, (int)(pointo.x)*this.scale.x, (int)(pointo.y)*this.scale.y, (int)(pointf.x)*this.scale.x, (int)(pointf.y)*this.scale.y);
+    }
+
     public void printToBuffer(Color col, vec2 p, vec2 size){
         lock (brush) {
             brush.Color = col;
@@ -69,16 +81,16 @@ public class Window : Form {
         if(App.camara.moving){
             for (int i = 0; i < lastp.Length; i++) lastp[i] = new vec3(0, 0, 0);
             this.frames = 1;
-        } else
+        } else {
             this.frames++;
+        }
         
         vec2 size = new vec2(this.ClientSize.Width, this.ClientSize.Height);
         this.aspectratio = size / this.viewport;
 
         this.printToBuffer(Color.FromArgb(255,(int)((Shader.skycolor.x)*255),(int)((Shader.skycolor.y)*255),(int)((Shader.skycolor.z)*255)),new vec2(0,0),size);
 
-        lock (graphicsLock)
-        {
+        lock (graphicsLock){
             Parallel.ForEach(this.pixel, (p) => {
                 vec2 invertId = this.viewport - p.id;
                 int index = (int)(p.id.x+p.id.y*this.viewport.x);
@@ -87,13 +99,15 @@ public class Window : Form {
                 this.lastp[index] += new vec3(p.color.R, p.color.G, p.color.B);
 
                 Color thecolor;
-                if(!(this.frames>=3) || (App.camara.acumulation == false))
+                if(!(this.frames>=3) || (App.camara.acumulation == false)){
                     thecolor = p.color;
-                else
+                } else {
                     thecolor = Color.FromArgb(255,(int)(this.lastp[index].x/this.frames),(int)(this.lastp[index].y/this.frames),(int)(this.lastp[index].z/this.frames));
+                }
                 
-                if(p.color != Color.Black)
+                if(p.color != Color.Black){
                     this.printToBuffer(thecolor, invertId, new vec2(1,1));
+                }
             });
         }
 

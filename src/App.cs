@@ -42,8 +42,7 @@ public class App {
 
         App.camara.move();
         
-        //App.sphere[2].orbit();
-        //App.sphere[3].orbit();
+        //App.sphere[5].orbit();
 
         App.window.Invalidate();
     }
