@@ -1,7 +1,7 @@
 using System;
 using System.Drawing;
-using System.Windows.Forms;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 public class Window : Form {
     public vec2 viewport;
@@ -13,6 +13,9 @@ public class Window : Form {
     public vec2 scale = new vec2(0,0);
 
     private readonly object graphicsLock = new object();
+
+    private Bitmap buffer;
+    private Graphics bufferGraphics;
     private SolidBrush brush = new SolidBrush(Color.Black);
 
     public Window(String title, vec2 size){
@@ -45,18 +48,21 @@ public class Window : Form {
         }
 
         this.DoubleBuffered = true;
+
+        buffer = new Bitmap((int)size.x, (int)size.y);
+        bufferGraphics = Graphics.FromImage(buffer);
     }
 
-    public void print(Graphics g, Color col, vec2 p, vec2 size){
+    public void printToBuffer(Color col, vec2 p, vec2 size){
         lock (brush) {
             brush.Color = col;
-            g.FillRectangle(brush, (p.x-1)*this.scale.x, (p.y-1)*this.scale.y, size.x*this.scale.x, size.y*this.scale.y);
+            bufferGraphics.FillRectangle(brush, (p.x-1), (p.y-1), size.x, size.y);
         }
     }
 
-    public void println(Graphics g, vec2 pointo, vec2 pointf, float thich, Color color){
+    public void printlnToBuffer(vec2 pointo, vec2 pointf, float thich, Color color){
         Pen pen = new Pen(color, thich);
-        g.DrawLine(pen, (int)(pointo.x)*this.scale.x, (int)(pointo.y)*this.scale.y, (int)(pointf.x)*this.scale.x, (int)(pointf.y)*this.scale.y);
+        bufferGraphics.DrawLine(pen, (int)(pointo.x)*this.scale.x, (int)(pointo.y)*this.scale.y, (int)(pointf.x)*this.scale.x, (int)(pointf.y)*this.scale.y);
     }
 
     public void repaint(Graphics g) {
@@ -69,7 +75,7 @@ public class Window : Form {
         vec2 size = new vec2(this.ClientSize.Width, this.ClientSize.Height);
         this.aspectratio = size / this.viewport;
 
-        this.print(g,Color.FromArgb(255,(int)((Shader.skycolor.x)*255),(int)((Shader.skycolor.y)*255),(int)((Shader.skycolor.z)*255)),new vec2(0,0),size);
+        this.printToBuffer(Color.FromArgb(255,(int)((Shader.skycolor.x)*255),(int)((Shader.skycolor.y)*255),(int)((Shader.skycolor.z)*255)),new vec2(0,0),size);
 
         lock (graphicsLock)
         {
@@ -87,17 +93,11 @@ public class Window : Form {
                     thecolor = Color.FromArgb(255,(int)(this.lastp[index].x/this.frames),(int)(this.lastp[index].y/this.frames),(int)(this.lastp[index].z/this.frames));
                 
                 if(p.color != Color.Black)
-                    this.print(g, thecolor, invertId, new vec2(1,1));
-
-                /*App.window.print(g, Color.FromArgb(255, 50, 0, 150), 
-                    App.camara.project(App.camara.ray[index].direction*new vec3(1,1,10)+App.camara.position), 
-                    new vec2((64 / App.camara.distance(App.camara.ray[index].direction+App.camara.ray[index].origin) * 0.05f),
-                        (64 / App.camara.distance(App.camara.ray[index].direction+App.camara.ray[index].origin) * 0.05f)
-                    )
-                );*/
+                    this.printToBuffer(thecolor, invertId, new vec2(1,1));
             });
         }
 
-        //Brujula.render(g);
+        g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;
+        g.DrawImage(buffer, 0, 0, this.ClientSize.Width, this.ClientSize.Height);
     }
 }
