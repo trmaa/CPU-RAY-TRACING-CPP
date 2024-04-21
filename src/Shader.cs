@@ -71,7 +71,7 @@ public class Shader
 
                     //if(pcolor.x < 10 && pcolor.y < 10 && pcolor.z < 10){
                     //    App.window.pixel[index].color = Color.Black;
-                    //} optimization
+                    //} 
 
                     return;
                 }

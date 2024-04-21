@@ -2,6 +2,10 @@ using System;
 using System.Drawing;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+//using System.Runtime.InteropServices;
+//using OpenTK;
+//using OpenTK.Graphics;
+//using OpenTK.Graphics.OpenGL;
 
 public class Window : Form {
     public vec2 viewport;

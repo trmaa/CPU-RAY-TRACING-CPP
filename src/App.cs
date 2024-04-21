@@ -21,10 +21,10 @@ public class App {
 
     public static void Main() {
         App.sphere[1].material.roughnes = 1;
-        App.sphere[3].material.roughnes = 10;
-        App.sphere[3].material.emission = 1;
+        App.sphere[2].material.roughnes = 10;
         App.sphere[4].material.emission = 1;
         App.sphere[5].material.emission = 1;
+
         App.camara = new Camara();
 
         Timer timer = new Timer();
