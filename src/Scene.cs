@@ -11,6 +11,7 @@ public class Scene{
     };
 
 	public static Func<int> elementn = () => Scene.sphere.Length;
+	public static Func<Sphere[]> element = () => Scene.sphere;
 
 	public static void start(){
         Scene.sphere[1].material.roughnes = 1;
