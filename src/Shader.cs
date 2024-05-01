@@ -20,10 +20,10 @@ public class Shader
         int bounces = App.camara.moving?10:50;
         for (int j = 0; j < bounces; j++)
         {
-            float[] time = new float[Scene.element().Length];
-            for (int i = 0; i < Scene.element().Length; i++)
+            float[] time = new float[Scene.elementn()];
+            for (int i = 0; i < Scene.elementn(); i++)
             {
-                time[i] = Scene.element()[i].colision(currentr);
+                time[i] = Scene.element(i).colision(currentr);
             }
             int t = time.Select((v, i) => new { Value = v, Index = i })
                 .Where(pair => pair.Value > 0)
@@ -55,17 +55,17 @@ public class Shader
                 importance = importance > 1 ? 1: importance;
                 importance *= j < 1 ? 1 : 0.8f;
 
-                vec3 normal = (currentr.f(time[t]) - Scene.element()[t].position).unit();
+                vec3 normal = (currentr.f(time[t]) - Scene.element(t).position).unit();
                 float bright = 1; //normal.dot(App.light.normal);
 
-                vec3 col = (Scene.element()[t].material.color).cunit() * (bright > 0 ? bright : 0);
+                vec3 col = (Scene.element(t).material.color).cunit() * (bright > 0 ? bright : 0);
 
                 pcolor = (importance * col * pcolor);//.cunit()*255;
 
                 App.window.pixel[index].color = Color.FromArgb(255, (int)col.x * 255, (int)col.y * 255, (int)col.z * 255);
                 
-                if(Scene.element()[t].material.emission > 0){
-                    pcolor = (pcolor.cunit()*col*255*Scene.element()[t].material.emission);
+                if(Scene.element(t).material.emission > 0){
+                    pcolor = (pcolor.cunit()*col*255*Scene.element(t).material.emission);
 
                     App.window.pixel[index].color = Color.FromArgb(255, (int)pcolor.x, (int)pcolor.y, (int)pcolor.z);
 
@@ -79,12 +79,12 @@ public class Shader
                 Random rand = new Random();
                 int threshold = 4;
                 vec3 difusion = new vec3(0, 0, 0);
-                if (Scene.element()[t].material.roughnes != 0 && j <= threshold)
+                if (Scene.element(t).material.roughnes != 0 && j <= threshold)
                 {
                     difusion = new vec3(
-                        (float)rand.NextDouble() * Scene.element()[t].material.roughnes * 2 - Scene.element()[t].material.roughnes,
-                        (float)rand.NextDouble() * Scene.element()[t].material.roughnes * 2 - Scene.element()[t].material.roughnes,
-                        (float)rand.NextDouble() * Scene.element()[t].material.roughnes * 2 - Scene.element()[t].material.roughnes
+                        (float)rand.NextDouble() * Scene.element(t).material.roughnes * 2 - Scene.element(t).material.roughnes,
+                        (float)rand.NextDouble() * Scene.element(t).material.roughnes * 2 - Scene.element(t).material.roughnes,
+                        (float)rand.NextDouble() * Scene.element(t).material.roughnes * 2 - Scene.element(t).material.roughnes
                     );
                 }
 

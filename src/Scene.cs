@@ -10,8 +10,17 @@ public class Scene{
         new Sphere(new vec3(-1300,0,1200),1000,new vec3(255,50,70))
     };
 
-	public static Func<int> elementn = () => Scene.sphere.Length;
-	public static Func<Sphere[]> element = () => Scene.sphere;
+	public static Wall[] wall = { new Wall(new vec3(0,0,0), new vec3[]{new vec3(100,100,0), new vec3(100,0,100)}, new vec3(255,255,255)) };
+
+	public static Func<int> elementn = () => Scene.sphere.Length + Scene.wall.Length;
+
+	public static dynamic element(int i){
+		if(i<Scene.sphere.Length){
+			return Scene.sphere[i];
+		} else {
+			return Scene.wall[i-Scene.sphere.Length];
+		}
+	}
 
 	public static void start(){
         Scene.sphere[1].material.roughnes = 1;
