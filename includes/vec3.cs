@@ -80,4 +80,12 @@ public class vec3{
 	        return new vec3(float.NaN, float.NaN, float.NaN);
 	    }
 	}
+
+	public static vec3 operator /(vec3 left, float right) {
+	    if (right != 0) {
+	        return new vec3(left.x / right, left.y / right, left.z / right);
+	    } else {
+	        return new vec3(float.NaN, float.NaN, float.NaN);
+	    }
+	}
 };

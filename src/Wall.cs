@@ -15,14 +15,13 @@ public class Wall {
 	}
 
 	public float colision(Ray ray){
-		float D = this.normal.dot(this.sides[0]);
-		float t = (D-this.normal.dot(ray.origin)/this.normal.dot(ray.direction));
+		float D = this.normal.dot(this.position);
+		float t = ((D-this.normal.dot(ray.origin))/this.normal.dot(ray.direction));
 		vec3 hitp = ray.f(t);
-		if(
-			hitp>=this.position
-			//&& hitp.y<=this.sides[0].y && hitp.z>=this.sides[0].z
-			//&& hitp.x<=this.sides[1].x && hitp.z>=this.sides[1].z
-		){
+		vec3 w = this.normal/this.normal.dot(this.normal);
+		float alpha = w.dot((hitp-this.position).cross(this.sides[1]));
+		float beta = w.dot(this.sides[0].cross(hitp-this.position));
+		if(alpha > 0 && alpha < 1 && beta > 0 && beta < 1){
 			return t;
 		} else {
 			return 0;
