@@ -42,7 +42,7 @@ public class vec3{
 	}
 
 	public static bool operator >=(vec3 left, vec3 right){
-		return (left.x>=right.x&&left.y>=right.y&&left.z>=right.z);
+		return (left.x>=right.x&&left.y>=right.y&&left.z>=right.z)?true:false;
 	}
 
 	public static bool operator <=(vec3 left, vec3 right){
