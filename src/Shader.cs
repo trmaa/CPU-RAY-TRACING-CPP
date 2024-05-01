@@ -63,8 +63,7 @@ public class Shader
 				}
 				else
 				{
-					Wall wall = (Wall)Scene.element(t);
-					normal = wall.sides[0].cross(wall.sides[1]).unit();
+					normal = Scene.element(t).normal;	
 				}
                 float bright = 1; //normal.dot(App.light.normal);
 

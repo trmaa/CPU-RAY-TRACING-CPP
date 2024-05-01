@@ -41,6 +41,14 @@ public class vec3{
         return new vec3(crossX, crossY, crossZ);
 	}
 
+	public static bool operator >=(vec3 left, vec3 right){
+		return (left.x>=right.x&&left.y>=right.y&&left.z>=right.z);
+	}
+
+	public static bool operator <=(vec3 left, vec3 right){
+		return (left.x<=right.x&&left.y<=right.y&&left.z<=right.z);
+	}
+
 	public static vec3 operator +(vec3 left, vec3 right) {
         return new vec3(left.x + right.x, left.y + right.y, left.z + right.z);
     }

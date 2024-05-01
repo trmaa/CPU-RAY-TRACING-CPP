@@ -10,7 +10,7 @@ public class Scene{
         new Sphere(new vec3(-1300,0,1200),1000,new vec3(255,50,70))
     };
 
-	public static Wall[] wall = { new Wall(new vec3(0,0,0), new vec3[]{new vec3(100,100,0), new vec3(100,0,100)}, new vec3(255,255,255)) };
+	public static Wall[] wall = { new Wall(new vec3(300,0,0), new vec3[]{new vec3(0,100,0), new vec3(100,0,0)}, new vec3(255,255,255)) };
 
 	public static Func<int> elementn = () => Scene.sphere.Length + Scene.wall.Length;
 
@@ -28,6 +28,6 @@ public class Scene{
         Scene.sphere[0].material.roughnes = 10;
         Scene.sphere[4].material.emission = 1;
         Scene.sphere[5].material.emission = 1;
-		Scene.wall[0].material.roughnes = 1;
+		Scene.wall[0].material.emission = 1;
     }
 };
