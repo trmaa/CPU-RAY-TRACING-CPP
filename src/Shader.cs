@@ -54,8 +54,18 @@ public class Shader
             {
                 importance = importance > 1 ? 1: importance;
                 importance *= j < 1 ? 1 : 0.8f;
-
-                vec3 normal = (currentr.f(time[t]) - Scene.element(t).position).unit();
+				
+				vec3 normal;
+				if (Scene.element(t) is Sphere)
+				{
+					Sphere sphere = (Sphere)Scene.element(t);
+					normal = (currentr.f(time[t]) - sphere.position).unit();
+				}
+				else
+				{
+					Wall wall = (Wall)Scene.element(t);
+					normal = wall.sides[0].cross(wall.sides[1]).unit();
+				}
                 float bright = 1; //normal.dot(App.light.normal);
 
                 vec3 col = (Scene.element(t).material.color).cunit() * (bright > 0 ? bright : 0);

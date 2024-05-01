@@ -3,7 +3,7 @@ using System.Drawing;
 using System.Linq;
 
 public class Camara {
-    public vec3 position = new vec3(0,10,-40);
+    public vec3 position = new vec3(0,10,-120);
     public vec3 angle = new vec3(0,(float)Math.PI*0.5f,0);
     public vec3 direction = new vec3(0,0,1);
 

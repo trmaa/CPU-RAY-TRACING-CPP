@@ -34,12 +34,12 @@ public class vec3{
 	}
 
 	public vec3 cross(vec3 v){
-        return new vec3(
-            this.y * v.z - this.z * v.y,
-            this.z * v.x - this.x * v.z,
-            this.x * v.y - this.y * v.x
-        );
-    }
+		float crossX = (this.y * v.z) - (this.z * v.y);
+        float crossY = (this.z * v.x) - (this.x * v.z);
+        float crossZ = (this.x * v.y) - (this.y * v.x);
+        
+        return new vec3(crossX, crossY, crossZ);
+	}
 
 	public static vec3 operator +(vec3 left, vec3 right) {
         return new vec3(left.x + right.x, left.y + right.y, left.z + right.z);

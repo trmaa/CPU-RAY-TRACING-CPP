@@ -13,6 +13,6 @@ public class Wall {
 	}
 
 	public float colision(Ray ray){
-		return 0;
+		return 500;
 	}
 };

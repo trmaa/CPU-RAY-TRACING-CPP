@@ -28,5 +28,6 @@ public class Scene{
         Scene.sphere[0].material.roughnes = 10;
         Scene.sphere[4].material.emission = 1;
         Scene.sphere[5].material.emission = 1;
+		Scene.wall[0].material.roughnes = 1;
     }
 };
