@@ -1,5 +1,5 @@
 # Ray tracing
-
+## this app works propperly only on linux and when build with compile.sh. the .exe is broken...
 ![screenshot2](./img/foto.png "roughnes 1")
 ![screenshot2](./img/foto2.png "roughnes 0.1")
 ![screenshot1](./img/foto3.png "roughnes 0")
