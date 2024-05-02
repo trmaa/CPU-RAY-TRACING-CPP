@@ -10,7 +10,7 @@ public class Scene{
         new Sphere(new vec3(-1300,0,1200),1000,new vec3(255,50,70))
     };
 
-	public static Wall[] wall = { new Wall(new vec3(0,11,200), new vec3[]{new vec3(0,100,0), new vec3(100,0,0)}, new vec3(255,0,0)) };
+	public static Wall[] wall = { new Wall(new vec3(0,22,100), new vec3[]{new vec3(0,100,-100), new vec3(100,0,0)}, new vec3(255,0,0)) };
 
 	public static Func<int> elementn = () => Scene.sphere.Length + Scene.wall.Length;
 

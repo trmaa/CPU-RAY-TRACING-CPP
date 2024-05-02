@@ -17,8 +17,8 @@ commit() {
 }
 
 compile() {
-    mcs -out:renderer.exe -r:libs/OpenTK.dll -r:libs/OpenTK.GLControl.dll -r:System.Windows.Forms.dll -r:System.Drawing.dll ./includes/*.cs ./src/*.cs
-
+    mcs -out:renderer.exe -r:System.Windows.Forms.dll -r:System.Drawing.dll ./includes/*.cs ./src/*.cs
+	# -r:libs/OpenTK.dll -r:libs/OpenTK.GLControl.dll
     if [ $? -eq 0 ]; then
         echo "Compilación exitosa. Ejecutando..."
         mono "$(pwd)/renderer.exe"

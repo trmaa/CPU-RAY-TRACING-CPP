@@ -17,12 +17,27 @@ public class Wall {
 	public float colision(Ray ray){
 		float D = this.normal.dot(this.position);
 		float t = ((D-this.normal.dot(ray.origin))/this.normal.dot(ray.direction));
-		vec3 hitp = ray.f(t);
-		vec3 w = this.normal/this.normal.dot(this.normal);
-		float alpha = w.dot((hitp-this.position).cross(this.sides[1]));
-		float beta = w.dot(this.sides[0].cross(hitp-this.position));
-		if(alpha > 0 && alpha < 1 && beta > 0 && beta < 1){
-			return t;
+
+		if(t > 0){
+			vec3 hitp = ray.f(t);
+			
+			vec3 A = this.position;
+			vec3 B = this.sides[0] + A;
+			vec3 C = this.sides[1] + A;
+
+			vec3 BA = A - B;
+			vec3 BC = C - B;
+			vec3 BH = hitp - B;
+
+			float ABC = (float)Math.Acos(BA.dot(BC) / (BA.modul() * BC.modul()));
+
+			float a = ((BC.y * BH.x) - (BC.x * BH.y)) / ((BC.y * BA.x) - (BC.x * BA.y));
+			float b = ((BA.y * BH.x) - (BA.x * BH.y)) / ((BA.y * BC.x) - (BA.x * BC.y));
+
+			if (a >= 0 && b >= 0 && (a + b) <= 1)
+				return t;
+			else
+				return 0;
 		} else {
 			return 0;
 		}
