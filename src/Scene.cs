@@ -10,15 +10,15 @@ public class Scene{
         new Sphere(new vec3(-1300,0,1200),1000,new vec3(255,50,70))
     };
 
-	public static Wall[] wall = { new Wall(new vec3(0,22,100), new vec3[]{new vec3(0,100,-100), new vec3(100,0,0)}, new vec3(255,0,0)) };
+	public static Triangle[] triangle = { new Triangle(new vec3(0,22,100), new vec3[]{new vec3(0,100,-100), new vec3(100,0,0)}, new vec3(255,0,0)) };
 
-	public static Func<int> elementn = () => Scene.sphere.Length + Scene.wall.Length;
+	public static Func<int> elementn = () => Scene.sphere.Length + Scene.triangle.Length;
 
 	public static dynamic element(int i){
 		if(i<Scene.sphere.Length){
 			return Scene.sphere[i];
 		} else {
-			return Scene.wall[i-Scene.sphere.Length];
+			return Scene.triangle[i-Scene.sphere.Length];
 		}
 	}
 
@@ -28,6 +28,6 @@ public class Scene{
         Scene.sphere[0].material.roughnes = 10;
         Scene.sphere[4].material.emission = 1;
         Scene.sphere[5].material.emission = 1;
-		Scene.wall[0].material.emission = 1;
+		Scene.triangle[0].material.emission = 1;
     }
 };
