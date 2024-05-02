@@ -3,7 +3,7 @@ using System.Windows.Forms;
 using System.Diagnostics;
 
 public class App {
-    public static Window window = new Window("Renderer",new vec2(192,108));
+    public static Window window = new Window("Renderer",new vec2(192*2,108*2));
     public static Camara camara;
 
     public static float deltaTime;
