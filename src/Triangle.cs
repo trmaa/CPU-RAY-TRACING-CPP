@@ -34,10 +34,11 @@ public class Triangle {
 			float a = ((BC.y * BH.x) - (BC.x * BH.y)) / ((BC.y * BA.x) - (BC.x * BA.y));
 			float b = ((BA.y * BH.x) - (BA.x * BH.y)) / ((BA.y * BC.x) - (BA.x * BC.y));
 
-			if (a >= 0 && b >= 0 && (a + b) <= 1)
+			if (a >= 0 && b >= 0 && (a + b) <= 1){
 				return t;
-			else
+			}else{
 				return 0;
+			}
 		} else {
 			return 0;
 		}

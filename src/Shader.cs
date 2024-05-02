@@ -63,7 +63,10 @@ public class Shader
 				}
 				else
 				{
-					normal = Scene.element(t).normal;	
+					normal = Scene.element(t).normal;
+					if(currentr.direction.dot(normal)>Math.PI/2){
+						normal = normal*(-1);
+					}
 				}
                 float bright = 1; //normal.dot(App.light.normal);
 
