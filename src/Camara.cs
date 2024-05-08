@@ -7,7 +7,7 @@ public class Camara {
     public vec3 angle = new vec3(0,(float)Math.PI*0.5f,0);
     public vec3 direction = new vec3(0,0,1);
 
-    public float fov = 50;
+    public float fov = 10;
     public float near = 2;
 
     public Ray[] ray;

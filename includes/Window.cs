@@ -82,12 +82,9 @@ public class Window : Form {
     }
 
     public void repaint(Graphics g) {
-        if(App.camara.moving){
-            for (int i = 0; i < lastp.Length; i++) lastp[i] = new vec3(0, 0, 0);
-            this.frames = 1;
-        } else {
-            this.frames++;
-        }
+        g.Clear(Color.Black);
+
+		this.frames = App.camara.moving?1:this.frames+1;
         
         vec2 size = new vec2(this.ClientSize.Width, this.ClientSize.Height);
         this.aspectratio = size / this.viewport;
@@ -100,13 +97,14 @@ public class Window : Form {
                 int index = (int)(p.id.x+p.id.y*this.viewport.x);
 
                 Shader.update(p.id);
-                this.lastp[index] += new vec3(p.color.R, p.color.G, p.color.B);
+                this.lastp[index] = App.camara.moving?new vec3(0,0,0):this.lastp[index]+new vec3(p.color.R, p.color.G, p.color.B);
 
                 Color thecolor;
-                if(!(this.frames>=3) || (App.camara.acumulation == false)){
+                if(this.frames<3 || !App.camara.acumulation){
                     thecolor = p.color;
                 } else {
-                    thecolor = Color.FromArgb(255,(int)(this.lastp[index].x/this.frames),(int)(this.lastp[index].y/this.frames),(int)(this.lastp[index].z/this.frames));
+					vec3 col = this.lastp[index]/this.frames;
+                    thecolor = Color.FromArgb(255,(int)col.x,(int)col.y,(int)col.z);
                 }
                 
                 if(p.color != Color.Black){
@@ -116,6 +114,6 @@ public class Window : Form {
         }
 
         g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;
-        g.DrawImage(buffer, 0, 0, this.ClientSize.Width, this.ClientSize.Height);
-    }
+        g.DrawImage(buffer, 0, 0, size.x, size.y);
+	}
 }
