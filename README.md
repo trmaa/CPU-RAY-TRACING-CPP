@@ -8,6 +8,7 @@ Link to the unfinished document of [my thesis](https://docs.google.com/document/
 * Increase the performance with GPU processing via shaders, vulcan, cuda... Or something else.
 * Migrate to a more efficient and safe language like rust.
 * 2D map preview.
+* Rotate the camera with the mouse and make the rotation mathematicaly correct...
 
 ## Screenshots
 ![screenshot2](./img/foto.png "roughnes 1")
