@@ -1,6 +1,7 @@
 using System;
 using System.Windows.Forms;
 using System.Diagnostics;
+using System.Threading.Tasks;
 
 public class App {
     public static Window window = new Window("Renderer",new vec2((int)(192),(int)(108)));
@@ -11,8 +12,11 @@ public class App {
 
     public static Light light = new Light(new vec3(-20,-10,20));
 
-    public static void Main() {
-        Scene.start();
+    public static void Main(string[] args) {
+		//string msg = Json.read("./camera.cs");
+		//Console.WriteLine(msg);
+		
+		Scene.start();
         App.camara = new Camara();
 
         Timer timer = new Timer();
@@ -29,6 +33,7 @@ public class App {
         App.stopwatch.Restart();
 
         App.camara.move();
+		//Console.WriteLine(App.camara.angle.x+","+App.camara.angle.y+","+App.camara.angle.z);
         
         //App.sphere[5].orbit();
 

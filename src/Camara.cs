@@ -38,8 +38,8 @@ public class Camara {
         }
     }
 
-    public void castRays(vec2 id){
-        int index = (int)(id.x+id.y*App.window.viewport.x);
+	public void castRays(vec2 id) {
+		int index = (int)(id.x+id.y*App.window.viewport.x);
 
         vec3 angTarg = this.ray[index].idleA+this.angle;
 
@@ -51,9 +51,9 @@ public class Camara {
 
         this.ray[index].origin = this.position;
         this.ray[index].direction = (this.ray[index].idleD.z*targuet).unit();
-    }
+	}
 
-    public float distance(vec3 point){
+	public float distance(vec3 point){
         return (float)Math.Sqrt(
             Math.Pow(point.x - App.camara.position.x, 2) +
             Math.Pow(point.y - App.camara.position.y, 2) +
@@ -95,13 +95,7 @@ public class Camara {
     public void move() {
         float speed = 50.0f;
         
-        float x = (float)(Math.Cos(angle.y)*Math.Cos(angle.x));
-        float y = (float)Math.Sin(angle.x);
-        float z = (float)(Math.Sin(angle.y)*Math.Cos(angle.x));
-
-        this.direction = new vec3(x, y, z).unit();
-
-        if (controls.wDown) {
+		if (controls.wDown) {
             position.x += (float)Math.Cos(angle.y) * speed * App.deltaTime;
             position.z += (float)Math.Sin(angle.y) * speed * App.deltaTime;
         }
@@ -117,11 +111,11 @@ public class Camara {
             position.x += (float)Math.Cos(angle.y + Math.PI / 2) * speed * App.deltaTime;
             position.z += (float)Math.Sin(angle.y + Math.PI / 2) * speed * App.deltaTime;
         }
-        position.y += controls.eDown ? speed * App.deltaTime : 0;
-        position.y -= controls.qDown ? speed * App.deltaTime : 0;
+		position.y -= controls.eDown ? speed * App.deltaTime : 0;
+        position.y += controls.qDown ? speed * App.deltaTime : 0;
 
-        angle.x += controls.uArrow ? 0.5f * App.deltaTime : 0;
-        angle.x -= controls.dArrow ? 0.5f * App.deltaTime : 0;
+        angle.x -= controls.uArrow ? 0.5f * App.deltaTime : 0;
+        angle.x += controls.dArrow ? 0.5f * App.deltaTime : 0;
         angle.y += controls.lArrow ? 0.5f * App.deltaTime : 0;
         angle.y -= controls.rArrow ? 0.5f * App.deltaTime : 0;
     }
