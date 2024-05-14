@@ -4,7 +4,7 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 
 public class App {
-    public static Window window = new Window("Renderer",new vec2((int)(192),(int)(108)));
+    public static Window window = new Window("Renderer",new vec2((int)(192*1),(int)(108*1)));
     public static Camara camara;
 
     public static float deltaTime;

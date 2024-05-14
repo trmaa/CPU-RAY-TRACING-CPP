@@ -3,7 +3,7 @@ using System.Drawing;
 using System.Linq;
 
 public class Camara {
-    public vec3 position = new vec3(0,10,-120);
+    public vec3 position = new vec3(-2,10,-100);
     public vec3 angle = new vec3(0,(float)Math.PI*0.5f,0);
     public vec3 direction = new vec3(0,0,1);
 
@@ -46,7 +46,7 @@ public class Camara {
         vec3 targuet = new vec3(
             this.near*(float)Math.Cos(angTarg.y)*(float)Math.Cos(angTarg.x),
             this.near*(float)Math.Sin(angTarg.x),
-            this.near*(float)Math.Cos(angTarg.x)*(float)Math.Sin(angTarg.y)
+            this.near*(float)Math.Sin(angTarg.y)*(float)Math.Cos(angTarg.x)
         );
 
         this.ray[index].origin = this.position;
@@ -111,11 +111,11 @@ public class Camara {
             position.x += (float)Math.Cos(angle.y + Math.PI / 2) * speed * App.deltaTime;
             position.z += (float)Math.Sin(angle.y + Math.PI / 2) * speed * App.deltaTime;
         }
-		position.y -= controls.eDown ? speed * App.deltaTime : 0;
-        position.y += controls.qDown ? speed * App.deltaTime : 0;
+		position.y += controls.eDown ? speed * App.deltaTime : 0;
+        position.y -= controls.qDown ? speed * App.deltaTime : 0;
 
-        angle.x -= controls.uArrow ? 0.5f * App.deltaTime : 0;
-        angle.x += controls.dArrow ? 0.5f * App.deltaTime : 0;
+        angle.x += controls.uArrow ? 0.5f * App.deltaTime : 0;
+        angle.x -= controls.dArrow ? 0.5f * App.deltaTime : 0;
         angle.y += controls.lArrow ? 0.5f * App.deltaTime : 0;
         angle.y -= controls.rArrow ? 0.5f * App.deltaTime : 0;
     }

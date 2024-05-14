@@ -4,7 +4,7 @@ using System.Linq;
 
 public class Shader
 {
-    public static vec3 skycolor = new vec3(0.2f*0, 0.25f*0, 0.3f*0);
+    public static vec3 skycolor = new vec3(0.2f,0.2f,0.5f);
 
     public static void update(vec2 id)
     {
