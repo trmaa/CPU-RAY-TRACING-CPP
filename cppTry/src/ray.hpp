@@ -4,10 +4,18 @@
 #include <glm/glm.hpp>
 
 struct Ray{
-	static glm::vec3 origin;
-	static glm::vec3 direction;
+    point3 orig;
+    vec3 dir;
+	
+	Ray() {}
+    Ray(const point3& origin, const vec3& direction) : orig(origin), dir(direction) {}
 
-	static glm::vec3 f(int x);
+    const point3& origin() const  { return orig; }
+    const glm::vec3& direction() const { return dir; }
+
+    point3 f(double t) const {
+        return orig + t*dir;
+    } 
 };
 
 #endif

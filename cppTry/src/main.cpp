@@ -1,9 +1,11 @@
 #include "./window.hpp"
+#include "./camera.hpp"
 
 void update();
 
 int main() {
 	Window::image.create(Window::viewport.x, Window::viewport.y, sf::Color::Black);
+	Camera::start();
 	while (Window::display.isOpen()) {
         sf::Event event;
         while (Window::display.pollEvent(event)) {
