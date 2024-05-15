@@ -3,12 +3,15 @@
 
 #include <glm/glm.hpp>
 #include <vector>
+#include "ray.hpp"
+
 struct Camera{
 	static glm::vec3 possition;
 	static glm::vec3 angle;
-	static std::vector<glm::vec2> ray;
+	static std::vector<Ray> ray;
 
 	static void start();
+	static void cast(Ray* ray);
 };
 
 #endif
