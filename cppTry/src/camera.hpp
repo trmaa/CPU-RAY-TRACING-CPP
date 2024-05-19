@@ -11,7 +11,8 @@ struct Camera{
 	static std::vector<Ray> ray;
 
 	static void start();
-	static void cast(Ray* ray);
+	static void cast(Ray ray);
+	static void move();
 };
 
 #endif

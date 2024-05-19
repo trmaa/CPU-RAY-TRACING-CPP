@@ -14,12 +14,11 @@ void Window::run() {
     for (int x = 0; x < Window::viewport.x; ++x) {
         for (int y = 0; y < Window::viewport.y; ++y) {
 			int index = x+y*Window::viewport.x;
-			Ray* currentr = &Camera::ray[index];
+			Ray currentr = Camera::ray[index];
 			Camera::cast(currentr);
 			glm::vec3 col((currentr.direction().x*255/Window::viewport.x),(currentr.direction().y*255/Window::viewport.y),0);
 			float t = Sphere::collission(currentr);
-			if(t>0){
-				std::cout<<"bien"<<std::endl;
+			if(t!=0){
 				col = glm::vec3(255,255,255);
 			}
 			sf::Color color(col.r, col.g, col.b);
