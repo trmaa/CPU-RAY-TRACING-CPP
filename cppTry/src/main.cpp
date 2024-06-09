@@ -1,22 +1,24 @@
-#include "./window.hpp"
-#include "./camera.hpp"
+#include<SFML/Graphics.hpp>
+#include <SFML/System/Clock.hpp>
+#include"../includes/window.hpp"
 
-void update();
-
-int main() {
-	Window::image.create(Window::viewport.x, Window::viewport.y, sf::Color::Black);
-	Camera::start();
-	while (Window::display.isOpen()) {
-        sf::Event event;
-        while (Window::display.pollEvent(event)) {
-            if (event.type == sf::Event::Closed)
-                Window::display.close();
-        }
-		update();
-	}
-    return 0;
+void loop(float dt){
+    Window::repaint(dt);
 }
 
-void update(){
-	Window::run();
+int main(){
+	Window::open();
+
+    sf::Clock clock;
+	while(Window::window.isOpen()){
+        sf::Event event;
+        while(Window::window.pollEvent(event)){
+            if(event.type == sf::Event::Closed)
+                Window::window.close();
+        }
+        sf::Time elapsed = clock.restart();
+        float dt = elapsed.asSeconds();
+
+		loop(dt);
+	}
 }

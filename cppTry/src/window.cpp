@@ -1,36 +1,47 @@
-#include <iostream>
-#include "window.hpp"
-#include "camera.hpp"
-#include "sphere.hpp"
+#include<SFML/Graphics.hpp>
+#include<cstdlib>
+#include<iostream>
+#include<glm/glm.hpp>
+#include"../includes/window.hpp"
 
-glm::vec2 Window::viewport(1280,720);
-sf::RenderWindow Window::display(sf::VideoMode(Window::viewport.x, Window::viewport.y), "Neo(n) Wyrd");
-sf::Image Window::image = sf::Image();
+sf::RenderWindow Window::window;
+sf::Image Window::m_buffer;
 
-void Window::run() {
-    sf::Image& img = Window::image;
+sf::Font Window::m_font;
+sf::Text Window::m_fpsText;
 
-	//std::for_each(); TO DO
-    for (int x = 0; x < Window::viewport.x; ++x) {
-        for (int y = 0; y < Window::viewport.y; ++y) {
-			int index = x+y*Window::viewport.x;
-			Ray currentr = Camera::ray[index];
-			Camera::cast(currentr);
-			glm::vec3 col((currentr.direction().x*255/Window::viewport.x),(currentr.direction().y*255/Window::viewport.y),0);
-			float t = Sphere::collission(currentr);
-			if(t!=0){
-				col = glm::vec3(255,255,255);
-			}
-			sf::Color color(col.r, col.g, col.b);
-            img.setPixel(x, y, color);
+void Window::repaint(float dt){
+    float fps = 1.f/dt;
+    Window::m_fpsText.setString("FPS: " + std::to_string(static_cast<int>(fps)));
+
+    for(unsigned int y = 0; y < m_buffer.getSize().y; ++y){
+        for(unsigned int x = 0; x < m_buffer.getSize().x; ++x){
+            sf::Color col(x*255/Window::m_buffer.getSize().x, y*255/Window::m_buffer.getSize().y,0);
+            m_buffer.setPixel(x, y, col);
         }
     }
 
     sf::Texture texture;
-    texture.loadFromImage(img);
+    texture.loadFromImage(m_buffer);
+
     sf::Sprite sprite(texture);
 
-	Window::display.clear();
-    Window::display.draw(sprite);
-    Window::display.display(); 
+    window.clear();
+    window.draw(sprite);
+    window.draw(m_fpsText);
+    window.display();
+}
+
+void Window::open(){
+    Window::window.create(sf::VideoMode(1280, 720), "SFML works!");
+    Window::m_buffer.create(1280,720);
+    
+    if(!Window::m_font.loadFromFile("./fonts/pixelmix.ttf")) {
+        std::cerr<<"There is no font";
+    }
+
+    Window::m_fpsText.setFont(Window::m_font);
+    Window::m_fpsText.setCharacterSize(24);
+    Window::m_fpsText.setFillColor(sf::Color::White);
+    Window::m_fpsText.setPosition(10.f, 10.f);
 }
