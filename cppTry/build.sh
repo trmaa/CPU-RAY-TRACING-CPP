@@ -1,3 +1,5 @@
-g++ -o ./bin/local/raytracer ./src/*.cpp -lsfml-graphics -lsfml-window -lsfml-system
+clear
 
-./bin/local/raytracer
+g++ -o ./run ./src/*.cpp -lsfml-graphics -lsfml-window -lsfml-system
+
+./run

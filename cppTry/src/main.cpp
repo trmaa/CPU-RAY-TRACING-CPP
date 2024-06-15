@@ -1,24 +1,39 @@
-#include<SFML/Graphics.hpp>
-#include <SFML/System/Clock.hpp>
-#include"../includes/window.hpp"
+#include <SFML/System.hpp>
+#include <SFML/Window.hpp>
+#include <iostream>
+#include <string>
+#include "../include/window.hpp"
+#include "../include/camera.hpp"
 
-void loop(float dt){
-    Window::repaint(dt);
+Window* win = new Window(640, 360, "rtx");
+Camera* cam = new Camera(640, 360);
+
+void loop(float* dt, sf::Event* ev) {
+    win->repaint(dt, cam);
+    cam->move(dt, ev);
 }
 
-int main(){
-	Window::open();
+int main() {
+    std::cout << "starting..." << std::endl;
 
-    sf::Clock clock;
-	while(Window::window.isOpen()){
-        sf::Event event;
-        while(Window::window.pollEvent(event)){
-            if(event.type == sf::Event::Closed)
-                Window::window.close();
+    sf::Clock clck;
+    sf::Event ev;
+    sf::Time elapsed;
+    float dt;
+    while (win->display()->isOpen()) { 
+        while (win->display()->pollEvent(ev)) {
+            if (ev.type == sf::Event::Closed) {
+                win->display()->close();
+            } else if (ev.type == sf::Event::Resized) {
+                sf::FloatRect visibleArea(0, 0, ev.size.width, ev.size.height);
+                win->display()->setView(sf::View(visibleArea));
+            }
         }
-        sf::Time elapsed = clock.restart();
-        float dt = elapsed.asSeconds();
+        elapsed = clck.restart();
+        dt = elapsed.asSeconds();
 
-		loop(dt);
-	}
+        loop(&dt, &ev);
+    }
+
+    delete win;
 }
