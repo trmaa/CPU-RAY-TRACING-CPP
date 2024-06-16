@@ -4,12 +4,16 @@
 #include <string>
 #include "../include/window.hpp"
 #include "../include/camera.hpp"
+#include "../include/scene.hpp"
 
-Window* win = new Window(640, 360, "rtx");
-Camera* cam = new Camera(640, 360);
+int w = 320;
+int h = 180;
+Window* win = new Window(w, h, "rtx");
+Camera* cam = new Camera(w, h);
+Scene* scn = new Scene("./scene.json");
 
 void loop(float* dt, sf::Event* ev) {
-    win->repaint(dt, cam);
+    win->repaint(dt, cam, scn);
     cam->move(dt, ev);
 }
 

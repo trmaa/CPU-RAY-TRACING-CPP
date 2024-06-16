@@ -1,23 +1,44 @@
 #ifndef SPHERE_HPP
 #define SPHERE_HPP
 
+#include <cmath>
+#include <glm/ext/vector_float3.hpp>
 #include <glm/glm.hpp>
 #include "./ray.hpp"
+#include "./material.hpp"
 
 struct Sphere {
 	glm::vec3 center;
 	float radius;
+	Material material;
 
-	Sphere(glm::vec3 o, float r): center(o), radius(r) {}
+	Sphere(glm::vec3 o, float r, glm::vec3 c): center(o), radius(r), material(c) {}
 	~Sphere() = default;
 
-	bool checkColission(Ray* ray) { 
-		glm::vec3 oc = this->center - ray->origin;
+	float checkCollision(Ray* ray) { 
+		glm::vec3 oc = ray->origin - this->center;
 		float a = glm::dot(ray->direction, ray->direction);
-		float b = -2.0 * glm::dot(ray->direction, oc);
-		float c = glm::dot(oc, oc) - this->radius*this->radius;
-		float disc = b*b - 4*a*c;
-		return (disc>=0); 
+		float b = 2.0f * glm::dot(oc, ray->direction);
+		float c = glm::dot(oc, oc) - this->radius * this->radius;
+		float discriminant = b * b - 4 * a * c;
+
+		if (discriminant < 0) {
+			return -1.f;
+		} else {
+			float sqrtDiscriminant = std::sqrt(discriminant);
+			float t1 = (-b - sqrtDiscriminant) / (2.0f * a);
+			float t2 = (-b + sqrtDiscriminant) / (2.0f * a);
+
+			if (t1 > 0.0f && t2 > 0.0f) {
+				return std::min(t1, t2);
+			} else if (t1 > 0.0f) {
+				return t1;
+			} else if (t2 > 0.0f) {
+				return t2;
+			} else {
+				return -1.0f;
+			}
+		}
 	}
 };
 

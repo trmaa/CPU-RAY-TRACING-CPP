@@ -2,11 +2,17 @@
 #define WINDOW_HPP
 
 #include <SFML/Graphics.hpp>
+#include <algorithm>
+#include <cmath>
+#include <glm/geometric.hpp>
 #include <iostream>
 #include <glm/glm.hpp>
+#include <iterator>
 #include <string>
+#include <vector>
 #include "./sphere.hpp"
 #include "./camera.hpp"
+#include "./scene.hpp"
 
 class Window {
 private:
@@ -17,7 +23,7 @@ private:
     sf::Font m_font;
     sf::Text m_fpsText;
     uint16_t m_fps;
-    uint8_t m_fpsLimit = 40;
+    uint8_t m_fpsLimit = 15;
 
     sf::Texture m_texture;  
     sf::Sprite m_sprite;
@@ -38,55 +44,56 @@ public:
         this->m_fpsText.setFillColor(sf::Color(0xff00ffff));
         this->m_fpsText.setPosition(10.f, 10.f);
 
-        this->m_display.setFramerateLimit(this->m_fpsLimit);
+        //this->m_display.setFramerateLimit(this->m_fpsLimit);
     }
     ~Window() = default;
 public:
-    void repaint(float *dt, Camera *cam) {
+    void repaint(float *dt, Camera *cam, Scene *scn) {
         this->m_fps = static_cast<uint16_t>(1.f / *dt);
         this->m_fpsText.setString("FPS: " + std::to_string(this->m_fps));
         
         glm::ivec2 buff_v(this->m_buffer.getSize().x, this->m_buffer.getSize().y);
+
+        sf::Color lastCol;
         for (int y = 0; y < buff_v.y; y++) {
             for (int x = 0; x < buff_v.x; x++) {
                 int index = x+y*buff_v.x;
 
-                sf::Color col(
-                    x * 255 / buff_v.x, 
-                    y * 255 / buff_v.y, 0);
+                sf::Color col(0x000000ff);
+                Ray* ray = cam->ray(index);
+                cam->cast(&x, &y, &buff_v);
                 
-                /* specular and just spheres
-                
-                void shader():
-                    for *rays:
-                        for nbounces:
-                            for *objects from the json scene:
-                                if object ->check colission (ray):
-                                    collided local objects .push (object)
-                                    times .push (time)
-                            lower time = sort (times)
-                            index = times .idAt (lower time)
-                            
-                            if lower time < 0:
-                                if bounc == 0:
-                                    color = SKY COLOR
-                                else:
-                                    color = LAST COLOR
-                                continue;
-                        
-                            color, LAST COLOR = objects[index]->color*SKY COLOR
+                int bounces = 4;
+                for (int i = 0; i < bounces; i++) { 
+                    std::vector<float> times;
+                    for (int j = 0; j < scn->sphere()->size(); j++) {
+                        times.push_back(scn->sphere(j)->checkCollision(ray));
+                    }
+                    auto t = std::min_element(times.begin(), times.end(), [](float a, float b){
+                        return std::abs(a) < std::abs(b); 
+                    }); //t is a pointer
+                    int id = std::distance(times.begin(), t);
+                    Sphere* sphere = scn->sphere(id);
 
-                            ray.origin = ray.f(lower time)
-                            ray.direction = normal(ray.origin - object.center)
+                    if (*t < 0) {
+                        if (i == 0) {
+                            break;
+                        }
+                        col = lastCol;
+                        break;
+                    } //todo: shader, normals
 
-                */
-                Sphere sphere(glm::vec3(0,0,20), 15);
-                cam->cast(index);
-                int coll = sphere.checkColission(cam->ray(index));
-                if(coll){
-                    col = sf::Color(255,255,255);
-                }
+                    col = *sphere->material.col();
+                    lastCol = col;
+                    
+                    glm::vec3 hitPoint = ray->f(*t);
+                    glm::vec3 normal = glm::normalize(hitPoint - sphere->center);
 
+                    glm::vec3 newDir = ray->direction-2*glm::dot(glm::normalize(ray->direction),normal)*normal;
+
+                    ray->origin = hitPoint + newDir * 0.1f;
+                    ray->direction = newDir;
+                }    
                 this->m_buffer.setPixel(x, y, col);
             }
         }
