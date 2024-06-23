@@ -6,8 +6,8 @@
 #include "../include/camera.hpp"
 #include "../include/scene.hpp"
 
-int w = 320;
-int h = 180;
+static int w = 320;
+static int h = 180;
 Window* win = new Window(w, h, "rtx");
 Camera* cam = new Camera(w, h);
 Scene* scn = new Scene("./scene.json");
@@ -39,5 +39,5 @@ int main() {
         loop(&dt, &ev);
     }
 
-    delete win;
+    delete win; delete cam; delete scn;
 }

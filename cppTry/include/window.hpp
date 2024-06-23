@@ -89,9 +89,9 @@ public:
                     glm::vec3 hitPoint = ray->f(*t);
                     glm::vec3 normal = glm::normalize(hitPoint - sphere->center);
 
-                    glm::vec3 newDir = ray->direction-2*glm::dot(glm::normalize(ray->direction),normal)*normal;
+                    glm::vec3 newDir = /*ray->direction-*/2*glm::dot(glm::normalize(ray->direction),normal)*normal;
 
-                    ray->origin = hitPoint + newDir * 0.1f;
+                    ray->origin = hitPoint + normal * 0.1f;
                     ray->direction = newDir;
                 }    
                 this->m_buffer.setPixel(x, y, col);
