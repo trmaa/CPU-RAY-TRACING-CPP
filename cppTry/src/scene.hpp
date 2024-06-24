@@ -29,8 +29,7 @@ public:
 	Sphere* sphere(int index) { return &this->m_sphere[index]; }
 
 	Scene(const std::string& fpath) {
-		std::future<nl::json> raw = std::async(
-				std::launch::async, Scene::readJson, fpath);
+		std::future<nl::json> raw = std::async(std::launch::async, Scene::readJson, fpath);
 		nl::json data = raw.get();
 		if (!data.contains("sphere"))
 			return;

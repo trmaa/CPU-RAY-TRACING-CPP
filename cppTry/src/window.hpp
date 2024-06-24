@@ -57,7 +57,7 @@ public:
         sf::Color lastCol;
         for (int y = 0; y < buff_v.y; y++) {
             for (int x = 0; x < buff_v.x; x++) {
-                int index = x+y*buff_v.x;
+                int index = x + y * buff_v.x;
 
                 sf::Color col(0x000000ff);
                 Ray* ray = cam->ray(index);
@@ -81,7 +81,7 @@ public:
                         }
                         col = lastCol;
                         break;
-                    } //todo: shader, normals
+                    }
 
                     col = *sphere->material.col();
                     lastCol = col;
@@ -89,10 +89,18 @@ public:
                     glm::vec3 hitPoint = ray->f(*t);
                     glm::vec3 normal = glm::normalize(hitPoint - sphere->center);
 
-                    glm::vec3 newDir = /*ray->direction-*/2*glm::dot(glm::normalize(ray->direction),normal)*normal;
+                    glm::vec3 incoming_direction = glm::normalize(ray->direction);
+                    glm::vec3 reflected_direction = incoming_direction - 2.0f * glm::dot(incoming_direction, normal) * normal;
 
                     ray->origin = hitPoint + normal * 0.1f;
-                    ray->direction = newDir;
+                    ray->direction = reflected_direction;
+
+                    col = sf::Color(
+                        std::min(col.r + static_cast<int>(sphere->material.col()->r), 255),
+                        std::min(col.g + static_cast<int>(sphere->material.col()->g), 255),
+                        std::min(col.b + static_cast<int>(sphere->material.col()->b), 255),
+                        255
+                    );
                 }    
                 this->m_buffer.setPixel(x, y, col);
             }
@@ -107,7 +115,7 @@ public:
         this->m_display.draw(this->m_sprite);
         this->m_display.draw(this->m_fpsText);
         this->m_display.display();
-    }
+    }    
 };
 
 #endif

@@ -1,16 +1,17 @@
 #include <SFML/System.hpp>
 #include <SFML/Window.hpp>
+#include <cstdlib>
 #include <iostream>
 #include <string>
-#include "../include/window.hpp"
-#include "../include/camera.hpp"
-#include "../include/scene.hpp"
+#include "./window.hpp"
+#include "./camera.hpp"
+#include "./scene.hpp"
 
 static int w = 320;
 static int h = 180;
 Window* win = new Window(w, h, "rtx");
 Camera* cam = new Camera(w, h);
-Scene* scn = new Scene("./scene.json");
+Scene* scn = new Scene("./bin/scene.json");
 
 void loop(float* dt, sf::Event* ev) {
     win->repaint(dt, cam, scn);
@@ -40,4 +41,5 @@ int main() {
     }
 
     delete win; delete cam; delete scn;
+    std::system("clear");
 }
