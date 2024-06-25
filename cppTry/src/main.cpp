@@ -14,7 +14,7 @@ Camera* cam = new Camera(w, h);
 Scene* scn = new Scene("./bin/scene.json");
 
 void loop(float* dt, sf::Event* ev) {
-    win->repaint(dt, cam, scn);
+    win->repaint(dt, cam, scn, ev);
     cam->move(dt, ev);
 }
 

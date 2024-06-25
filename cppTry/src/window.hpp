@@ -2,6 +2,7 @@
 #define WINDOW_HPP
 
 #include <SFML/Graphics.hpp>
+#include <SFML/Window/Keyboard.hpp>
 #include <algorithm>
 #include <cmath>
 #include <glm/geometric.hpp>
@@ -48,7 +49,7 @@ public:
     }
     ~Window() = default;
 public:
-    void repaint(float *dt, Camera *cam, Scene *scn) {
+    void repaint(float *dt, Camera *cam, Scene *scn, sf::Event* ev) {
         this->m_fps = static_cast<uint16_t>(1.f / *dt);
         this->m_fpsText.setString("FPS: " + std::to_string(this->m_fps));
         
@@ -115,6 +116,10 @@ public:
         this->m_display.draw(this->m_sprite);
         this->m_display.draw(this->m_fpsText);
         this->m_display.display();
+
+        if (ev->key.code == sf::Keyboard::Tab) {
+            this->m_buffer.saveToFile("./bin/screenshot.jpg");
+        }
     }    
 };
 
