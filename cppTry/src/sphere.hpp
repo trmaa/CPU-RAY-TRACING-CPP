@@ -15,7 +15,7 @@ struct Sphere {
 	Sphere(glm::vec3 o, float r, glm::vec3 c): center(o), radius(r), material(c) {}
 	~Sphere() = default;
 
-	float checkCollision(Ray* ray) { 
+	float checkCollision(const Ray* ray) { 
 		glm::vec3 oc = ray->origin - this->center;
 		float a = glm::dot(ray->direction, ray->direction);
 		float b = 2.0f * glm::dot(oc, ray->direction);
@@ -23,21 +23,21 @@ struct Sphere {
 		float discriminant = b * b - 4 * a * c;
 
 		if (discriminant < 0) {
-			return -1.f;
-		} else {
-			float sqrtDiscriminant = std::sqrt(discriminant);
-			float t1 = (-b - sqrtDiscriminant) / (2.0f * a);
-			float t2 = (-b + sqrtDiscriminant) / (2.0f * a);
+			return -1.0f;
+		}
 
-			if (t1 > 0.0f && t2 > 0.0f) {
-				return std::min(t1, t2);
-			} else if (t1 > 0.0f) {
-				return t1;
-			} else if (t2 > 0.0f) {
-				return t2;
-			} else {
-				return -1.0f;
-			}
+		float sqrtDiscriminant = std::sqrt(discriminant);
+		float t1 = (-b - sqrtDiscriminant) / (2.0f * a);
+		float t2 = (-b + sqrtDiscriminant) / (2.0f * a);
+
+		if (t1 > 0.0f && t2 > 0.0f) {
+			return std::min(t1, t2);
+		} else if (t1 > 0.0f) {
+			return t1;
+		} else if (t2 > 0.0f) {
+			return t2;
+		} else {
+			return -1.0f;
 		}
 	}
 };

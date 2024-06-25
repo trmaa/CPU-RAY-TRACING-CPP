@@ -15,6 +15,8 @@
 #include "./camera.hpp"
 #include "./scene.hpp"
 
+void shader();
+
 class Window {
 private:
     glm::ivec2 m_viewport;
