@@ -80,6 +80,12 @@ public:
 
                     if (*t < 0) {
                         if (i == 0) {
+                            col = sf::Color(
+                                255*(1+cam->direction()->x)*0.5f,
+                                255*(1+cam->direction()->y)*0.5f,
+                                255*(1+cam->direction()->z)*0.5f,
+                                255
+                            );
                             break;
                         }
                         col = lastCol;
@@ -96,13 +102,6 @@ public:
 
                     ray->origin = hitPoint + normal * 0.1f;
                     ray->direction = reflected_direction;
-
-                    /*col = sf::Color(
-                        std::min(col.r + static_cast<int>(sphere->material.col()->r), 255),
-                        std::min(col.g + static_cast<int>(sphere->material.col()->g), 255),
-                        std::min(col.b + static_cast<int>(sphere->material.col()->b), 255),
-                        255
-                    );*/
 
                     col = sf::Color(
                         255*(1+normal.x)*0.5f,
