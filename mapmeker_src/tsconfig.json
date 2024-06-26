@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "target": "ES6",
+    "module": "commonjs",
+    "outDir": "../bin/mapmaker/src/",
+    "rootDir": "./",
+    "strict": true,
+    "esModuleInterop": true
+  },
+  "include": ["./*.ts"],
+  "exclude": ["node_modules"]
+}
