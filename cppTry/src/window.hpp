@@ -66,7 +66,7 @@ public:
                 Ray* ray = cam->ray(index);
                 cam->cast(&x, &y, &buff_v);
                 
-                int bounces = 4;
+                int bounces = 10;
                 for (int i = 0; i < bounces; i++) { 
                     std::vector<float> times;
                     for (int j = 0; j < scn->sphere()->size(); j++) {
@@ -87,7 +87,6 @@ public:
                     }
 
                     col = *sphere->material.col();
-                    lastCol = col;
                     
                     glm::vec3 hitPoint = ray->f(*t);
                     glm::vec3 normal = glm::normalize(hitPoint - sphere->center);
@@ -98,12 +97,21 @@ public:
                     ray->origin = hitPoint + normal * 0.1f;
                     ray->direction = reflected_direction;
 
-                    col = sf::Color(
+                    /*col = sf::Color(
                         std::min(col.r + static_cast<int>(sphere->material.col()->r), 255),
                         std::min(col.g + static_cast<int>(sphere->material.col()->g), 255),
                         std::min(col.b + static_cast<int>(sphere->material.col()->b), 255),
                         255
+                    );*/
+
+                    col = sf::Color(
+                        255*(1+normal.x)*0.5f,
+                        255*(1+normal.y)*0.5f,
+                        255*(1+normal.z)*0.5f,
+                        255
                     );
+                    
+                    lastCol = col;
                 }    
                 this->m_buffer.setPixel(x, y, col);
             }

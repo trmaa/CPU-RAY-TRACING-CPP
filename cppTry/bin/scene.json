@@ -1,6 +1,7 @@
 {
 	"sphere":[
+		{"center":[-40,0,20], "radius":20, "color":[255,255,0]},
 		{"center":[0,0,20], "radius":15, "color":[255,0,0]},
-		{"center":[27,0,20], "radius":10, "color":[0,0,255]}
+		{"center":[30,0,20], "radius":10, "color":[0,0,255]}
 	]
 }
