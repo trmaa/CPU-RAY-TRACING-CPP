@@ -6,7 +6,7 @@
 sf::Color shader(int* x, int* y, glm::ivec2* buff_v, Camera* cam, Scene* scn, sf::Color* lastCol) 
 {
 
-int index = *x + *y * buff_v->x;
+const int index = *x + *y * buff_v->x;
 
 sf::Color col(0x000000ff);
 Ray* ray = cam->ray(index);

@@ -16,6 +16,10 @@ Scene* scn = new Scene("./bin/scene.json");
 void loop(float* dt, sf::Event* ev) {
     win->repaint(dt, cam, scn, ev);
     cam->move(dt, ev);
+
+    if (ev->key.code == sf::Keyboard::Tab) {
+		scn = new Scene("./bin/scene.json");
+	}
 }
 
 int main() {

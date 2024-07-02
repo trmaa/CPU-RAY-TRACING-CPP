@@ -22,7 +22,7 @@ private:
 	float m_speed;
 public:
 	glm::vec3* possition() { return &this->m_possition; }
-	Ray* ray(int id) { return &this->m_ray[id]; }
+	Ray* ray(const int id) { return &this->m_ray[id]; }
 	glm::vec3* direction() {
 		this->m_direction = glm::vec3(
 			std::cos(m_angle.x) * std::cos(m_angle.y),
