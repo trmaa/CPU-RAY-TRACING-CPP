@@ -26,7 +26,7 @@ private:
 	}
 public:
 	std::vector<Sphere>* sphere() { return &this->m_sphere; }
-	Sphere* sphere(int index) { return &this->m_sphere[index]; }
+	Sphere* sphere(const int index) { return &this->m_sphere[index]; }
 
 	Scene(const std::string& fpath) {
 		std::future<nl::json> raw = std::async(std::launch::async, Scene::readJson, fpath);

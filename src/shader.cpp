@@ -1,6 +1,6 @@
 #include "./window.hpp"
-#include "camera.hpp"
-#include "scene.hpp"
+#include "./camera.hpp"
+#include "./scene.hpp"
 #include <glm/ext/vector_int2.hpp>
 
 sf::Color shader(int* x, int* y, glm::ivec2* buff_v, Camera* cam, Scene* scn, sf::Color* lastCol) 
@@ -12,7 +12,7 @@ sf::Color col(0x000000ff);
 Ray* ray = cam->ray(index);
 cam->cast(x, y, buff_v);
 
-int bounces = 2;
+int bounces = 10;
 for (int i = 0; i < bounces; i++) { 
 	std::vector<float> times;
 	for (int j = 0; j < scn->sphere()->size(); j++) {
