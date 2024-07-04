@@ -76,7 +76,7 @@ void Camera::move(float* dt, sf::Event* ev) {
     if (ev->key.code == sf::Keyboard::LControl) {
         m_angle.x += 0.1f;
     }
-    if (ev->key.code == sf::Keyboard::LShift) {
+    if (ev->key.code == 40) {
         m_angle.x -= 0.1f;
     }
 }

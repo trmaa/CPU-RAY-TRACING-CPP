@@ -5,6 +5,7 @@
 #include "./sphere.hpp"
 #include <fstream>
 #include <future>
+#include <glm/ext/vector_float3.hpp>
 #include <iostream>
 #include <string>
 #include <glm/glm.hpp>
@@ -12,6 +13,7 @@
 
 class Scene {
 private:
+	glm::vec3 m_sky_color;
 	std::vector<Sphere> m_sphere;
 private:
 	static nl::json readJson(const std::string& fpath) {
@@ -28,10 +30,12 @@ public:
 	std::vector<Sphere>* sphere() { return &this->m_sphere; }
 	Sphere* sphere(const int index) { return &this->m_sphere[index]; }
 
+	glm::vec3* sky_color() { return &this->m_sky_color; }
+	
 	Scene(const std::string& fpath) {
 		std::future<nl::json> raw = std::async(std::launch::async, Scene::readJson, fpath);
 		nl::json data = raw.get();
-		if (!data.contains("sphere"))
+		if (!data.contains("sphere") || !data.contains("sky"))
 			return;
 		for (const auto& obj : data["sphere"]) {
 			glm::vec3 center(obj["center"][0], obj["center"][1], obj["center"][2]);
@@ -39,6 +43,7 @@ public:
 			glm::vec3 color(obj["color"][0], obj["color"][1], obj["color"][2]);
 			this->m_sphere.emplace_back(center, radius, color);
 		}
+		this->m_sky_color = glm::vec3(data["sky"][0],data["sky"][1],data["sky"][2]);
 	}
 	~Scene() = default;
 };
