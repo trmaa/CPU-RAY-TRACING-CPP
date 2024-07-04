@@ -17,14 +17,12 @@ private:
     glm::vec3 m_angle;
     glm::vec3 m_direction;
 
-    std::vector<Ray> m_ray;
-
     float m_speed;
 
 public:
-    glm::vec3* position() { return &m_position; }
-    Ray* ray(const int id) { return &m_ray[id]; }
-    glm::vec3* direction();
+    std::vector<Ray> ray;
+    const glm::vec3* position() const { return &m_position; }
+    const glm::vec3* direction();
 
 	Camera(int w, int h);
     ~Camera() = default;

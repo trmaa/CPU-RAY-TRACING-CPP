@@ -10,7 +10,7 @@ struct Ray {
 	Ray(glm::vec3 o, glm::vec3 d): origin(o), direction(d) {}
 	~Ray() = default;
 
-	glm::vec3 f(float x) { return this->origin + x*this->direction; }
+	const glm::vec3 f(const float x) const { return this->origin + x*this->direction; }
 };
 
 #endif

@@ -12,7 +12,7 @@ const int index = *x + *y * buff_v->x;
 
 glm::vec3 sc = *scn->sky_color();
 sf::Color col = sf::Color(sc.r*255, sc.g*255, sc.b*255);
-Ray* ray = cam->ray(index);
+Ray* ray = &cam->ray[index];
 cam->cast(x, y, buff_v);
 
 int bounces = 10;
@@ -25,7 +25,7 @@ for (int i = 0; i < bounces; i++) {
 		return std::abs(a) < std::abs(b); 
 	}); //t is a pointer
 	int id = std::distance(times.begin(), t);
-	Sphere* sphere = scn->sphere(id);
+	const Sphere* sphere = scn->sphere(id);
 
 	if (*t <= 0) {
 		if (i < 1) {
@@ -46,8 +46,7 @@ for (int i = 0; i < bounces; i++) {
 
 	//diffusion, (bright, importanc)
 
-	ray->origin = hitPoint + normal*0.001f;
-	ray->direction = reflected_direction;
+	*ray = Ray(hitPoint+normal*0.001f, reflected_direction);
 	
 	*lastCol = col;
 }    

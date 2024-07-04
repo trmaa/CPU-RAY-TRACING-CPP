@@ -4,7 +4,7 @@ Camera::Camera(int w, int h)
     : m_position(0.0f), m_angle(glm::vec3(0.0f, 3.14159f * 0.5f, 0.0f)), m_direction(0.0f), m_speed(100.0f) {
     for (int y = 0; y < h; y++) {
         for (int x = 0; x < w; x++) {
-            m_ray.push_back(Ray(
+            ray.push_back(Ray(
                 m_position,
                 glm::vec3(x - w / 2, y - h / 2, 200.0f)
             ));
@@ -12,8 +12,8 @@ Camera::Camera(int w, int h)
     }
 }
 
-glm::vec3* Camera::direction() {
-    m_direction = glm::vec3(
+const glm::vec3* Camera::direction() {
+    this->m_direction = glm::vec3(
         std::cos(m_angle.x) * std::cos(m_angle.y),
         std::sin(m_angle.x),
         std::cos(m_angle.x) * std::sin(m_angle.y)
@@ -37,7 +37,7 @@ void Camera::cast(int* x, int* y, glm::ivec2* buff_v) {
         2000.0f * std::cos(ang.x) * std::sin(ang.y)
     );
 
-    m_ray[id] = Ray(m_position, direction);
+    ray[id] = Ray(m_position, direction);
 }
 
 void Camera::move(float* dt, sf::Event* ev) {

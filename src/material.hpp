@@ -9,7 +9,7 @@ struct Material {
 	float emission;
 	float roughness;
 
-	sf::Color* col() { return new sf::Color(this->color.r, this->color.g, this->color.b); }
+	const sf::Color* col() const { return new sf::Color(this->color.r, this->color.g, this->color.b); }
 	
 	Material(glm::vec3 c): color(c) {}
 	~Material() = default;

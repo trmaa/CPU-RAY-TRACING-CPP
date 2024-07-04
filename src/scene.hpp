@@ -27,8 +27,8 @@ private:
 		return data;
 	}
 public:
-	std::vector<Sphere>* sphere() { return &this->m_sphere; }
-	Sphere* sphere(const int index) { return &this->m_sphere[index]; }
+	const std::vector<Sphere>* sphere() const { return &this->m_sphere; }
+	const Sphere* sphere(const int index) const { return &this->m_sphere[index]; }
 
 	glm::vec3* sky_color() { return &this->m_sky_color; }
 	
