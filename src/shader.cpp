@@ -38,7 +38,19 @@ for (int i = 0; i < bounces; i++) {
 	}
 
 	col = *sphere->material.col();
-	 
+	
+	if (sphere->material.emission > 0) {
+		if (i < 1) {
+			glm::vec3 nc = sphere->material.color*sphere->material.emission;
+			col = sf::Color(nc.r, nc.g, nc.b);
+			return col;
+		}
+		sf::Color lc = *lastCol; 
+		glm::vec3 nc = glm::vec3(lc.r, lc.g, lc.b) * sphere->material.emission;
+		col = sf::Color(nc.r, nc.g, nc.b);
+		return col;
+	}
+
 	glm::vec3 hitPoint = ray->f(*t);
 	glm::vec3 normal = glm::normalize(hitPoint - sphere->center);
 

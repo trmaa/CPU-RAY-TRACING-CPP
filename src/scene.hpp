@@ -41,7 +41,8 @@ public:
 			glm::vec3 center(obj["center"][0], obj["center"][1], obj["center"][2]);
 			float radius = obj["radius"];
 			glm::vec3 color(obj["color"][0], obj["color"][1], obj["color"][2]);
-			this->m_sphere.emplace_back(center, radius, color);
+			float emission = obj["emission"];
+			this->m_sphere.emplace_back(center, radius, color, emission);
 		}
 		this->m_sky_color = glm::vec3(data["sky"][0],data["sky"][1],data["sky"][2]);
 	}

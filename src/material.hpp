@@ -11,7 +11,7 @@ struct Material {
 
 	const sf::Color* col() const { return new sf::Color(this->color.r, this->color.g, this->color.b); }
 	
-	Material(glm::vec3 c): color(c) {}
+	Material(glm::vec3 c, float e): color(c), emission(e) {}
 	~Material() = default;
 };
 
