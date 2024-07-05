@@ -2,12 +2,14 @@
 #define WINDOW_HPP
 
 #include <SFML/Graphics.hpp>
+#include <SFML/Graphics/Color.hpp>
 #include <SFML/Window/Keyboard.hpp>
 #include <cmath>
 #include <glm/ext/vector_int2.hpp>
 #include <glm/geometric.hpp>
 #include <glm/glm.hpp>
 #include <string>
+#include <vector>
 #include "./camera.hpp"
 #include "./scene.hpp"
 
@@ -17,6 +19,8 @@ class Window {
 private:
     glm::ivec2 m_viewport;
     sf::Image m_buffer;
+    int m_frames;
+    std::vector<glm::vec3> m_acumulation;
     sf::RenderWindow m_display;
 
     sf::Font m_font;

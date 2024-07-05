@@ -1,6 +1,11 @@
 #include "window.hpp"
+#include <SFML/Graphics/Color.hpp>
+#include <glm/ext/vector_float3.hpp>
+#include <glm/ext/vector_int2.hpp>
+#include <iostream>
 
-Window::Window(int w, int h, std::string text): m_viewport(w, h) {
+Window::Window(int w, int h, std::string text)
+    : m_viewport(w, h), m_frames(0), m_acumulation(w * h, glm::vec3(0.f, 0.f, 0.f)) {
     this->m_display.create(sf::VideoMode(w, h), text);
     this->m_buffer.create(w, h);
 
@@ -16,33 +21,50 @@ Window::Window(int w, int h, std::string text): m_viewport(w, h) {
     //this->m_display.setFramerateLimit(this->m_fpsLimit);
 }
 
-void Window::repaint(float *dt, Camera *cam, Scene *scn, sf::Event* ev) {
+void Window::repaint(float* dt, Camera* cam, Scene* scn, sf::Event* ev) {
     this->m_fps = static_cast<uint16_t>(1.f / *dt);
     this->m_fpsText.setString("FPS: " + std::to_string(this->m_fps));
     
-    glm::ivec2* buff_v = new glm::ivec2(this->m_buffer.getSize().x, this->m_buffer.getSize().y);
+    glm::ivec2 buff_v(this->m_buffer.getSize().x, this->m_buffer.getSize().y);
+
+    bool resetAccumulation = false;
+    if (ev->type == sf::Event::KeyPressed) {
+        resetAccumulation = true;
+        if (ev->key.code == sf::Keyboard::Tab) {
+            this->m_buffer.saveToFile("./bin/screenshot.jpg");
+        }
+    }
+
+    if (resetAccumulation) {
+        this->m_frames = 0;
+        this->m_acumulation = std::vector<glm::vec3>(buff_v.x * buff_v.y, glm::vec3(0.f, 0.f, 0.f));
+    }
 
     sf::Color lastCol;
-    for (int y = 0; y < buff_v->y; y++) {
-        for (int x = 0; x < buff_v->x; x++) {
-            sf::Color col = shader(&x, &y, buff_v, cam, scn, &lastCol);
-            this->m_buffer.setPixel(x, y, col);
+    for (int y = 0; y < buff_v.y; y++) {
+        for (int x = 0; x < buff_v.x; x++) {
+            const int index = buff_v.x * y + x;
+            sf::Color col = shader(&x, &y, &buff_v, cam, scn, &lastCol);
+
+            this->m_acumulation[index] = (this->m_acumulation[index] * static_cast<float>(this->m_frames) + glm::vec3(col.r, col.g, col.b)) / static_cast<float>(this->m_frames + 1);
+
+            sf::Color fcolor(this->m_acumulation[index].r, this->m_acumulation[index].g, this->m_acumulation[index].b);
+            this->m_buffer.setPixel(x, y, resetAccumulation?col:fcolor);
         }
+    }
+
+    this->m_frames += 1;
+    if (this->m_frames > 1000) {
+        this->m_frames = 1000;
     }
 
     this->m_texture.loadFromImage(this->m_buffer);
     this->m_sprite.setTexture(this->m_texture);
-    float scale = static_cast<float>(this->m_display.getSize().x) / buff_v->x;
+    float scale = static_cast<float>(this->m_display.getSize().x) / buff_v.x;
     this->m_sprite.setScale(scale, scale);
 
     this->m_display.clear();
     this->m_display.draw(this->m_sprite);
     this->m_display.draw(this->m_fpsText);
     this->m_display.display();
-
-    if (ev->key.code == sf::Keyboard::Tab) {
-        this->m_buffer.saveToFile("./bin/screenshot.jpg");
-    }
-
-    delete buff_v;
 }
