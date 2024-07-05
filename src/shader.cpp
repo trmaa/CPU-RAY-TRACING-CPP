@@ -35,7 +35,7 @@ sf::Color shader(int* x, int* y, glm::ivec2* buff_v, Camera* cam, Scene* scn, sf
                 return col;
             }
             sf::Color lc = *lastCol;
-            glm::vec3 nc = sc * glm::vec3(lc.r, lc.g, lc.b) * importance;
+            glm::vec3 nc = sc * sphere->material.color/255.f * glm::vec3(lc.r, lc.g, lc.b) * importance;
             col = sf::Color(nc.r, nc.g, nc.b);
             return col;
         }
@@ -50,7 +50,8 @@ sf::Color shader(int* x, int* y, glm::ivec2* buff_v, Camera* cam, Scene* scn, sf
                 return col;
             }
             sf::Color lc = *lastCol;
-            glm::vec3 nc = glm::vec3(lc.r, lc.g, lc.b) * sphere->material.color / 255.f;
+            glm::vec3 nc = glm::normalize(glm::vec3(lc.r, lc.g, lc.b))
+                    *(sphere->material.color * sphere->material.emission);
             col = sf::Color(nc.r, nc.g, nc.b);
             return col;
         }
@@ -70,6 +71,6 @@ sf::Color shader(int* x, int* y, glm::ivec2* buff_v, Camera* cam, Scene* scn, sf
         *ray = Ray(hitPoint + normal * 0.001f, (reflected_direction + diffusion));
 
         *lastCol = col;
-    }    
+    }
     return col;
 }
