@@ -1,5 +1,5 @@
 {
-	"sky":[0.1,0.1,0.2],
+	"sky":[0.5,0.7,1],
 	"sphere":[
 		{"center": [0,1000,0], "radius": 990, "color": [230,230,230], "emission": 0, "roughness": 100},
 		{"center": [-20,0,0], "radius": 10, "color": [0,200,255], "emission": 0, "roughness": 0},

@@ -30,7 +30,7 @@ sf::Color shader(int* x, int* y, glm::ivec2* buff_v, Camera* cam, Scene* scn, sf
         int id = std::distance(times.begin(), t);
         const Sphere* sphere = scn->sphere(id);
 
-        if (*t <= 0) {
+        if (*t < 0) {
             if (i < 1) {
                 return col;
             }
