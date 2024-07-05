@@ -21,7 +21,7 @@ cam->cast(x, y, buff_v);
 
 int bounces = 4;
 for (int i = 0; i < bounces; i++) {
-    float importance = static_cast<float>(bounces - i*2) / bounces;
+    float importance = static_cast<float>(bounces - i) / bounces;
     importance = importance<0?0:importance;
 
     std::vector<float> times;
@@ -39,20 +39,7 @@ for (int i = 0; i < bounces; i++) {
             return col;
         }
         sf::Color lc = *lastCol;
-        glm::vec3 nc = sc * sphere->material.color/255.f * glm::vec3(lc.r, lc.g, lc.b) * importance;
-        col = sf::Color(nc.r, nc.g, nc.b);
-        return col;
-    }
-
-    if (sphere->material.emission > 0) {
-        if (i < 1) {
-            glm::vec3 nc = sphere->material.emission * sphere->material.color;
-            col = sf::Color(nc.r, nc.g, nc.b);
-            return col;
-        }
-        sf::Color lc = *lastCol;
-        glm::vec3 nc = glm::normalize(glm::vec3(lc.r, lc.g, lc.b))
-                *(sphere->material.color * sphere->material.emission);
+        glm::vec3 nc = sc * glm::vec3(lc.r, lc.g, lc.b) * importance;
         col = sf::Color(nc.r, nc.g, nc.b);
         return col;
     }
@@ -60,7 +47,23 @@ for (int i = 0; i < bounces; i++) {
     glm::vec3 hitPoint = ray->f(*t);
     glm::vec3 normal = glm::normalize(hitPoint - sphere->center);
 
-    glm::vec3 color = sphere->material.color * importance;
+    if (sphere->material.emission > 0) {
+        sf::Color tc = *sphere->material.txtr(normal);
+        if (i < 1) {
+            glm::vec3 nc = sphere->material.emission 
+                * glm::vec3(tc.r, tc.g, tc.b) * glm::normalize(sphere->material.color);
+            col = sf::Color(nc.r, nc.g, nc.b);
+            return col;
+        }
+        sf::Color lc = *lastCol;
+        glm::vec3 nc = glm::normalize(glm::vec3(lc.r, lc.g, lc.b))* glm::vec3(tc.r, tc.g, tc.b) 
+                * sphere->material.emission * glm::normalize(sphere->material.color);
+        col = sf::Color(nc.r, nc.g, nc.b);
+        return col;
+    }
+
+    sf::Color tC = *sphere->material.txtr(normal);
+    glm::vec3 color = glm::normalize(sphere->material.color) * glm::vec3(tC.r, tC.g, tC.b) * importance;
     col = sf::Color(color.r, color.g, color.b);
 
     glm::vec3 reflected_direction = ray->direction - 2.0f * glm::dot(ray->direction, normal) * normal;

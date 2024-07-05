@@ -12,7 +12,8 @@ struct Sphere {
 	float radius;
 	Material material;
 
-	Sphere(glm::vec3 o, float ra, glm::vec3 c, float e, float ro): center(o), radius(ra), material(c, e, ro) {}
+	Sphere(glm::vec3 o, float ra, glm::vec3 c, float e, float ro, std::string p)
+		: center(o), radius(ra), material(c, e, ro, p) {}
 	~Sphere() = default;
 
 	const float checkCollision(const Ray* ray) const { 
