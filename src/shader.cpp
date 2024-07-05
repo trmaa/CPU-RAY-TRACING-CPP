@@ -18,7 +18,8 @@ sf::Color shader(int* x, int* y, glm::ivec2* buff_v, Camera* cam, Scene* scn, sf
 
     int bounces = 4;
     for (int i = 0; i < bounces; i++) {
-        float importance = static_cast<float>(bounces - i) / bounces;
+        float importance = static_cast<float>(bounces - i*2) / bounces;
+        importance = importance<0?0:importance;
 
         std::vector<float> times;
         for (int j = 0; j < scn->sphere()->size(); j++) {

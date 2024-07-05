@@ -39,23 +39,49 @@ void Window::repaint(float* dt, Camera* cam, Scene* scn, sf::Event* ev) {
         this->m_frames = 0;
         this->m_acumulation = std::vector<glm::vec3>(buff_v.x * buff_v.y, glm::vec3(0.f, 0.f, 0.f));
     }
+    this->m_frames += 1;
 
     sf::Color lastCol;
     for (int y = 0; y < buff_v.y; y++) {
         for (int x = 0; x < buff_v.x; x++) {
             const int index = buff_v.x * y + x;
             sf::Color col = shader(&x, &y, &buff_v, cam, scn, &lastCol);
+            sf::Color fcolor;
 
-            this->m_acumulation[index] = (this->m_acumulation[index] * static_cast<float>(this->m_frames) + glm::vec3(col.r, col.g, col.b)) / static_cast<float>(this->m_frames + 1);
+            //acumulation
+            this->m_acumulation[index] = (
+                    this->m_acumulation[index] * static_cast<float>(this->m_frames) 
+                    + glm::vec3(col.r, col.g, col.b)) / static_cast<float>(this->m_frames + 1);
 
-            sf::Color fcolor(this->m_acumulation[index].r, this->m_acumulation[index].g, this->m_acumulation[index].b);
-            this->m_buffer.setPixel(x, y, resetAccumulation?col:fcolor);
+            fcolor = sf::Color(
+                    this->m_acumulation[index].r, 
+                    this->m_acumulation[index].g, 
+                    this->m_acumulation[index].b);
+            
+            /*this->m_buffer.setPixel(x, y, fcolor);
+            
+            // antialiasing
+            if (x < 1 || x > buff_v.x-1 || y < 1 || y > buff_v.y-1) {
+                continue;
+            }
+
+            float r = 0.f, g = 0.f, b = 0.f;
+            for (int offx = -1; offx <= 1; offx++) {
+                for (int offy = -1; offy <= 1; offy++) {
+                    r += this->m_buffer.getPixel(x + offx, y + offy).r; 
+                    g += this->m_buffer.getPixel(x + offx, y + offy).g; 
+                    b += this->m_buffer.getPixel(x + offx, y + offy).b; 
+                }
+            }
+            r /= 9.0f;
+            g /= 9.0f;
+            b /= 9.0f;
+            fcolor = sf::Color(static_cast<sf::Uint8>(r), 
+                               static_cast<sf::Uint8>(g), 
+                               static_cast<sf::Uint8>(b));
+            */   
+            this->m_buffer.setPixel(x, y, resetAccumulation ? col : fcolor);   
         }
-    }
-
-    this->m_frames += 1;
-    if (this->m_frames > 1000) {
-        this->m_frames = 1000;
     }
 
     this->m_texture.loadFromImage(this->m_buffer);
