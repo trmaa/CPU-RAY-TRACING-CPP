@@ -1,8 +1,8 @@
 {
-	"sky":[0,0,0],
+	"sky":[0.1,0.1,0.2],
 	"sphere":[
 		{"center": [0,1000,0], "radius": 990, "color": [230,230,230], "emission": 0, "roughness": 300},
-		{"center": [-20,-5,0], "radius": 15, "color": [0,200,255], "emission": 1, "roughness": 0},
+		{"center": [-20,-5,0], "radius": 15, "color": [0,200,255], "emission": 0, "roughness": 0},
 		{"center": [30,-10,0], "radius": 20, "color": [255,100,0], "emission": 0, "roughness": 5000},
 		{"center": [-1000,0,1000], "radius": 980, "color": [255,255,100], "emission": 1, "roughness": 0}
 	]
