@@ -1,7 +1,7 @@
 #include "camera.hpp"
 
 Camera::Camera(int w, int h)
-    : m_position(0.0f), m_angle(glm::vec3(0.0f, 3.14159f * 0.5f, 0.0f)), m_direction(0.0f), m_speed(100.0f), m_far(200*w/192) {
+    : m_position(0.0f), m_angle(glm::vec3(0.0f, 3.14159f * 0.5f, 0.0f)), m_direction(0.0f), m_speed(100.0f), m_far(200.f*w/192) {
     for (int y = 0; y < h; y++) {
         for (int x = 0; x < w; x++) {
             ray.push_back(Ray(
@@ -13,10 +13,15 @@ Camera::Camera(int w, int h)
 }
 
 const glm::vec3* Camera::direction() {
-    this->m_direction = glm::vec3(
+    /*this->m_direction = glm::vec3(
         std::cos(m_angle.x) * std::cos(m_angle.y),
         std::sin(m_angle.x),
         std::cos(m_angle.x) * std::sin(m_angle.y)
+    ); // my way does just the same */
+    this->m_direction = glm::vec3(
+        -std::sin(this->m_angle.x)*std::cos(this->m_angle.y),
+        -std::cos(this->m_angle.x),
+        std::sin(this->m_angle.x)*std::sin(this->m_angle.y)
     );
     return &m_direction;
 }
