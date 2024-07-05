@@ -1,5 +1,6 @@
 #include "window.hpp"
 #include <SFML/Graphics/Color.hpp>
+#include <SFML/Window/Keyboard.hpp>
 #include <glm/ext/vector_float3.hpp>
 #include <glm/ext/vector_int2.hpp>
 #include <iostream>
@@ -99,4 +100,8 @@ void Window::repaint(float* dt, Camera* cam, Scene* scn, sf::Event* ev) {
     this->m_display.draw(this->m_sprite);
     this->m_display.draw(this->m_fpsText);
     this->m_display.display();
+
+    if (ev->key.code == sf::Keyboard::Tab) {
+        this->m_buffer.saveToFile("./bin/screenshot.jpg");
+    }
 }

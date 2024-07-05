@@ -7,8 +7,8 @@
 #include "./camera.hpp"
 #include "./scene.hpp"
 
-static int w = 128*2;
-static int h = 72*2;
+static int w = 128*3;
+static int h = 72*3;
 Window* win = new Window(w, h, "rtx");
 Camera* cam = new Camera(w, h);
 Scene* scn = new Scene("./bin/scene.json");
