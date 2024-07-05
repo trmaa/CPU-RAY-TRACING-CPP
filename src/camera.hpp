@@ -17,6 +17,8 @@ private:
     glm::vec3 m_angle;
     glm::vec3 m_direction;
 
+    float m_far = 200;
+
     float m_speed;
 
 public:

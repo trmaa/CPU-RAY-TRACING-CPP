@@ -16,7 +16,7 @@ sf::Color shader(int* x, int* y, glm::ivec2* buff_v, Camera* cam, Scene* scn, sf
     Ray* ray = &cam->ray[index];
     cam->cast(x, y, buff_v);
 
-    int bounces = 10;
+    int bounces = 4;
     for (int i = 0; i < bounces; i++) {
         float importance = static_cast<float>(bounces - i) / bounces;
 
