@@ -58,7 +58,7 @@ void Window::repaint(float* dt, Camera* cam, Scene* scn, sf::Event* ev) {
                     this->m_acumulation[index].g, 
                     this->m_acumulation[index].b);
             
-            /*this->m_buffer.setPixel(x, y, fcolor);
+            this->m_buffer.setPixel(x, y, fcolor);
             
             // antialiasing
             if (x < 1 || x > buff_v.x-1 || y < 1 || y > buff_v.y-1) {
@@ -69,9 +69,9 @@ void Window::repaint(float* dt, Camera* cam, Scene* scn, sf::Event* ev) {
             for (int offx = -1; offx <= 1; offx += 1) {
                 for (int offy = -1; offy <= 1; offy += 1) {
                     if(offx == 0 && offy == 0) {
-                        r += this->m_buffer.getPixel(x + offx, y + offy).r * 11; 
-                        g += this->m_buffer.getPixel(x + offx, y + offy).g * 11; 
-                        b += this->m_buffer.getPixel(x + offx, y + offy).b * 11;
+                        r += this->m_buffer.getPixel(x + offx, y + offy).r * 2; 
+                        g += this->m_buffer.getPixel(x + offx, y + offy).g * 2; 
+                        b += this->m_buffer.getPixel(x + offx, y + offy).b * 2;
                     } else {
                         r += this->m_buffer.getPixel(x + offx, y + offy).r; 
                         g += this->m_buffer.getPixel(x + offx, y + offy).g; 
@@ -79,13 +79,13 @@ void Window::repaint(float* dt, Camera* cam, Scene* scn, sf::Event* ev) {
                     } 
                 }
             }
-            r /= 20.0f;
-            g /= 20.0f;
-            b /= 20.0f;
+            r /= 10.0f;
+            g /= 10.0f;
+            b /= 10.0f;
             fcolor = sf::Color(static_cast<sf::Uint8>(r), 
                                static_cast<sf::Uint8>(g), 
                                static_cast<sf::Uint8>(b));
-            */ 
+             
             this->m_buffer.setPixel(x, y, resetAccumulation ? col : fcolor);   
         }
     }
