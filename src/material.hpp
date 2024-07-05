@@ -39,7 +39,7 @@ struct Material {
         int y = static_cast<int>((texHeight - v) * texHeight) % texHeight;
 
         sf::Color color = texture.getPixel(x, y);
-        return new sf::Color(color);
+        return new sf::Color(color.r*this->color.r/255.f, color.g*this->color.g/255.f, color.b*this->color.b/255.f);
     }
 };
 
