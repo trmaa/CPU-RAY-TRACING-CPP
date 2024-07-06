@@ -30,6 +30,9 @@ private:
 
     sf::Texture m_texture;  
     sf::Sprite m_sprite;
+    
+    std::vector<int> x_values;
+    std::vector<int> y_values;
 
 public:
     sf::Image* buffer() { return &this->m_buffer; }

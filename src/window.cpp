@@ -4,9 +4,12 @@
 #include <glm/ext/vector_float3.hpp>
 #include <glm/ext/vector_int2.hpp>
 #include <iostream>
+#include <vector>
+#include <algorithm>
+#include <execution>
 
 Window::Window(int w, int h, std::string text)
-    : m_viewport(w, h), m_frames(0), m_acumulation(w * h, glm::vec3(0.f, 0.f, 0.f)) {
+    : m_viewport(w, h), m_frames(0), m_acumulation(w * h, glm::vec3(0.f, 0.f, 0.f)), x_values(w,0), y_values(h,0) {
     this->m_display.create(sf::VideoMode(w, h), text);
     this->m_buffer.create(w, h);
 
@@ -20,6 +23,9 @@ Window::Window(int w, int h, std::string text)
     this->m_fpsText.setPosition(10.f, 10.f);
 
     //this->m_display.setFramerateLimit(this->m_fpsLimit);
+    
+    std::iota(y_values.begin(), y_values.end(), 0); 
+    std::iota(x_values.begin(), x_values.end(), 0);
 }
 
 void Window::repaint(float* dt, Camera* cam, Scene* scn, sf::Event* ev) {
@@ -43,27 +49,25 @@ void Window::repaint(float* dt, Camera* cam, Scene* scn, sf::Event* ev) {
     this->m_frames += 1;
 
     sf::Color lastCol;
-    for (int y = 0; y < buff_v.y; y++) {
-        for (int x = 0; x < buff_v.x; x++) {
+    std::for_each(std::execution::par, y_values.begin(), y_values.end(), [&](int y) {
+        std::for_each(std::execution::par, x_values.begin(), x_values.end(), [&](int x) {
             const int index = buff_v.x * y + x;
             sf::Color col = shader(&x, &y, &buff_v, cam, scn, &lastCol);
             sf::Color fcolor;
 
             //acumulation
-            this->m_acumulation[index] = (
-                    this->m_acumulation[index] * static_cast<float>(this->m_frames) 
-                    + glm::vec3(col.r, col.g, col.b)) / static_cast<float>(this->m_frames + 1);
+            this->m_acumulation[index] += glm::vec3(col.r, col.g, col.b);
 
             fcolor = sf::Color(
-                    this->m_acumulation[index].r, 
-                    this->m_acumulation[index].g, 
-                    this->m_acumulation[index].b);
+                    this->m_acumulation[index].r/this->m_frames, 
+                    this->m_acumulation[index].g/this->m_frames, 
+                    this->m_acumulation[index].b/this->m_frames);
             
             this->m_buffer.setPixel(x, y, fcolor);
             
             // antialiasing
             if (x < 1 || x > buff_v.x-1 || y < 1 || y > buff_v.y-1) {
-                continue;
+                return;
             }
 
             float r = 0.f, g = 0.f, b = 0.f;
@@ -86,10 +90,10 @@ void Window::repaint(float* dt, Camera* cam, Scene* scn, sf::Event* ev) {
             fcolor = sf::Color(static_cast<sf::Uint8>(r), 
                                static_cast<sf::Uint8>(g), 
                                static_cast<sf::Uint8>(b));
-             
-            this->m_buffer.setPixel(x, y, resetAccumulation ? col : fcolor);   
-        }
-    }
+            
+            this->m_buffer.setPixel(x, y, resetAccumulation ? col : fcolor);
+        });
+    });
 
     this->m_texture.loadFromImage(this->m_buffer);
     this->m_sprite.setTexture(this->m_texture);
