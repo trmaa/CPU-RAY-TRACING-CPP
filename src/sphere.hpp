@@ -5,18 +5,14 @@
 #include <glm/ext/vector_float3.hpp>
 #include <glm/glm.hpp>
 #include "./ray.hpp"
-#include "./material.hpp"
+#include "object.hpp"
 
-struct Sphere {
-	glm::vec3 center;
-	float radius;
-	Material material;
-
-	Sphere(glm::vec3 o, float ra, glm::vec3 c, float e, float ro, std::string p)
-		: center(o), radius(ra), material(c, e, ro, p) {}
+struct Sphere: public Object {
+	Sphere(const glm::vec3& cen, float rad, const glm::vec3& c, float e, float ro, const std::string& p)
+        : Object(cen, rad, c, e, ro, p) {}
 	~Sphere() = default;
 
-	const float checkCollision(const Ray* ray) const { 
+	const float checkCollision(const Ray* ray) const override { 
 		glm::vec3 oc = ray->origin - this->center;
 		float a = glm::dot(ray->direction, ray->direction);
 		float b = 2.0f * glm::dot(oc, ray->direction);

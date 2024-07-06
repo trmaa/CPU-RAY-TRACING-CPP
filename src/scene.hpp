@@ -2,6 +2,8 @@
 #define SCENE_HPP
 
 #include "./json.hpp"
+#include "./object.hpp"
+#include "./triangle.hpp"
 #include "./sphere.hpp"
 #include <fstream>
 #include <future>
@@ -15,6 +17,7 @@ class Scene {
 private:
 	glm::vec3 m_sky_color;
 	std::vector<Sphere> m_sphere;
+	std::vector<Triangle> m_triangle;
 private:
 	static nl::json readJson(const std::string& fpath) {
 		std::ifstream file(fpath);
@@ -29,6 +32,16 @@ private:
 public:
 	const std::vector<Sphere>* sphere() const { return &this->m_sphere; }
 	const Sphere* sphere(const int index) const { return &this->m_sphere[index]; }
+
+	const std::vector<Triangle>* triangle() const { return &this->m_triangle; }
+	const Triangle* triangle(const int index) const { return &this->m_triangle[index]; }
+
+	const Object* object(const int index) const {
+		if (this->m_sphere.size() >= index) {
+			return &this->m_sphere[index];
+		}
+		return &this->m_triangle[index];
+	}
 
 	glm::vec3* sky_color() { return &this->m_sky_color; }
 	
