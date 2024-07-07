@@ -23,15 +23,15 @@ private:
 
 public:
     std::vector<Ray> ray;
-    const glm::vec3* position() const { return &m_position; }
-    const glm::vec3* direction();
+    const glm::vec3& position() const { return m_position; }
+    const glm::vec3& direction();
 
 	Camera(int w, int h);
     ~Camera() = default;
 
 public:
-    void cast(int* x, int* y, glm::ivec2* buff_v);
-    void move(float* dt, sf::Event* ev);
+    void cast(int& x, int& y, glm::ivec2& buff_v);
+    void move(float& dt, sf::Event& ev);
 };
 
 #endif

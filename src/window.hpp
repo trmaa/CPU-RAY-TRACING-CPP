@@ -13,7 +13,7 @@
 #include "./camera.hpp"
 #include "./scene.hpp"
 
-sf::Color shader(int* x, int* y, glm::ivec2* buff_v, Camera* cam, Scene* scn, sf::Color* lastCol);
+sf::Color shader(int& x, int& y, glm::ivec2& buff_v, Camera& cam, Scene& scn, sf::Color& lastCol);
 
 class Window {
 private:
@@ -35,14 +35,14 @@ private:
     std::vector<int> y_values;
 
 public:
-    sf::Image* buffer() { return &this->m_buffer; }
-    sf::RenderWindow* display() { return &this->m_display; }
+    sf::Image& buffer() { return this->m_buffer; }
+    sf::RenderWindow& display() { return this->m_display; }
 
     Window(int w, int h, std::string text);
     ~Window() = default;
 
 public:
-    void repaint(float *dt, Camera *cam, Scene *scn, sf::Event* ev);
+    void repaint(float& dt, Camera& cam, Scene& scn, sf::Event& ev);
 };
 
 #endif

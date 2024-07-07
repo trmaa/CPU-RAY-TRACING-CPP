@@ -28,16 +28,16 @@ Window::Window(int w, int h, std::string text)
     std::iota(x_values.begin(), x_values.end(), 0);
 }
 
-void Window::repaint(float* dt, Camera* cam, Scene* scn, sf::Event* ev) {
-    this->m_fps = static_cast<uint16_t>(1.f / *dt);
+void Window::repaint(float& dt, Camera& cam, Scene& scn, sf::Event& ev) {
+    this->m_fps = static_cast<uint16_t>(1.f / dt);
     this->m_fpsText.setString("FPS: " + std::to_string(this->m_fps));
     
     glm::ivec2 buff_v(this->m_buffer.getSize().x, this->m_buffer.getSize().y);
 
     bool resetAccumulation = false;
-    if (ev->type == sf::Event::KeyPressed) {
+    if (ev.type == sf::Event::KeyPressed) {
         resetAccumulation = true;
-        if (ev->key.code == sf::Keyboard::Tab) {
+        if (ev.key.code == sf::Keyboard::Tab) {
             this->m_buffer.saveToFile("./bin/screenshot.jpg");
         }
     }
@@ -52,7 +52,7 @@ void Window::repaint(float* dt, Camera* cam, Scene* scn, sf::Event* ev) {
     std::for_each(std::execution::par, y_values.begin(), y_values.end(), [&](int y) {
         std::for_each(std::execution::par, x_values.begin(), x_values.end(), [&](int x) {
             const int index = buff_v.x * y + x;
-            sf::Color col = shader(&x, &y, &buff_v, cam, scn, &lastCol);
+            sf::Color col = shader(x, y, buff_v, cam, scn, lastCol);
             sf::Color fcolor;
 
             //acumulation
@@ -63,7 +63,7 @@ void Window::repaint(float* dt, Camera* cam, Scene* scn, sf::Event* ev) {
                     this->m_acumulation[index].g/this->m_frames, 
                     this->m_acumulation[index].b/this->m_frames);
             
-            this->m_buffer.setPixel(x, y, fcolor);
+            /*this->m_buffer.setPixel(x, y, fcolor);
             
             // antialiasing
             if (x < 1 || x > buff_v.x-1 || y < 1 || y > buff_v.y-1) {
@@ -90,7 +90,7 @@ void Window::repaint(float* dt, Camera* cam, Scene* scn, sf::Event* ev) {
             fcolor = sf::Color(static_cast<sf::Uint8>(r), 
                                static_cast<sf::Uint8>(g), 
                                static_cast<sf::Uint8>(b));
-            
+            */
             this->m_buffer.setPixel(x, y, resetAccumulation ? col : fcolor);
         });
     });
@@ -105,7 +105,7 @@ void Window::repaint(float* dt, Camera* cam, Scene* scn, sf::Event* ev) {
     this->m_display.draw(this->m_fpsText);
     this->m_display.display();
 
-    if (ev->key.code == sf::Keyboard::Tab) {
+    if (ev.key.code == sf::Keyboard::Tab) {
         this->m_buffer.saveToFile("./bin/screenshot.jpg");
     }
 }

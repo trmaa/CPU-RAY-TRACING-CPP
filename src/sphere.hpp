@@ -12,10 +12,10 @@ struct Sphere: public Object {
         : Object(cen, rad, c, e, ro, p) {}
 	~Sphere() = default;
 
-	const float checkCollision(const Ray* ray) const override { 
-		glm::vec3 oc = ray->origin - this->center;
-		float a = glm::dot(ray->direction, ray->direction);
-		float b = 2.0f * glm::dot(oc, ray->direction);
+	const float checkCollision(const Ray& ray) const override { 
+		glm::vec3 oc = ray.origin - this->center;
+		float a = glm::dot(ray.direction, ray.direction);
+		float b = 2.0f * glm::dot(oc, ray.direction);
 		float c = glm::dot(oc, oc) - this->radius * this->radius;
 		float discriminant = b * b - 4 * a * c;
 

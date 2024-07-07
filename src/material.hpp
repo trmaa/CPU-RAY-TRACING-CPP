@@ -22,11 +22,11 @@ struct Material {
 
     ~Material() = default;
 
-    const sf::Color* col() const { 
-        return new sf::Color(static_cast<sf::Uint8>(this->color.r * 255), static_cast<sf::Uint8>(this->color.g * 255), static_cast<sf::Uint8>(this->color.b * 255)); 
+    const sf::Color col() const { 
+        return sf::Color(static_cast<sf::Uint8>(this->color.r * 255), static_cast<sf::Uint8>(this->color.g * 255), static_cast<sf::Uint8>(this->color.b * 255)); 
     }
 
-    const sf::Color* txtr(const glm::vec3 normal) const {
+    const sf::Color txtr(const glm::vec3 normal) const {
         float theta = std::acos(normal.y);
         float phi = std::atan2(normal.z, normal.x);
 
@@ -39,7 +39,7 @@ struct Material {
         int y = static_cast<int>((texHeight - v) * texHeight) % texHeight;
 
         sf::Color color = texture.getPixel(x, y);
-        return new sf::Color(color.r*this->color.r/255.f, color.g*this->color.g/255.f, color.b*this->color.b/255.f);
+        return sf::Color(color.r*this->color.r/255.f, color.g*this->color.g/255.f, color.b*this->color.b/255.f);
     }
 };
 

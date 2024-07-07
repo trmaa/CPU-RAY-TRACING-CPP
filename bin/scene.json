@@ -6,7 +6,7 @@
 			"radius": 990,
 			"color": [230, 230, 230],
 			"emission": 0,
-			"roughness": 300,
+			"roughness": 500,
 			"texture": ""
 		},
 		{
@@ -20,9 +20,9 @@
 		{
 			"center": [30, -10, 0],
 			"radius": 20,
-			"color": [255, 100, 0],
+			"color": [255, 255, 255],
 			"emission": 1,
-			"roughness": 5000,
+			"roughness": 0,
 			"texture": "./texture/chess.jpg"
 		},
 		{
@@ -31,7 +31,23 @@
 			"color": [255, 255, 255],
 			"emission": 1,
 			"roughness": 0,
-			"texture": "./texture/sky_day.jpg"
+			"texture": "./texture/sky.jpg"
+		}
+	],
+	"triangle": [
+		{
+			"v0": [-10,0,11], "v1": [0,-14,10], "v2": [10,0,10],
+			"color": [230, 30, 230],
+			"emission": 0,
+			"roughness": 300,
+			"texture": "./texture/chess.jpg"
+		},
+		{
+			"v0": [-100,0,-11], "v1": [0,-140,-12], "v2": [100,0,-10],
+			"color": [30, 230, 30],
+			"emission": 1,
+			"roughness": 0,
+			"texture": ""
 		}
 	]
 }

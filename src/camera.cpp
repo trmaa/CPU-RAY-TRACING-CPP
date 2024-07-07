@@ -12,7 +12,7 @@ Camera::Camera(int w, int h)
     }
 }
 
-const glm::vec3* Camera::direction() {
+const glm::vec3& Camera::direction() {
     /*this->m_direction = glm::vec3(
         std::cos(m_angle.x) * std::cos(m_angle.y),
         std::sin(m_angle.x),
@@ -23,13 +23,13 @@ const glm::vec3* Camera::direction() {
         -std::cos(this->m_angle.x),
         std::sin(this->m_angle.x)*std::sin(this->m_angle.y)
     );
-    return &m_direction;
+    return m_direction;
 }
 
-void Camera::cast(int* x, int* y, glm::ivec2* buff_v) {
-    int id = (*x) + (*y) * buff_v->x;
+void Camera::cast(int& x, int& y, glm::ivec2& buff_v) {
+    int id = (x) + (y) * buff_v.x;
 
-    glm::vec3 idle((*x) - buff_v->x / 2, (*y) - buff_v->y / 2, this->m_far);
+    glm::vec3 idle((x) - buff_v.x / 2, (y) - buff_v.y / 2, this->m_far);
     glm::vec3 idleA(
         std::atan2(idle.y, idle.z),
         std::atan2(idle.x, idle.z),
@@ -45,43 +45,43 @@ void Camera::cast(int* x, int* y, glm::ivec2* buff_v) {
     ray[id] = Ray(m_position, direction);
 }
 
-void Camera::move(float* dt, sf::Event* ev) {
-    float fixedSpeed = m_speed * (*dt);
-    if (ev->type != sf::Event::KeyPressed) {
+void Camera::move(float& dt, sf::Event& ev) {
+    float fixedSpeed = m_speed * (dt);
+    if (ev.type != sf::Event::KeyPressed) {
         return;
     }
-    if (ev->key.code == sf::Keyboard::Up) {
+    if (ev.key.code == sf::Keyboard::Up) {
         m_position.x += std::cos(m_angle.y) * fixedSpeed;
         m_position.z += std::sin(m_angle.y) * fixedSpeed;
     }
-    if (ev->key.code == sf::Keyboard::Down) {
+    if (ev.key.code == sf::Keyboard::Down) {
         m_position.x -= std::cos(m_angle.y) * fixedSpeed;
         m_position.z -= std::sin(m_angle.y) * fixedSpeed;
     }
-    if (ev->key.code == sf::Keyboard::Left) {
+    if (ev.key.code == sf::Keyboard::Left) {
         m_position.x += std::cos(m_angle.y - 3.14159f / 2) * fixedSpeed;
         m_position.z += std::sin(m_angle.y - 3.14159f / 2) * fixedSpeed;
     }
-    if (ev->key.code == sf::Keyboard::Right) {
+    if (ev.key.code == sf::Keyboard::Right) {
         m_position.x -= std::cos(m_angle.y - 3.14159f / 2) * fixedSpeed;
         m_position.z -= std::sin(m_angle.y - 3.14159f / 2) * fixedSpeed;
     }
-    if (ev->key.code == sf::Keyboard::RControl) {
+    if (ev.key.code == sf::Keyboard::RControl) {
         m_position.y -= fixedSpeed;
     }
-    if (ev->key.code == sf::Keyboard::RShift) {
+    if (ev.key.code == sf::Keyboard::RShift) {
         m_position.y += fixedSpeed;
     }
-    if (ev->key.code == sf::Keyboard::LAlt) {
+    if (ev.key.code == sf::Keyboard::LAlt) {
         m_angle.y += 0.1f;
     }
-    if (ev->key.code == sf::Keyboard::LShift) {
+    if (ev.key.code == sf::Keyboard::LShift) {
         m_angle.y -= 0.1f;
     }
-    if (ev->key.code == sf::Keyboard::LControl) {
+    if (ev.key.code == sf::Keyboard::LControl) {
         m_angle.x += 0.1f;
     }
-    if (ev->key.code == 40) {
+    if (ev.key.code == 40) {
         m_angle.x -= 0.1f;
     }
 }
