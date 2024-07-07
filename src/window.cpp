@@ -1,3 +1,5 @@
+#define ANTIALIASING 0
+
 #include "window.hpp"
 #include <SFML/Graphics/Color.hpp>
 #include <SFML/Window/Keyboard.hpp>
@@ -62,8 +64,8 @@ void Window::repaint(float& dt, Camera& cam, Scene& scn, sf::Event& ev) {
                     this->m_acumulation[index].r/this->m_frames, 
                     this->m_acumulation[index].g/this->m_frames, 
                     this->m_acumulation[index].b/this->m_frames);
-            
-            /*this->m_buffer.setPixel(x, y, fcolor);
+#if ANTIALIASING            
+            this->m_buffer.setPixel(x, y, fcolor);
             
             // antialiasing
             if (x < 1 || x > buff_v.x-1 || y < 1 || y > buff_v.y-1) {
@@ -90,7 +92,7 @@ void Window::repaint(float& dt, Camera& cam, Scene& scn, sf::Event& ev) {
             fcolor = sf::Color(static_cast<sf::Uint8>(r), 
                                static_cast<sf::Uint8>(g), 
                                static_cast<sf::Uint8>(b));
-            */
+#endif            
             this->m_buffer.setPixel(x, y, resetAccumulation ? col : fcolor);
         });
     });

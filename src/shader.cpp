@@ -22,14 +22,14 @@ sf::Color col = sf::Color(sc.r * 255, sc.g * 255, sc.b * 255);
 Ray ray = cam.ray[index];
 cam.cast(x, y, buff_v);
 
-int bounces = 4;
+int bounces = 10;
 for (int i = 0; i < bounces; i++) {
-    float importance = static_cast<float>(bounces - i) / bounces;
+    float importance = static_cast<float>(bounces - i*2) / bounces;
     importance = importance<0?0:importance;
 
     std::vector<float> times;
     for (int j = 0; j < scn.sphere().size()+scn.triangle().size()-2; j++) {
-        times.push_back(scn.object(j).checkCollision(ray));
+        times.emplace_back(scn.object(j).checkCollision(ray));
     }
     auto t = std::min_element(times.begin(), times.end(), [](float a, float b) {
         return std::abs(a) < std::abs(b); 

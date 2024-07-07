@@ -9,15 +9,16 @@ struct Object {
 	Material material;
 	glm::vec3 center;
 	float radius;
-	glm::vec3 vertex[3];
+	glm::vec3 sides[2];
 	glm::vec3 normal;
 
 	Object(const glm::vec3& cen, float rad, glm::vec3 c, float e, float r, const std::string &pa)
         : center(cen), radius(rad), material(c,e,r,pa) {}
 
-    Object(const glm::vec3 verts[3], glm::vec3 c, float e, float r, const std::string &pa)
-        : material(c,e,r,pa) {
-        std::copy(verts, verts + 3, vertex);
+    Object(const glm::vec3& cen ,const glm::vec3 verts[2], glm::vec3 c, float e, float r, const std::string &pa)
+        : material(c,e,r,pa), center(cen) {
+		this->normal = glm::normalize(glm::cross(verts[0], verts[1]));
+        std::copy(verts, verts + 2, sides);
     }
 
     virtual ~Object() = default;

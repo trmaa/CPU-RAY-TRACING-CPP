@@ -63,15 +63,15 @@ public:
 			this->m_sphere.emplace_back(center, radius, color, emission, roughness, path);
 		}
 		for (const auto& obj : data["triangle"]) {
-			glm::vec3 vertex[3];
-			vertex[0] = glm::vec3(obj["v0"][0], obj["v0"][1], obj["v0"][2]);
-			vertex[1] = glm::vec3(obj["v1"][0], obj["v1"][1], obj["v1"][2]);
-			vertex[2] = glm::vec3(obj["v2"][0], obj["v2"][1], obj["v2"][2]);
+			glm::vec3 center(obj["center"][0], obj["center"][1], obj["center"][2]);
+			glm::vec3 sides[2];
+			sides[0] = glm::vec3(obj["s0"][0], obj["s0"][1], obj["s0"][2]);
+			sides[1] = glm::vec3(obj["s1"][0], obj["s1"][1], obj["s1"][2]);
 			glm::vec3 color(obj["color"][0], obj["color"][1], obj["color"][2]);
 			float emission = obj["emission"];
 			float roughness = static_cast<float>(obj["roughness"]);
 			std::string path = obj["texture"];
-			this->m_triangle.emplace_back(vertex, color, emission, roughness, path);
+			this->m_triangle.emplace_back(center, sides, color, emission, roughness, path);
 		}
 		for (Sphere s : this->m_sphere) {
 			this->m_object.emplace_back(s);
