@@ -23,7 +23,7 @@
 			"color": [255, 255, 255],
 			"emission": 1,
 			"roughness": 0,
-			"texture": "./texture/wood.jpg"
+			"texture": "./bin/texture/wood.jpg"
 		},
 		{
 			"center": [0, 0, 0],
@@ -31,7 +31,7 @@
 			"color": [255, 150, 50],
 			"emission": 1,
 			"roughness": 0,
-			"texture": "./texture/stars.jpg"
+			"texture": "./bin/texture/stars.jpg"
 		}
 	],
 	"triangle": [

@@ -1,24 +1,38 @@
 #!/bin/bash
 
 if_file() {
-	local file="$1"
-	local callback=$2
-	local error_callback=$3
-	
-	if [ -f "$file" ]; then 
+	path="$1"
+	callback=$2
+
+	if [ -f $path ]; then
 		$callback
-	elif [ -n "$error_callback" ]; then
-		$error_callback
 	fi
 }
 
-path="./bin/raytracer"
+#paths
+SOURCE="./src/*.cpp"
+OUTPUT="./bin/asteroids"
+FLAGS="-lsfml-graphics -lsfml-window -lsfml-system"
+INCLUDE="./include/"
+LIBS="./lib/"
 
-main() {
-	clear
-	if_file $path "rm $path"
-	g++ -o $path ./src/*.cpp -lsfml-graphics -lsfml-window -lsfml-system
-	if_file $path $path "echo srry..."
+clean() {
+	if_file $OUTPUT "rm $OUTPUT"
 }
 
-main
+build () {
+	g++ $SOURCE -o $OUTPUT -I$LIBS -I$INCLUDE $FLAGS
+}
+
+run() {
+	$OUTPUT
+}
+
+main() {
+	$1
+	$2
+	$3
+}
+
+#callbacks ment to be clean, build or run
+main $1 $2 $3
