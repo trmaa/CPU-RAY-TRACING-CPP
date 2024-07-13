@@ -1,0 +1,58 @@
+[
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-c",
+      "-I./lib/",
+      "-I./include/",
+      "-o",
+      "./bin/asteroids",
+      "./src/camera.cpp"
+    ],
+    "directory": "/home/pablo/Desktop/Ray-Tracing-renderer-real-time-C-vanilla",
+    "file": "/home/pablo/Desktop/Ray-Tracing-renderer-real-time-C-vanilla/src/camera.cpp",
+    "output": "/home/pablo/Desktop/Ray-Tracing-renderer-real-time-C-vanilla/bin/asteroids"
+  },
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-c",
+      "-I./lib/",
+      "-I./include/",
+      "-o",
+      "./bin/asteroids",
+      "./src/main.cpp"
+    ],
+    "directory": "/home/pablo/Desktop/Ray-Tracing-renderer-real-time-C-vanilla",
+    "file": "/home/pablo/Desktop/Ray-Tracing-renderer-real-time-C-vanilla/src/main.cpp",
+    "output": "/home/pablo/Desktop/Ray-Tracing-renderer-real-time-C-vanilla/bin/asteroids"
+  },
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-c",
+      "-I./lib/",
+      "-I./include/",
+      "-o",
+      "./bin/asteroids",
+      "./src/shader.cpp"
+    ],
+    "directory": "/home/pablo/Desktop/Ray-Tracing-renderer-real-time-C-vanilla",
+    "file": "/home/pablo/Desktop/Ray-Tracing-renderer-real-time-C-vanilla/src/shader.cpp",
+    "output": "/home/pablo/Desktop/Ray-Tracing-renderer-real-time-C-vanilla/bin/asteroids"
+  },
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-c",
+      "-I./lib/",
+      "-I./include/",
+      "-o",
+      "./bin/asteroids",
+      "./src/window.cpp"
+    ],
+    "directory": "/home/pablo/Desktop/Ray-Tracing-renderer-real-time-C-vanilla",
+    "file": "/home/pablo/Desktop/Ray-Tracing-renderer-real-time-C-vanilla/src/window.cpp",
+    "output": "/home/pablo/Desktop/Ray-Tracing-renderer-real-time-C-vanilla/bin/asteroids"
+  }
+]

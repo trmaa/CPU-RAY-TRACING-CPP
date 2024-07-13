@@ -13,7 +13,10 @@ struct Object {
 	glm::vec3 normal;
 
 	Object(const glm::vec3& cen, float rad, glm::vec3 c, float e, float r, const std::string &pa)
-        : center(cen), radius(rad), material(c,e,r,pa) {}
+        : material(c,e,r,pa) {
+		radius = rad;
+		center = cen;
+	}
 
     Object(const glm::vec3& cen ,const glm::vec3 verts[2], glm::vec3 c, float e, float r, const std::string &pa)
         : material(c,e,r,pa), center(cen) {

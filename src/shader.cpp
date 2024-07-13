@@ -28,7 +28,7 @@ for (int i = 0; i < bounces; i++) {
     importance = importance<0?0:importance;
 
     std::vector<float> times;
-    for (int j = 0; j < scn.sphere().size()+scn.triangle().size()-2; j++) {
+    for (int j = 0; j < scn.sphere().size(); j++) {//+scn.triangle().size()-2; j++) {
         times.emplace_back(scn.object(j).checkCollision(ray));
     }
     auto t = std::min_element(times.begin(), times.end(), [](float a, float b) {
