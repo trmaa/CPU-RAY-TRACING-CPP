@@ -40,10 +40,11 @@ public:
 
 	const std::vector<Object>& object() const { return this->m_object; }
 	const Object& object(const int index) const {
-		if (this->m_sphere.size() > index) {
+		try {	
 			return this->m_sphere[index];
+		} catch (std::string error) {
+			return this->m_triangle[index];
 		}
-		return this->m_triangle[index];
 	}
 
 	glm::vec3& sky_color() { return this->m_sky_color; }

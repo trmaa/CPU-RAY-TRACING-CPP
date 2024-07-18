@@ -10,6 +10,7 @@
 #include <glm/ext/vector_float3.hpp>
 #include <glm/ext/vector_int2.hpp>
 #include <glm/geometric.hpp>
+#include <string>
 #include <vector>
 
 sf::Color shader(int& x, int& y, glm::ivec2& buff_v, Camera& cam, Scene& scn, sf::Color& lastCol) 
@@ -28,7 +29,10 @@ for (int i = 0; i < bounces; i++) {
     importance = importance<0?0:importance;
 
     std::vector<float> times;
-    for (int j = 0; j < scn.sphere().size(); j++) {//+scn.triangle().size()-2; j++) {
+    for (int j = 0; j < scn.sphere().size(); j++) {
+        times.emplace_back(scn.object(j).checkCollision(ray));
+    }
+    for (int j = 0; j < scn.triangle().size(); j++) {
         times.emplace_back(scn.object(j).checkCollision(ray));
     }
     auto t = std::min_element(times.begin(), times.end(), [](float a, float b) {
@@ -49,9 +53,9 @@ for (int i = 0; i < bounces; i++) {
 
     glm::vec3 hitPoint = ray.f(*t);
     glm::vec3 normal;
-    if (scn.sphere().size() > id) {
+    try {
         normal = glm::normalize(hitPoint - object.center);
-    } else {
+    } catch (std::string err) {
         normal = object.normal;
         if (glm::dot(ray.direction, normal) > 3.14159f/2) {
 			normal = normal*(-1.f);
