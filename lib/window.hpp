@@ -10,8 +10,8 @@
 #include <glm/glm.hpp>
 #include <string>
 #include <vector>
-#include "./camera.hpp"
-#include "./scene.hpp"
+#include "camera.hpp"
+#include "scene.hpp"
 
 sf::Color shader(int& x, int& y, glm::ivec2& buff_v, Camera& cam, Scene& scn, sf::Color& lastCol);
 

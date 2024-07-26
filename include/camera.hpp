@@ -9,7 +9,7 @@
 #include <glm/ext/vector_int2.hpp>
 #include <glm/glm.hpp>
 #include <vector>
-#include "./ray.hpp"
+#include "ray.hpp"
 
 class Camera {
 private:

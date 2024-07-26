@@ -3,9 +3,9 @@
 #include <cstdlib>
 #include <iostream>
 #include <string>
-#include "./window.hpp"
-#include "./camera.hpp"
-#include "./scene.hpp"
+#include "window.hpp"
+#include "camera.hpp"
+#include "scene.hpp"
 
 static int w = static_cast<int>(1280/5);
 static int h = static_cast<int>(720/5);

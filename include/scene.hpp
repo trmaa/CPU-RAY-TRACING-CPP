@@ -1,10 +1,10 @@
 #ifndef SCENE_HPP
 #define SCENE_HPP
 
-#include "./json.hpp"
-#include "./object.hpp"
-#include "./triangle.hpp"
-#include "./sphere.hpp"
+#include "json.hpp"
+#include "object.hpp"
+#include "triangle.hpp"
+#include "sphere.hpp"
 #include <fstream>
 #include <future>
 #include <glm/detail/qualifier.hpp>

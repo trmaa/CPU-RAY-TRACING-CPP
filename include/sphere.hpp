@@ -4,7 +4,7 @@
 #include <cmath>
 #include <glm/ext/vector_float3.hpp>
 #include <glm/glm.hpp>
-#include "./ray.hpp"
+#include "ray.hpp"
 #include "object.hpp"
 
 struct Sphere: public Object {

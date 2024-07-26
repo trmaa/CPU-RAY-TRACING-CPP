@@ -3,56 +3,56 @@
     "arguments": [
       "/usr/bin/g++",
       "-c",
-      "-I./lib/",
       "-I./include/",
+      "-I./lib/",
       "-o",
-      "./bin/asteroids",
+      "./bin/app",
       "./src/camera.cpp"
     ],
     "directory": "/home/pablo/Desktop/Ray-Tracing-renderer-real-time-C-vanilla",
     "file": "/home/pablo/Desktop/Ray-Tracing-renderer-real-time-C-vanilla/src/camera.cpp",
-    "output": "/home/pablo/Desktop/Ray-Tracing-renderer-real-time-C-vanilla/bin/asteroids"
+    "output": "/home/pablo/Desktop/Ray-Tracing-renderer-real-time-C-vanilla/bin/app"
   },
   {
     "arguments": [
       "/usr/bin/g++",
       "-c",
-      "-I./lib/",
       "-I./include/",
+      "-I./lib/",
       "-o",
-      "./bin/asteroids",
+      "./bin/app",
       "./src/main.cpp"
     ],
     "directory": "/home/pablo/Desktop/Ray-Tracing-renderer-real-time-C-vanilla",
     "file": "/home/pablo/Desktop/Ray-Tracing-renderer-real-time-C-vanilla/src/main.cpp",
-    "output": "/home/pablo/Desktop/Ray-Tracing-renderer-real-time-C-vanilla/bin/asteroids"
+    "output": "/home/pablo/Desktop/Ray-Tracing-renderer-real-time-C-vanilla/bin/app"
   },
   {
     "arguments": [
       "/usr/bin/g++",
       "-c",
-      "-I./lib/",
       "-I./include/",
+      "-I./lib/",
       "-o",
-      "./bin/asteroids",
+      "./bin/app",
       "./src/shader.cpp"
     ],
     "directory": "/home/pablo/Desktop/Ray-Tracing-renderer-real-time-C-vanilla",
     "file": "/home/pablo/Desktop/Ray-Tracing-renderer-real-time-C-vanilla/src/shader.cpp",
-    "output": "/home/pablo/Desktop/Ray-Tracing-renderer-real-time-C-vanilla/bin/asteroids"
+    "output": "/home/pablo/Desktop/Ray-Tracing-renderer-real-time-C-vanilla/bin/app"
   },
   {
     "arguments": [
       "/usr/bin/g++",
       "-c",
-      "-I./lib/",
       "-I./include/",
+      "-I./lib/",
       "-o",
-      "./bin/asteroids",
+      "./bin/app",
       "./src/window.cpp"
     ],
     "directory": "/home/pablo/Desktop/Ray-Tracing-renderer-real-time-C-vanilla",
     "file": "/home/pablo/Desktop/Ray-Tracing-renderer-real-time-C-vanilla/src/window.cpp",
-    "output": "/home/pablo/Desktop/Ray-Tracing-renderer-real-time-C-vanilla/bin/asteroids"
+    "output": "/home/pablo/Desktop/Ray-Tracing-renderer-real-time-C-vanilla/bin/app"
   }
 ]

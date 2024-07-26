@@ -1,7 +1,7 @@
-#include "./window.hpp"
-#include "./random.hpp"
-#include "./camera.hpp"
-#include "./scene.hpp"
+#include "window.hpp"
+#include "random.hpp"
+#include "camera.hpp"
+#include "scene.hpp"
 #include "object.hpp"
 #include <SFML/Graphics/Color.hpp>
 #include <algorithm>

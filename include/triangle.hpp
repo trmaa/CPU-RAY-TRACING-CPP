@@ -1,7 +1,7 @@
 #ifndef TRIANGLE_HPP
 #define TRIANGLE_HPP
 
-#include "./object.hpp"
+#include "object.hpp"
 #include "ray.hpp"
 #include <glm/ext/vector_float3.hpp>
 #include <glm/geometric.hpp>
@@ -28,7 +28,7 @@ struct Triangle: public Object{
 			glm::vec3 BC = C - B;
 			glm::vec3 BH = hitp - B;
 
-			float ABC = (float)std::acos(glm::dot(BA, BC)) / (BA.length() * BC.length());
+			//float ABC = (float)std::acos(glm::dot(BA, BC)) / (BA.length() * BC.length());
 
 			float a = ((BC.y * BH.x) - (BC.x * BH.y)) / ((BC.y * BA.x) - (BC.x * BA.y));
 			float b = ((BA.y * BH.x) - (BA.x * BH.y)) / ((BA.y * BC.x) - (BA.x * BC.y));

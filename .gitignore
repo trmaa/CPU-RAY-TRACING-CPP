@@ -1,2 +1,3 @@
 ./mapmeker_src/node_modules/*
 ./bin/mapmaker/src/node_modules/*
+./cache/
