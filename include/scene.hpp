@@ -19,7 +19,7 @@ private:
 	glm::vec3 m_sky_color;
 	std::vector<Sphere> m_sphere;
 	std::vector<Triangle> m_triangle;
-	std::vector<Object> m_object;
+
 private:
 	static nl::json readJson(const std::string& fpath) {
 		std::ifstream file(fpath);
@@ -31,6 +31,7 @@ private:
 		file >> data;
 		return data;
 	}
+	
 public:
 	const std::vector<Sphere>& sphere() const { return this->m_sphere; }
 	const Sphere& sphere(const int index) const { return this->m_sphere[index]; }
@@ -38,12 +39,13 @@ public:
 	const std::vector<Triangle>& triangle() const { return this->m_triangle; }
 	const Triangle& triangle(const int index) const { return this->m_triangle[index]; }
 
-	const std::vector<Object>& object() const { return this->m_object; }
 	const Object& object(const int index) const {
-		try {	
-			return this->m_sphere[index];
-		} catch (std::string error) {
+		if (index < this->m_triangle.size()) {
 			return this->m_triangle[index];
+		} else if (index < this->m_triangle.size() + this->m_sphere.size()) {
+			return this->m_sphere[index - this->m_triangle.size()];
+		} else {
+			throw std::out_of_range("Index out of bounds in Scene::object()");
 		}
 	}
 
@@ -61,7 +63,7 @@ public:
 			float emission = obj["emission"];
 			float roughness = static_cast<float>(obj["roughness"]);
 			std::string path = obj["texture"];
-			this->m_sphere.emplace_back(center, radius, color, emission, roughness, path);
+			this->m_sphere.push_back(Sphere(center, radius, color, emission, roughness, path));
 		}
 		for (const auto& obj : data["triangle"]) {
 			glm::vec3 center(obj["center"][0], obj["center"][1], obj["center"][2]);
@@ -72,13 +74,7 @@ public:
 			float emission = obj["emission"];
 			float roughness = static_cast<float>(obj["roughness"]);
 			std::string path = obj["texture"];
-			this->m_triangle.emplace_back(center, sides, color, emission, roughness, path);
-		}
-		for (Sphere s : this->m_sphere) {
-			this->m_object.emplace_back(s);
-		}
-		for (Triangle t : this->m_triangle) {
-			this->m_object.emplace_back(t);
+			this->m_triangle.push_back(Triangle(center, sides, color, emission, roughness, path));
 		}
 		this->m_sky_color = glm::vec3(data["sky"][0],data["sky"][1],data["sky"][2]);	
 	}

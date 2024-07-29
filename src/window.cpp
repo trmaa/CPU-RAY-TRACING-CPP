@@ -1,3 +1,4 @@
+#include <SFML/Graphics/CircleShape.hpp>
 #define ANTIALIASING 0
 
 #include "window.hpp"
@@ -15,7 +16,7 @@ Window::Window(int w, int h, std::string text)
     this->m_display.create(sf::VideoMode(w, h), text);
     this->m_buffer.create(w, h);
 
-    if (!this->m_font.loadFromFile("./fonts/pixelmix.ttf")) {
+    if (!this->m_font.loadFromFile("./bin/fonts/pixelmix.ttf")) {
         std::cerr << ":) no font" << std::endl;
     }
 
@@ -102,9 +103,28 @@ void Window::repaint(float& dt, Camera& cam, Scene& scn, sf::Event& ev) {
     float scale = static_cast<float>(this->m_display.getSize().x) / buff_v.x;
     this->m_sprite.setScale(scale, scale);
 
-    this->m_display.clear();
+    this->m_display.clear(); 
+
     this->m_display.draw(this->m_sprite);
     this->m_display.draw(this->m_fpsText);
+
+    sf::CircleShape camera;
+    camera.setPosition(cam.position().x+this->m_display.getSize().x/2,
+            cam.position().z+this->m_display.getSize().y/2);
+    camera.setFillColor(sf::Color(255, 255, 0));
+    camera.setRadius(10);
+    this->m_display.draw(camera);
+
+    for (int i = 0; i < scn.triangle().size()+scn.sphere().size()-1; i++) {
+        sf::CircleShape plane;
+        plane.setPosition(scn.object(i).center.x+this->m_display.getSize().x/2, 
+                scn.object(i).center.z+this->m_display.getSize().y/2);
+        plane.setFillColor(sf::Color(255,0,255));
+        plane.setRadius(10);
+
+        this->m_display.draw(plane);
+    }
+
     this->m_display.display();
 
     if (ev.key.code == sf::Keyboard::Tab) {

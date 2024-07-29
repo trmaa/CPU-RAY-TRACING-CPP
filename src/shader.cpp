@@ -30,10 +30,10 @@ for (int i = 0; i < bounces; i++) {
 
     std::vector<float> times;
     for (int j = 0; j < scn.sphere().size(); j++) {
-        times.emplace_back(scn.object(j).checkCollision(ray));
+        times.push_back(scn.object(j).checkCollision(ray));
     }
     for (int j = 0; j < scn.triangle().size(); j++) {
-        times.emplace_back(scn.object(j).checkCollision(ray));
+        times.push_back(scn.object(j).checkCollision(ray));
     }
     auto t = std::min_element(times.begin(), times.end(), [](float a, float b) {
         return std::abs(a) < std::abs(b); 
@@ -70,13 +70,14 @@ for (int i = 0; i < bounces; i++) {
             return col;
         }
         sf::Color lc = lastCol;
-        glm::vec3 nc = glm::normalize(glm::vec3(lc.r, lc.g, lc.b))
-            *glm::vec3(tc.r, tc.g, tc.b)*object.material.emission;
+        glm::vec3 nc = glm::vec3(lc.r, lc.g, lc.b)
+            *glm::normalize(glm::vec3(tc.r, tc.g, tc.b)*object.material.emission);
         col = sf::Color(nc.r, nc.g, nc.b);
         return col;
     }
 
     sf::Color tC = object.material.txtr(normal);
+    lastCol = tC;
     glm::vec3 color = glm::vec3(tC.r, tC.g, tC.b) * importance;
     col = sf::Color(color.r, color.g, color.b);
 
@@ -90,9 +91,6 @@ for (int i = 0; i < bounces; i++) {
     }
 
     ray = Ray(hitPoint + normal * 0.001f, (reflected_direction + diffusion));
-
-    lastCol = col;
 }
 return col;
-
 }

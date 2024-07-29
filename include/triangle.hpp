@@ -14,31 +14,17 @@ struct Triangle: public Object{
 	~Triangle() = default;
 
 	const float checkCollision(const Ray& ray) const override {
-        float D = glm::dot(this->normal, this->center);
-		float t = (glm::dot(D-this->normal, ray.origin))/glm::dot(this->normal, ray.direction);
-
-		if(t > 0){
-			glm::vec3 hitp = ray.f(t);
-			
-			glm::vec3 A = this->center;
-			glm::vec3 B = this->sides[0] + A;
-			glm::vec3 C = this->sides[1] + A;
-
-			glm::vec3 BA = A - B;
-			glm::vec3 BC = C - B;
-			glm::vec3 BH = hitp - B;
-
-			//float ABC = (float)std::acos(glm::dot(BA, BC)) / (BA.length() * BC.length());
-
-			float a = ((BC.y * BH.x) - (BC.x * BH.y)) / ((BC.y * BA.x) - (BC.x * BA.y));
-			float b = ((BA.y * BH.x) - (BA.x * BH.y)) / ((BA.y * BC.x) - (BA.x * BC.y));
-
-			if (a >= 0 && b >= 0 && (a + b) <= 1){
-				return t;
-			}
+		float denom = glm::dot(this->normal, ray.direction);
+		
+		if (std::abs(denom) < 0.0001f) {
+			return -1.0f;
 		}
-		return 0;
-    }
+
+		glm::vec3 plane_to_ray_origin = ray.origin - this->center;
+		float t = -glm::dot(this->normal, plane_to_ray_origin) / denom;
+		
+		return t;
+	}
 };
 
 #endif
