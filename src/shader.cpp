@@ -29,10 +29,7 @@ for (int i = 0; i < bounces; i++) {
     importance = importance<0?0:importance;
 
     std::vector<float> times;
-    for (int j = 0; j < scn.sphere().size(); j++) {
-        times.push_back(scn.object(j).checkCollision(ray));
-    }
-    for (int j = 0; j < scn.triangle().size(); j++) {
+    for (int j = 0; j < scn.sphere().size()+scn.triangle().size(); j++) {
         times.push_back(scn.object(j).checkCollision(ray));
     }
     auto t = std::min_element(times.begin(), times.end(), [](float a, float b) {
@@ -43,23 +40,25 @@ for (int i = 0; i < bounces; i++) {
 
     if (*t < 0) {
         if (i < 1) {
+            lastCol = col;
             return col;
         }
         sf::Color lc = lastCol;
         glm::vec3 nc = sc * glm::vec3(lc.r, lc.g, lc.b) * importance;
         col = sf::Color(nc.r, nc.g, nc.b);
+        lastCol = col;
         return col;
     }
 
     glm::vec3 hitPoint = ray.f(*t);
     glm::vec3 normal;
-    try {
-        normal = glm::normalize(hitPoint - object.center);
-    } catch (std::string err) {
+    if (object.type() == "Triangle") {
         normal = object.normal;
         if (glm::dot(ray.direction, normal) > 3.14159f/2) {
 			normal = normal*(-1.f);
 		}
+    } else {
+        normal = glm::normalize(hitPoint - object.center);
     }
 
     if (object.material.emission > 0) {
@@ -67,18 +66,23 @@ for (int i = 0; i < bounces; i++) {
         if (i < 1) {
             glm::vec3 nc = object.material.emission*glm::vec3(tc.r, tc.g, tc.b);
             col = sf::Color(nc.r, nc.g, nc.b);
+            lastCol = col;
             return col;
         }
         sf::Color lc = lastCol;
         glm::vec3 nc = glm::vec3(lc.r, lc.g, lc.b)
             *glm::normalize(glm::vec3(tc.r, tc.g, tc.b)*object.material.emission);
         col = sf::Color(nc.r, nc.g, nc.b);
+        lastCol = col;
         return col;
     }
 
     sf::Color tC = object.material.txtr(normal);
-    lastCol = tC;
-    glm::vec3 color = glm::vec3(tC.r, tC.g, tC.b) * importance;
+    if (i < 1 || object.material.roughness > 1000) {
+        lastCol = tC;
+    }
+    glm::vec3 lc = glm::vec3(lastCol.r, lastCol.g, lastCol.b);
+    glm::vec3 color = lc * glm::vec3(tC.r, tC.g, tC.b) * importance;
     col = sf::Color(color.r, color.g, color.b);
 
     glm::vec3 reflected_direction = ray.direction - 2.0f * glm::dot(ray.direction, normal) * normal;
@@ -92,5 +96,6 @@ for (int i = 0; i < bounces; i++) {
 
     ray = Ray(hitPoint + normal * 0.001f, (reflected_direction + diffusion));
 }
+lastCol = col;
 return col;
 }

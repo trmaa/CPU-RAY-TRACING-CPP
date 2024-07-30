@@ -37,6 +37,10 @@ struct Sphere: public Object {
 			return -1.0f;
 		}
 	}
+
+	const std::string type() const override {
+		return "Sphere";
+	}
 };
 
 #endif

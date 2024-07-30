@@ -109,16 +109,16 @@ void Window::repaint(float& dt, Camera& cam, Scene& scn, sf::Event& ev) {
     this->m_display.draw(this->m_fpsText);
 
     sf::CircleShape camera;
-    camera.setPosition(cam.position().x+this->m_display.getSize().x/2,
-            cam.position().z+this->m_display.getSize().y/2);
+    camera.setPosition(0.1f*cam.position().x+this->m_display.getSize().x/2,
+            0.1f*cam.position().z+this->m_display.getSize().y/2);
     camera.setFillColor(sf::Color(255, 255, 0));
     camera.setRadius(10);
     this->m_display.draw(camera);
 
     for (int i = 0; i < scn.triangle().size()+scn.sphere().size()-1; i++) {
         sf::CircleShape plane;
-        plane.setPosition(scn.object(i).center.x+this->m_display.getSize().x/2, 
-                scn.object(i).center.z+this->m_display.getSize().y/2);
+        plane.setPosition(0.1f*scn.object(i).center.x+this->m_display.getSize().x/2, 
+                0.1f*scn.object(i).center.z+this->m_display.getSize().y/2);
         plane.setFillColor(sf::Color(255,0,255));
         plane.setRadius(10);
 

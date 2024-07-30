@@ -4,6 +4,7 @@
 #include "material.hpp"
 #include "ray.hpp"
 #include <glm/ext/vector_float3.hpp>
+#include <string>
 
 struct Object {
 	Material material;
@@ -25,7 +26,11 @@ struct Object {
     }
 
     virtual ~Object() = default;
-
+	
+	virtual const std::string type() const {
+		return "Object";
+	}
+	
 	virtual const float checkCollision(const Ray& ray) const {
 		return 0.f;
 	}

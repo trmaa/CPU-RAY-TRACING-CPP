@@ -14,16 +14,27 @@ struct Triangle: public Object{
 	~Triangle() = default;
 
 	const float checkCollision(const Ray& ray) const override {
-		float denom = glm::dot(this->normal, ray.direction);
-		
-		if (std::abs(denom) < 0.0001f) {
-			return -1.0f;
+		// Calculate the denominator of the intersection formula
+		float denominator = glm::dot(ray.direction, this->normal);
+
+		// Check if the ray is parallel to the plane
+		if (glm::abs(denominator) > 1e-6) { // Use a small epsilon to avoid division by zero
+			// Calculate the numerator of the intersection formula
+			glm::vec3 diff = this->center - ray.origin;
+			float t = glm::dot(diff, this->normal) / denominator;
+			
+			// Check if t is positive, as we are only interested in intersections in the direction of the ray
+			if (t >= 0.0f) {
+				return t;
+			}
 		}
 
-		glm::vec3 plane_to_ray_origin = ray.origin - this->center;
-		float t = -glm::dot(this->normal, plane_to_ray_origin) / denom;
-		
-		return t;
+		// If the ray is parallel to the plane or t is negative, there is no intersection
+		return -1.0f; // Use -1.0f to indicate no intersection
+	}
+
+	const std::string type() const override {
+		return "Triangle";
 	}
 };
 
