@@ -4,6 +4,7 @@
 #include "scene.hpp"
 #include "object.hpp"
 #include <SFML/Graphics/Color.hpp>
+#include <SFML/Window/Keyboard.hpp>
 #include <algorithm>
 #include <cstdio>
 #include <glm/detail/qualifier.hpp>
@@ -70,19 +71,16 @@ for (int i = 0; i < bounces; i++) {
             return col;
         }
         sf::Color lc = lastCol;
-        glm::vec3 nc = glm::vec3(lc.r, lc.g, lc.b)
-            *glm::normalize(glm::vec3(tc.r, tc.g, tc.b)*object.material.emission);
+        glm::vec3 nc = glm::normalize(glm::vec3(lc.r, lc.g, lc.b))
+            *glm::vec3(tc.r, tc.g, tc.b)*object.material.emission;
         col = sf::Color(nc.r, nc.g, nc.b);
         lastCol = col;
         return col;
     }
 
     sf::Color tC = object.material.txtr(normal);
-    if (i < 1 || object.material.roughness > 1000) {
-        lastCol = tC;
-    }
-    glm::vec3 lc = glm::vec3(lastCol.r, lastCol.g, lastCol.b);
-    glm::vec3 color = lc * glm::vec3(tC.r, tC.g, tC.b) * importance;
+    lastCol = tC;
+    glm::vec3 color = glm::vec3(tC.r, tC.g, tC.b) * importance;
     col = sf::Color(color.r, color.g, color.b);
 
     glm::vec3 reflected_direction = ray.direction - 2.0f * glm::dot(ray.direction, normal) * normal;
