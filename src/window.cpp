@@ -1,5 +1,5 @@
 #include <SFML/Graphics/CircleShape.hpp>
-#define ANTIALIASING 0
+#define ANTIALIASING 1
 
 #include "window.hpp"
 #include <SFML/Graphics/Color.hpp>

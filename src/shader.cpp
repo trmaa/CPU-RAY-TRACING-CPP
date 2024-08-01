@@ -6,6 +6,7 @@
 #include <SFML/Graphics/Color.hpp>
 #include <SFML/Window/Keyboard.hpp>
 #include <algorithm>
+#include <complex>
 #include <cstdio>
 #include <glm/detail/qualifier.hpp>
 #include <glm/ext/vector_float3.hpp>
@@ -55,15 +56,16 @@ for (int i = 0; i < bounces; i++) {
     glm::vec3 normal;
     if (object.type() == "Triangle") {
         normal = object.normal;
-        if (glm::dot(ray.direction, normal) > 3.14159f/2) {
-			normal = normal*(-1.f);
-		}
     } else {
-        normal = glm::normalize(hitPoint - object.center);
+        normal = glm::normalize(object.center-hitPoint);
+        
     }
+    if (glm::dot(ray.direction, normal) > 3.14159f/2) {	
+        normal = normal*(-1.f);
+	}
 
     if (object.material.emission > 0) {
-        sf::Color tc = object.material.txtr(normal);
+        sf::Color tc = object.type()=="Triangle"?object.material.txtr(ray.f(*t), object.center, normal):object.material.txtr(normal);
         if (i < 1) {
             glm::vec3 nc = object.material.emission*glm::vec3(tc.r, tc.g, tc.b);
             col = sf::Color(nc.r, nc.g, nc.b);
@@ -78,7 +80,7 @@ for (int i = 0; i < bounces; i++) {
         return col;
     }
 
-    sf::Color tC = object.material.txtr(normal);
+    sf::Color tC = object.type()=="Triangle"?object.material.txtr(ray.f(*t), object.center, normal):object.material.txtr(normal);
     lastCol = tC;
     glm::vec3 color = glm::vec3(tC.r, tC.g, tC.b) * importance;
     col = sf::Color(color.r, color.g, color.b);
