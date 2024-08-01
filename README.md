@@ -9,6 +9,7 @@ Link to the unfinished document of [my thesis](https://docs.google.com/document/
 
 ## Screenshots
 ![screenshot2](./bin/img/antialiasingOn.jpg "roughnes 1")
+![screenshot2](./bin/img/nice.png "roughnes 1")
 ![screenshot1](./bin/img/triangles1.png "roughnes 0")
 ![screenshot1](./bin/img/triangles2.png "roughnes 0")
 ![screenshot1](./bin/img/triangles3.png "roughnes 0")
