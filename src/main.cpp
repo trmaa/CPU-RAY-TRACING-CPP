@@ -22,7 +22,7 @@ void loop(float& dt, sf::Event& ev) {
 	}
 }
 
-int main() {
+int main(int argc, char* argv[]) {
     std::cout << "starting..." << std::endl;
 
     sf::Clock clck;
