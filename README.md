@@ -1,6 +1,6 @@
 # Ray tracing
 This app works propperly only on linux and when build with compile.sh. the .exe is broken...
-Link to the unfinished document of [my thesis](https://docs.google.com/document/d/1WiTNyBNXwmvZ5U-SpcQe-R32jS9g18AwrN0oglSlPGA/edit?usp=sharing).
+Link to the unfinished document of [my thesis](https://docs.google.com/document/d/1KeSsijYhDNzzKu8QZtLVjfMsUvvey8fzT-DooFDNbP4/edit?usp=sharing).
 
 ## To do
 - Windows/cuda port

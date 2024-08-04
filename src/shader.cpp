@@ -23,9 +23,9 @@ sf::Color col = sf::Color(sc.r * 255, sc.g * 255, sc.b * 255);
 Ray ray = cam.ray[index];
 cam.cast(x, y, buff_v);
 
-int bounces = 10;
+int bounces = 4;
 for (int i = 0; i < bounces; i++) {
-    float importance = static_cast<float>(bounces - i*2) / bounces;
+    float importance = static_cast<float>(bounces - i*1) / bounces;
     importance = importance<0?0:importance;
 
     std::vector<float> times;
@@ -51,12 +51,12 @@ for (int i = 0; i < bounces; i++) {
     }
 
     glm::vec3 hitPoint = ray.f(*t);
+    
     glm::vec3 normal;
     if (object.type() == "Triangle") {
         normal = object.normal;
     } else {
         normal = glm::normalize(object.center-hitPoint);
-        
     }
     if (glm::dot(ray.direction, normal) > 3.14159f/2) {	
         normal = normal*(-1.f);
@@ -96,4 +96,5 @@ for (int i = 0; i < bounces; i++) {
 }
 lastCol = col;
 return col;
+
 }

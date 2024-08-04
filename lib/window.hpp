@@ -1,7 +1,7 @@
 #ifndef WINDOW_HPP
 #define WINDOW_HPP
 
-#define ANTIALIASING 1
+#define ANTIALIASING 0
 
 #include "camera.hpp"
 #include "scene.hpp"
