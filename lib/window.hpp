@@ -2,6 +2,7 @@
 #define WINDOW_HPP
 
 #define ANTIALIASING 0
+#define MAP 0
 
 #include "camera.hpp"
 #include "scene.hpp"
@@ -141,6 +142,7 @@ public:
         this->m_display.draw(this->m_sprite);
         this->m_display.draw(this->m_fpsText);
 
+#if MAP
         sf::CircleShape camera;
         camera.setPosition(0.1f*cam.position().x+this->m_display.getSize().x/2,
                 0.1f*cam.position().z+this->m_display.getSize().y/2);
@@ -157,6 +159,7 @@ public:
 
             this->m_display.draw(plane);
         }
+#endif
 
         this->m_display.display();
 

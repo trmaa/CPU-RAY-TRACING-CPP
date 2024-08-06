@@ -38,7 +38,7 @@ struct Triangle: public Object{
             float u = 1.0f - v - w;
 
             bool cond = (u >= 0.f) && (v >= 0.f) && (w >= 0.f);
-            if (cond) {
+            if (cond && t >= 0.f) {
                 return t;
             }
 		}
