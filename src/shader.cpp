@@ -23,7 +23,7 @@ sf::Color col = sf::Color(sc.r * 255, sc.g * 255, sc.b * 255);
 Ray ray = cam.ray[index];
 cam.cast(x, y, buff_v);
 
-int bounces = 4;
+int bounces = 5;
 for (int i = 0; i < bounces; i++) {
     float importance = static_cast<float>(bounces - i*1) / bounces;
     importance = importance<0?0:importance;
@@ -79,8 +79,13 @@ for (int i = 0; i < bounces; i++) {
     }
 
     sf::Color tC = object.type()=="Triangle"?object.material.txtr(ray.f(*t), object.center, normal):object.material.txtr(normal);
-    lastCol = tC;
-    glm::vec3 color = glm::vec3(tC.r, tC.g, tC.b) * importance;
+    if (i < 1) {
+        lastCol = tC;
+    } else {    
+        glm::vec3 lc = glm::vec3(lastCol.r, lastCol.g, lastCol.b) * glm::normalize(glm::vec3(tC.r, tC.g, tC.b));
+        lastCol = sf::Color(lc.r, lc.g, lc.b);
+    }
+    glm::vec3 color = glm::vec3(lastCol.r, lastCol.g, lastCol.b) * glm::normalize(glm::vec3(tC.r, tC.g, tC.b) * importance);
     col = sf::Color(color.r, color.g, color.b);
 
     glm::vec3 reflected_direction = ray.direction - 2.0f * glm::dot(ray.direction, normal) * normal;
