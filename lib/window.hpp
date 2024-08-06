@@ -31,7 +31,7 @@ private:
     sf::Font m_font;
     sf::Text m_fpsText;
     uint16_t m_fps;
-    uint8_t m_fpsLimit = 15;
+    uint8_t m_fpsLimit = 45;
 
     sf::Texture m_texture;  
     sf::Sprite m_sprite;
@@ -57,7 +57,7 @@ public:
         this->m_fpsText.setFillColor(sf::Color(0xff00ffff));
         this->m_fpsText.setPosition(10.f, 10.f);
 
-        //this->m_display.setFramerateLimit(this->m_fpsLimit);
+        this->m_display.setFramerateLimit(this->m_fpsLimit);
         
         std::iota(y_values.begin(), y_values.end(), 0); 
         std::iota(x_values.begin(), x_values.end(), 0);

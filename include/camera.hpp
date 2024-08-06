@@ -34,7 +34,7 @@ public:
     }
 
     Camera(int w, int h)
-        : m_position(0.0f,0.0f,100.f), m_angle(glm::vec3(0.0f, -3.14159f * 0.5f, 0.0f)), 
+        : m_position(-80.0f,0.0f,40.f), m_angle(glm::vec3(0.0f, -3.14159f * 0.12f, 0.0f)), 
         m_direction(0.0f), m_speed(100.0f), m_far(200.f*w/192) {
         for (int y = 0; y < h; y++) {
             for (int x = 0; x < w; x++) {
