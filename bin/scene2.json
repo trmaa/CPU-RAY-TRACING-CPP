@@ -1,0 +1,32 @@
+{
+	"sky": [0.3,0.7,0.9],
+	"sphere": [
+		{
+			"center": [0,0,0],
+			"radius": 10,
+			"color": [255,255,255],
+			"emission": 0,
+			"roughness": 3000,
+			"texture": "./bin/texture/chess.jpg"
+		},
+		{
+			"center": [0,100,0],
+			"radius": 90,
+			"color": [255,255,255],
+			"emission": 0,
+			"roughness": 3000,
+			"texture": "./bin/texture/board.jpg"
+		},
+		{
+			"center": [0,-40,-1000],
+			"radius": 950,
+			"color": [255,200,0],
+			"emission": 1,
+			"roughness": 0,
+			"texture": ""
+		}
+	],
+	"triangle": [
+		
+	]
+}

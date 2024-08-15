@@ -45,11 +45,9 @@ struct Material {
     }
 
     sf::Color txtr(glm::vec3 hitp, glm::vec3 center, glm::vec3 normal) const {
-        // Define the plane dimensions
         float planeWidth = 100.0f;
         float planeHeight = 100.0f;
 
-        // Calculate the tangent and bitangent vectors
         glm::vec3 tangent, bitangent;
         if (fabs(normal.x) > fabs(normal.y)) {
             tangent = glm::vec3(normal.z, 0, -normal.x);
@@ -59,25 +57,20 @@ struct Material {
         tangent = glm::normalize(tangent);
         bitangent = glm::normalize(glm::cross(normal, tangent));
 
-        // Calculate the local coordinates of the hit point relative to the plane center
         glm::vec3 localHitPoint = hitp - center;
         float u = glm::dot(localHitPoint, tangent) / planeWidth;
         float v = glm::dot(localHitPoint, bitangent) / planeHeight;
 
-        // Map the local coordinates to texture coordinates
-        // Assuming the texture repeats and its dimensions are texture.getSize().x by texture.getSize().y
         u = fmod(u, 1.0f);
         v = fmod(v, 1.0f);
         if (u < 0) u += 1.0f;
         if (v < 0) v += 1.0f;
 
-        // Scale texture coordinates to the image size
         unsigned int texWidth = texture.getSize().x;
         unsigned int texHeight = texture.getSize().y;
         unsigned int texX = static_cast<unsigned int>(u * texWidth);
         unsigned int texY = static_cast<unsigned int>(v * texHeight);
 
-        // Get the color from the texture
         return texture.getPixel(texX, texY);
     }
 };
