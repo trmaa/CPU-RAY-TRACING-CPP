@@ -9,16 +9,16 @@
 
 static int w = static_cast<int>(16*10);
 static int h = static_cast<int>(9*10);
+Scene scn("./bin/scene.json", w, h);
 Window win(w, h, "rtx");
 Camera cam(w, h);
-Scene scn("./bin/scene.json");
 
 void loop(float& dt, sf::Event& ev) {
     win.repaint(dt, cam, scn, ev);
     cam.move(dt, ev);
 
     if (ev.key.code == sf::Keyboard::Tab) {
-		scn = Scene("./bin/scene.json");
+		scn = Scene("./bin/scene.json", w, h);
 	}
 }
 

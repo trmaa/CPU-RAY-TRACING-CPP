@@ -43,7 +43,7 @@ public:
     sf::Image& buffer() { return this->m_buffer; }
     sf::RenderWindow& display() { return this->m_display; }
     
-    Window(int w, int h, std::string text)
+    Window(const int& w, const int& h, std::string text)
         : m_viewport(w, h), m_frames(0), m_acumulation(w * h, glm::vec3(0.f, 0.f, 0.f)), x_values(w,0), y_values(h,0) {
         this->m_display.create(sf::VideoMode(w, h), text);
         this->m_buffer.create(w, h);

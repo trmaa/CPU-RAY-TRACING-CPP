@@ -51,9 +51,13 @@ public:
 
 	glm::vec3& sky_color() { return this->m_sky_color; }
 	
-	Scene(const std::string& fpath) {
+	Scene(const std::string& fpath, int& w, int& h) {
 		std::future<nl::json> raw = std::async(std::launch::async, Scene::readJson, fpath);
 		nl::json data = raw.get();
+		if (data.contains("res")) {
+			w = data["res"][0];
+			h = data["res"][1];
+		}
 		if (!data.contains("sphere") || !data.contains("sky") || !data.contains("triangle"))
 			return;
 		for (const auto& obj : data["sphere"]) {
