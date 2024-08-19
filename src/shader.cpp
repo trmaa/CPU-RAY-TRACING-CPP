@@ -25,7 +25,7 @@ cam.cast(x, y, buff_v);
 
 int bounces = 4;
 for (int i = 0; i < bounces; i++) {
-    float importance = static_cast<float>(bounces - i*1) / bounces;
+    float importance = static_cast<float>(bounces - i*(1)) / bounces;
     importance = importance<0?0:importance;
 
     std::vector<float> times;
@@ -44,9 +44,11 @@ for (int i = 0; i < bounces; i++) {
             return col;
         }
         sf::Color lc = lastCol;
-        glm::vec3 nc = sc * glm::vec3(lc.r, lc.g, lc.b) * importance;
+        glm::vec3 nc = sc * glm::vec3(lc.r, lc.g, lc.b);
+        lastCol = sf::Color(nc.r, nc.g, nc.b);
+        nc *= importance;
+        lastCol = sf::Color(nc.r, nc.g, nc.b);
         col = sf::Color(nc.r, nc.g, nc.b);
-        lastCol = col;
         return col;
     }
 
@@ -99,7 +101,6 @@ for (int i = 0; i < bounces; i++) {
 
     ray = Ray(hitPoint + normal * 0.001f, (reflected_direction + diffusion));
 }
-lastCol = col;
 return col;
 
 }
