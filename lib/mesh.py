@@ -25,9 +25,9 @@ class Triangle:
         self.center = c
         self.s0 = s0
         self.s1 = s1
-        self.color = [255, 200, 100]
+        self.color = [255, 255, 255]
         self.emission = 0
-        self.roughness = 9999999
+        self.roughness = 0
         self.texture = ""
 
     def to_dict(self):
@@ -41,7 +41,7 @@ class Triangle:
             "texture": self.texture
         }
 
-obj_file_path = './bin/models/sphere.obj'
+obj_file_path = './bin/models/donut.obj'
 vertices, faces = parse_obj_file(obj_file_path)
 
 triangles = []
@@ -59,7 +59,7 @@ for face in faces:
     triangles.append(triangle.to_dict())
 
 json_content = {
-    "res": [16*4, 9*4],
+    "res": [16*3, 9*3],
     "sky": [0.8, 0.9, 1],
     "sphere": [],
     "triangle": triangles
