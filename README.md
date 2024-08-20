@@ -5,7 +5,7 @@ Link to the unfinished document of [my thesis](https://docs.google.com/document/
 ## To do
 - Windows/cuda port
 - Refactor
-- Triangles and meshes
+- UI & drag and drop
 
 ## Screenshots
 ![screenshot2](./bin/img/antialiasingOn.jpg "roughnes 1")
