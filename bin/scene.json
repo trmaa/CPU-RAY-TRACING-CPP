@@ -1,31 +1,39 @@
 {
-	"sky": [0.5,0.8,1],
-	"sphere": [
-		{
-			"center": [0,5,0],
-			"radius": 5,
-			"color": [0,255,255],
-			"emission": 0,
-			"roughness": 5000,
-			"texture": ""
-		}
-	],
-	"triangle": [
-		{
-			"center": [-20,20,-20], 
-			"s0": [0,0,40], "s1": [0,-40,20],
-			"color": [255,255,255],
-			"emission": 1,
-			"roughness": 0,
-			"texture": "./bin/texture/wood.jpg"
-		},
-		{
-			"center": [20,20,-20], 
-			"s0": [0,0,40], "s1": [0,-40,20],
-			"color": [255,255,255],
-			"emission": 0,
-			"roughness": 1000,
-			"texture": "./bin/texture/logs.jpg"
-		}
-	]
+    "res": [
+        160,
+        90
+    ],
+    "sky": [
+        0.8,
+        0.9,
+        1
+    ],
+    "sphere": [],
+    "triangle": [
+        {
+            "center": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "s0": [
+                30.0,
+                40.0,
+                0.0
+            ],
+            "s1": [
+                60.0,
+                0.0,
+                0.0
+            ],
+            "color": [
+                255,
+                255,
+                255
+            ],
+            "emission": 0,
+            "roughness": 9999999,
+            "texture": ""
+        }
+    ]
 }

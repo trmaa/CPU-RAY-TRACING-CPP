@@ -7,8 +7,12 @@ error() {
 
 commit() {
 	msg="$1"
+	echo "ADD"
 	git add .
+	echo "COMMIT"
 	git commit -m "$msg"
+	echo "PUSH"
+	git push
 }
 
 #------------------------------------------------------------------------ end of Libs
