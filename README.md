@@ -6,6 +6,7 @@ Link to the unfinished document of [my thesis](https://docs.google.com/document/
 - Windows/cuda port
 - Refactor
 - UI & drag and drop
+- Non metalic materials
 
 ## Screenshots
 ![screenshot2](./bin/img/antialiasingOn.jpg "roughnes 1")
