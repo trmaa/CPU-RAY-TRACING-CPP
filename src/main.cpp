@@ -29,13 +29,13 @@ int main(int argc, char* argv[]) {
     sf::Event ev;
     sf::Time elapsed;
     float dt;
-    while (win.display().isOpen()) { 
-        while (win.display().pollEvent(ev)) {
+    while (win.isOpen()) { 
+        while (win.pollEvent(ev)) {
             if (ev.type == sf::Event::Closed) {
-                win.display().close();
+                win.close();
             } else if (ev.type == sf::Event::Resized) {
                 sf::FloatRect visibleArea(0, 0, ev.size.width, ev.size.height);
-                win.display().setView(sf::View(visibleArea));
+                win.setView(sf::View(visibleArea));
             }
         }
         elapsed = clck.restart();

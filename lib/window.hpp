@@ -6,6 +6,7 @@
 
 #include "camera.hpp"
 #include "scene.hpp"
+#include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Graphics.hpp>
 #include <SFML/Graphics/Color.hpp>
 #include <SFML/Window/Keyboard.hpp>
@@ -20,13 +21,12 @@
 
 sf::Color shader(int& x, int& y, glm::ivec2& buff_v, Camera& cam, Scene& scn, sf::Color& lastCol);
 
-class Window {
+class Window: public sf::RenderWindow {
 private:
     glm::ivec2 m_viewport;
     sf::Image m_buffer;
     int m_frames;
     std::vector<glm::vec3> m_acumulation;
-    sf::RenderWindow m_display;
 
     sf::Font m_font;
     sf::Text m_fpsText;
@@ -40,12 +40,11 @@ private:
     std::vector<int> y_values;
 
 public:
-    sf::Image& buffer() { return this->m_buffer; }
-    sf::RenderWindow& display() { return this->m_display; }
+    const sf::Image& buffer() { return this->m_buffer; }
     
     Window(const int& w, const int& h, std::string text)
         : m_viewport(w, h), m_frames(0), m_acumulation(w * h, glm::vec3(0.f, 0.f, 0.f)), x_values(w,0), y_values(h,0) {
-        this->m_display.create(sf::VideoMode(w, h), text);
+        this->create(sf::VideoMode(w, h), text);
         this->m_buffer.create(w, h);
 
         if (!this->m_font.loadFromFile("./bin/fonts/pixelmix.ttf")) {
@@ -57,7 +56,7 @@ public:
         this->m_fpsText.setFillColor(sf::Color(0xff00ffff));
         this->m_fpsText.setPosition(10.f, 10.f);
 
-        this->m_display.setFramerateLimit(this->m_fpsLimit);
+        this->setFramerateLimit(this->m_fpsLimit);
         
         std::iota(y_values.begin(), y_values.end(), 0); 
         std::iota(x_values.begin(), x_values.end(), 0);
@@ -134,34 +133,34 @@ public:
 
         this->m_texture.loadFromImage(this->m_buffer);
         this->m_sprite.setTexture(this->m_texture);
-        float scale = static_cast<float>(this->m_display.getSize().x) / buff_v.x;
+        float scale = static_cast<float>(this->getSize().x) / buff_v.x;
         this->m_sprite.setScale(scale, scale);
 
-        this->m_display.clear(); 
+        this->clear(); 
 
-        this->m_display.draw(this->m_sprite);
-        this->m_display.draw(this->m_fpsText);
+        this->draw(this->m_sprite);
+        this->draw(this->m_fpsText);
 
 #if MAP
         sf::CircleShape camera;
-        camera.setPosition(0.1f*cam.position().x+this->m_display.getSize().x/2,
-                0.1f*cam.position().z+this->m_display.getSize().y/2);
+        camera.setPosition(0.1f*cam.position().x+this->getSize().x/2,
+                0.1f*cam.position().z+this->getSize().y/2);
         camera.setFillColor(sf::Color(255, 255, 0));
         camera.setRadius(10);
-        this->m_display.draw(camera);
+        this->draw(camera);
 
         for (int i = 0; i < scn.triangle().size()+scn.sphere().size()-1; i++) {
             sf::CircleShape plane;
-            plane.setPosition(0.1f*scn.object(i).center.x+this->m_display.getSize().x/2, 
-                    0.1f*scn.object(i).center.z+this->m_display.getSize().y/2);
+            plane.setPosition(0.1f*scn.object(i).center.x+this->getSize().x/2, 
+                    0.1f*scn.object(i).center.z+this->getSize().y/2);
             plane.setFillColor(sf::Color(255,0,255));
             plane.setRadius(10);
 
-            this->m_display.draw(plane);
+            this->draw(plane);
         }
 #endif
 
-        this->m_display.display();
+        this->display();
 
         if (ev.key.code == sf::Keyboard::Tab) {
             this->m_buffer.saveToFile("./bin/screenshot.jpg");

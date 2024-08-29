@@ -41,7 +41,7 @@ class Triangle:
             "texture": self.texture
         }
 
-obj_file_path = './bin/models/donut.obj'
+obj_file_path = './bin/models/last.obj'
 vertices, faces = parse_obj_file(obj_file_path)
 
 triangles = []
@@ -65,7 +65,7 @@ json_content = {
     "triangle": triangles
 }
 
-json_file_path = './bin/scene.json'
+json_file_path = './bin/last.json'
 
 with open(json_file_path, 'w') as json_file:
     json.dump(json_content, json_file, indent=4)
