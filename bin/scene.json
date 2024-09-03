@@ -31,7 +31,7 @@
 		{
 			"center": [-500,10,-500], 
 			"s0": [0,0,1000], "s1": [1000,0,0],
-			"color": [255,0,255],
+			"color": [255,255,255],
 			"emission": 1,
 			"roughness": 50,
 			"texture": "./bin/texture/chess.jpg"
@@ -39,7 +39,7 @@
 		{
 			"center": [500,10,500], 
 			"s0": [0,0,-1000], "s1": [-1000,0,0],
-			"color": [255,0,255],
+			"color": [255,255,255],
 			"emission": 1,
 			"roughness": 50,
 			"texture": "./bin/texture/chess.jpg"

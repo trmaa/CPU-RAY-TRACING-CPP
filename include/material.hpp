@@ -32,8 +32,8 @@ struct Material {
         float theta = std::acos(-normal.y);
         float phi = std::atan2(normal.z, normal.x);
 
-        float u = (phi + _PI) / (2 * _PI);
-        float v = theta / _PI;
+        float u = (phi + M_PI) / (2 * M_PI);
+        float v = theta / M_PI;
 
         int texWidth = texture.getSize().x;
         int texHeight = texture.getSize().y;
