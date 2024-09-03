@@ -32,8 +32,8 @@ struct Material {
         float theta = std::acos(-normal.y);
         float phi = std::atan2(normal.z, normal.x);
 
-        float u = (phi + M_PI) / (2 * M_PI);
-        float v = theta / M_PI;
+        float u = (phi + _PI) / (2 * _PI);
+        float v = theta / _PI;
 
         int texWidth = texture.getSize().x;
         int texHeight = texture.getSize().y;
@@ -71,7 +71,8 @@ struct Material {
         unsigned int texX = static_cast<unsigned int>(u * texWidth);
         unsigned int texY = static_cast<unsigned int>(v * texHeight);
 
-        return texture.getPixel(texX, texY);
+        sf::Color color = texture.getPixel(texX, texY);
+        return sf::Color(color.r*this->color.r/255.f, color.g*this->color.g/255.f, color.b*this->color.b/255.f);
     }
 };
 

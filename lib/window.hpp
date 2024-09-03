@@ -23,40 +23,40 @@ sf::Color shader(int& x, int& y, glm::ivec2& buff_v, Camera& cam, Scene& scn, sf
 
 class Window: public sf::RenderWindow {
 private:
-    glm::ivec2 m_viewport;
-    sf::Image m_buffer;
-    int m_frames;
-    std::vector<glm::vec3> m_acumulation;
+    glm::ivec2 _viewport;
+    sf::Image _buffer;
+    int _frames;
+    std::vector<glm::vec3> _acumulation;
 
-    sf::Font m_font;
-    sf::Text m_fpsText;
-    uint16_t m_fps;
-    uint8_t m_fpsLimit = 45;
+    sf::Font _font;
+    sf::Text _fpsText;
+    uint16_t _fps;
+    uint8_t _fpsLimit = 45;
 
-    sf::Texture m_texture;  
-    sf::Sprite m_sprite;
+    sf::Texture _texture;  
+    sf::Sprite _sprite;
     
     std::vector<int> x_values;
     std::vector<int> y_values;
 
 public:
-    const sf::Image& buffer() { return this->m_buffer; }
+    const sf::Image& buffer() { return this->_buffer; }
     
     Window(const int& w, const int& h, std::string text)
-        : m_viewport(w, h), m_frames(0), m_acumulation(w * h, glm::vec3(0.f, 0.f, 0.f)), x_values(w,0), y_values(h,0) {
+        : _viewport(w, h), _frames(0), _acumulation(w * h, glm::vec3(0.f, 0.f, 0.f)), x_values(w,0), y_values(h,0) {
         this->create(sf::VideoMode(w, h), text);
-        this->m_buffer.create(w, h);
+        this->_buffer.create(w, h);
 
-        if (!this->m_font.loadFromFile("./bin/fonts/pixelmix.ttf")) {
+        if (!this->_font.loadFromFile("./bin/fonts/pixelmix.ttf")) {
             std::cerr << ":) no font" << std::endl;
         }
 
-        this->m_fpsText.setFont(this->m_font);
-        this->m_fpsText.setCharacterSize(24);
-        this->m_fpsText.setFillColor(sf::Color(0xff00ffff));
-        this->m_fpsText.setPosition(10.f, 10.f);
+        this->_fpsText.setFont(this->_font);
+        this->_fpsText.setCharacterSize(24);
+        this->_fpsText.setFillColor(sf::Color(0xff00ffff));
+        this->_fpsText.setPosition(10.f, 10.f);
 
-        this->setFramerateLimit(this->m_fpsLimit);
+        this->setFramerateLimit(this->_fpsLimit);
         
         std::iota(y_values.begin(), y_values.end(), 0); 
         std::iota(x_values.begin(), x_values.end(), 0);
@@ -65,24 +65,24 @@ public:
 
 public:
     void repaint(float& dt, Camera& cam, Scene& scn, sf::Event& ev) {
-        this->m_fps = static_cast<uint16_t>(1.f / dt);
-        this->m_fpsText.setString("FPS: " + std::to_string(this->m_fps));
+        this->_fps = static_cast<uint16_t>(1.f / dt);
+        this->_fpsText.setString("FPS: " + std::to_string(this->_fps));
         
-        glm::ivec2 buff_v(this->m_buffer.getSize().x, this->m_buffer.getSize().y);
+        glm::ivec2 buff_v(this->_buffer.getSize().x, this->_buffer.getSize().y);
 
         bool resetAccumulation = false;
         if (ev.type == sf::Event::KeyPressed) {
             resetAccumulation = true;
             if (ev.key.code == sf::Keyboard::Tab) {
-                this->m_buffer.saveToFile("./bin/screenshot.jpg");
+                this->_buffer.saveToFile("./bin/screenshot.jpg");
             }
         }
 
         if (resetAccumulation) {
-            this->m_frames = 0;
-            this->m_acumulation = std::vector<glm::vec3>(buff_v.x * buff_v.y, glm::vec3(0.f, 0.f, 0.f));
+            this->_frames = 0;
+            this->_acumulation = std::vector<glm::vec3>(buff_v.x * buff_v.y, glm::vec3(0.f, 0.f, 0.f));
         }
-        this->m_frames += 1;
+        this->_frames += 1;
 
         sf::Color lastCol;
         std::for_each(std::execution::par, y_values.begin(), y_values.end(), [&](int y) {
@@ -92,14 +92,14 @@ public:
                 sf::Color fcolor;
 
                 //acumulation
-                this->m_acumulation[index] += glm::vec3(col.r, col.g, col.b);
+                this->_acumulation[index] += glm::vec3(col.r, col.g, col.b);
 
                 fcolor = sf::Color(
-                        this->m_acumulation[index].r/this->m_frames, 
-                        this->m_acumulation[index].g/this->m_frames, 
-                        this->m_acumulation[index].b/this->m_frames);
+                        this->_acumulation[index].r/this->_frames, 
+                        this->_acumulation[index].g/this->_frames, 
+                        this->_acumulation[index].b/this->_frames);
 #if ANTIALIASING            
-                this->m_buffer.setPixel(x, y, fcolor);
+                this->_buffer.setPixel(x, y, fcolor);
                 
                 // antialiasing
                 if (x < 1 || x > buff_v.x-1 || y < 1 || y > buff_v.y-1) {
@@ -110,13 +110,13 @@ public:
                 for (int offx = -1; offx <= 1; offx += 1) {
                     for (int offy = -1; offy <= 1; offy += 1) {
                         if(offx == 0 && offy == 0) {
-                            r += this->m_buffer.getPixel(x + offx, y + offy).r * 2; 
-                            g += this->m_buffer.getPixel(x + offx, y + offy).g * 2; 
-                            b += this->m_buffer.getPixel(x + offx, y + offy).b * 2;
+                            r += this->_buffer.getPixel(x + offx, y + offy).r * 2; 
+                            g += this->_buffer.getPixel(x + offx, y + offy).g * 2; 
+                            b += this->_buffer.getPixel(x + offx, y + offy).b * 2;
                         } else {
-                            r += this->m_buffer.getPixel(x + offx, y + offy).r; 
-                            g += this->m_buffer.getPixel(x + offx, y + offy).g; 
-                            b += this->m_buffer.getPixel(x + offx, y + offy).b;
+                            r += this->_buffer.getPixel(x + offx, y + offy).r; 
+                            g += this->_buffer.getPixel(x + offx, y + offy).g; 
+                            b += this->_buffer.getPixel(x + offx, y + offy).b;
                         } 
                     }
                 }
@@ -127,19 +127,19 @@ public:
                                    static_cast<sf::Uint8>(g), 
                                    static_cast<sf::Uint8>(b));
 #endif            
-                this->m_buffer.setPixel(x, y, resetAccumulation ? col : fcolor);
+                this->_buffer.setPixel(x, y, resetAccumulation ? col : fcolor);
             });
         });
 
-        this->m_texture.loadFromImage(this->m_buffer);
-        this->m_sprite.setTexture(this->m_texture);
+        this->_texture.loadFromImage(this->_buffer);
+        this->_sprite.setTexture(this->_texture);
         float scale = static_cast<float>(this->getSize().x) / buff_v.x;
-        this->m_sprite.setScale(scale, scale);
+        this->_sprite.setScale(scale, scale);
 
         this->clear(); 
 
-        this->draw(this->m_sprite);
-        this->draw(this->m_fpsText);
+        this->draw(this->_sprite);
+        this->draw(this->_fpsText);
 
 #if MAP
         sf::CircleShape camera;
@@ -163,7 +163,7 @@ public:
         this->display();
 
         if (ev.key.code == sf::Keyboard::Tab) {
-            this->m_buffer.saveToFile("./bin/screenshot.jpg");
+            this->_buffer.saveToFile("./bin/screenshot.jpg");
         }
     }
 };

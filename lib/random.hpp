@@ -1,9 +1,9 @@
-#ifndef RANDOM_HPP
-#define RANDOM_HPP
+#ifndef RANDO_HPP
+#define RANDO_HPP
 
 #include <cstdlib>
 
-inline float random_float() {
+inline float rando_float() {
 	return rand()/(RAND_MAX+1.f);
 }
 

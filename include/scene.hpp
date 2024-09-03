@@ -16,9 +16,9 @@
 
 class Scene {
 private:
-	glm::vec3 m_sky_color;
-	std::vector<Sphere> m_sphere;
-	std::vector<Triangle> m_triangle;
+	glm::vec3 _sky_color;
+	std::vector<Sphere> _sphere;
+	std::vector<Triangle> _triangle;
 
 private:
 	static nl::json readJson(const std::string& fpath) {
@@ -33,23 +33,23 @@ private:
 	}
 	
 public:
-	const std::vector<Sphere>& sphere() const { return this->m_sphere; }
-	const Sphere& sphere(const int index) const { return this->m_sphere[index]; }
+	const std::vector<Sphere>& sphere() const { return this->_sphere; }
+	const Sphere& sphere(const int index) const { return this->_sphere[index]; }
 
-	const std::vector<Triangle>& triangle() const { return this->m_triangle; }
-	const Triangle& triangle(const int index) const { return this->m_triangle[index]; }
+	const std::vector<Triangle>& triangle() const { return this->_triangle; }
+	const Triangle& triangle(const int index) const { return this->_triangle[index]; }
 
 	const Object& object(const int index) const {
-		if (index < this->m_triangle.size()) {
-			return this->m_triangle[index];
-		} else if (index < this->m_triangle.size() + this->m_sphere.size()) {
-			return this->m_sphere[index - this->m_triangle.size()];
+		if (index < this->_triangle.size()) {
+			return this->_triangle[index];
+		} else if (index < this->_triangle.size() + this->_sphere.size()) {
+			return this->_sphere[index - this->_triangle.size()];
 		} else {
 			throw std::out_of_range("Index out of bounds in Scene::object()");
 		}
 	}
 
-	glm::vec3& sky_color() { return this->m_sky_color; }
+	glm::vec3& sky_color() { return this->_sky_color; }
 	
 	Scene(const std::string& fpath, int& w, int& h) {
 		std::future<nl::json> raw = std::async(std::launch::async, Scene::readJson, fpath);
@@ -67,7 +67,7 @@ public:
 			float emission = obj["emission"];
 			float roughness = static_cast<float>(obj["roughness"]);
 			std::string path = obj["texture"];
-			this->m_sphere.push_back(Sphere(center, radius, color, emission, roughness, path));
+			this->_sphere.push_back(Sphere(center, radius, color, emission, roughness, path));
 		}
 		for (const auto& obj : data["triangle"]) {
 			glm::vec3 center(obj["center"][0], obj["center"][1], obj["center"][2]);
@@ -78,9 +78,9 @@ public:
 			float emission = obj["emission"];
 			float roughness = static_cast<float>(obj["roughness"]);
 			std::string path = obj["texture"];
-			this->m_triangle.push_back(Triangle(center, sides, color, emission, roughness, path));
+			this->_triangle.push_back(Triangle(center, sides, color, emission, roughness, path));
 		}
-		this->m_sky_color = glm::vec3(data["sky"][0],data["sky"][1],data["sky"][2]);	
+		this->_sky_color = glm::vec3(data["sky"][0],data["sky"][1],data["sky"][2]);	
 	}
 	~Scene() = default;
 };

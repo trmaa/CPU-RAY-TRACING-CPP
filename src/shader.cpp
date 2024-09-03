@@ -95,7 +95,7 @@ for (int i = 0; i < bounces; i++) {
     glm::vec3 diffusion(0);
     if (object.material.roughness > 0) {
         diffusion = glm::normalize(
-                glm::vec3(random_float(), random_float(), random_float()) 
+                glm::vec3(rando_float(), rando_float(), rando_float()) 
                 * 2.0f - glm::vec3(1.0f)) * object.material.roughness;
     }
 
