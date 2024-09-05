@@ -7,6 +7,7 @@
 #include <SFML/Window/Keyboard.hpp>
 #include <algorithm>
 #include <cstdio>
+#include <glm/common.hpp>
 #include <glm/detail/qualifier.hpp>
 #include <glm/ext/vector_float3.hpp>
 #include <glm/ext/vector_int2.hpp>
@@ -87,7 +88,12 @@ for (int i = 0; i < bounces; i++) {
         glm::vec3 lc = glm::vec3(lastCol.r, lastCol.g, lastCol.b) * glm::normalize(glm::vec3(tC.r, tC.g, tC.b));
         lastCol = sf::Color(lc.r, lc.g, lc.b);
     }
-    glm::vec3 color = glm::vec3(lastCol.r, lastCol.g, lastCol.b) * glm::normalize(glm::vec3(tC.r, tC.g, tC.b) * importance);
+
+    float bright = glm::dot(glm::normalize(normal), glm::normalize(glm::vec3(-1,-1,-1)));
+    bright = bright>1?1:bright;
+    bright = bright<0?0:bright;
+
+    glm::vec3 color = bright * glm::vec3(lastCol.r, lastCol.g, lastCol.b) * glm::normalize(glm::vec3(tC.r, tC.g, tC.b) * importance);
     col = sf::Color(color.r, color.g, color.b);
 
     glm::vec3 reflected_direction = ray.direction - 2.0f * glm::dot(ray.direction, normal) * normal;
