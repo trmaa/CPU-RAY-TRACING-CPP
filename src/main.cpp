@@ -9,6 +9,7 @@
 
 static int w = static_cast<int>(16*15);
 static int h = static_cast<int>(9*15);
+int scene_id = 1;
 Scene scn("./bin/scene.json", w, h);
 Window win(w, h, "rtx");
 Camera cam(w, h);
@@ -19,6 +20,14 @@ void loop(float& dt, sf::Event& ev) {
 
     if (ev.key.code == sf::Keyboard::Tab) {
 		scn = Scene("./bin/scene.json", w, h);
+	}
+    if (ev.key.code == sf::Keyboard::F1) {
+        scene_id++;
+        if (scene_id > 8) {
+            scene_id = 1;
+        }
+        std::string command = "./lib/change_scene.sh " + std::to_string(scene_id);
+        std::system(command.c_str());
 	}
 }
 
