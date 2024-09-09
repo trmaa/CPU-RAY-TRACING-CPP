@@ -26,7 +26,7 @@ void loop(float& dt, sf::Event& ev) {
         if (scene_id > 8) {
             scene_id = 1;
         }
-        std::string command = "./lib/change_scene.sh " + std::to_string(scene_id);
+        std::string command = "./scripts/change_scene.sh " + std::to_string(scene_id);
         std::system(command.c_str());
 	}
 }

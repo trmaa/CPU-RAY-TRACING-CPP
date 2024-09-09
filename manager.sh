@@ -32,6 +32,7 @@ run() {
 }
 
 clean() {
+	rm ./*.o
 	if [ ! -f "$EXECUTABLE" ]; then
 		return
 	fi
@@ -39,7 +40,8 @@ clean() {
 }
 
 build() {
-	g++ $SRC -o $EXECUTABLE -I$INCLUDE -I$LIB -L$LIB $FLAGS
+	g++ -c src/main.cpp src/shader.cpp -I./include
+	g++ main.o shader.o -o ./bin/app -L./lib -lsfml-graphics -lsfml-window -lsfml-system
 }
 
 init() {
