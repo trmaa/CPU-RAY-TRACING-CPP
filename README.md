@@ -10,8 +10,8 @@ Link to the unfinished document of [my thesis](./bin/thesis.pdf).
 
 ## Screenshots
 ![screenshot2](./bin/img/antialiasingOn.jpg "roughnes 1")
-![screenshot2](./bin/img/comparison.jpg "roughnes 1")
-![screenshot2](./bin/img/great.jpg "roughnes 1")
+![screenshot2](./bin/img/mirror3000.jpg "roughnes 1")
+![screenshot2](./bin/img/mirror.jpg "roughnes 1")
 ![screenshot2](./bin/img/nice.png "roughnes 1")
 ![screenshot1](./bin/img/triangles1.png "roughnes 0")
 ![screenshot1](./bin/img/triangles2.png "roughnes 0")
