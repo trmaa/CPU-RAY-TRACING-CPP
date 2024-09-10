@@ -1,6 +1,7 @@
 #include <SFML/System.hpp>
 #include <SFML/Window.hpp>
 #include <cstdlib>
+#include <glm/ext/vector_float3.hpp>
 #include <iostream>
 #include <string>
 #include "window.hpp"
@@ -17,6 +18,15 @@ Camera cam(w, h);
 void loop(float& dt, sf::Event& ev) {
     win.repaint(dt, cam, scn, ev);
     cam.move(dt, ev);
+
+    glm::vec3 pos = cam.position();
+    glm::vec3 dir = cam.angle();
+    std::cout << "pos: " << std::to_string(pos.x) << " - "
+                         << std::to_string(pos.y) << " - "
+                         << std::to_string(pos.z) << std::endl;
+    std::cout << "dir: " << std::to_string(dir.x) << " - "
+                         << std::to_string(dir.y) << " - "
+                         << std::to_string(dir.z) << std::endl;
 
     if (ev.key.code == sf::Keyboard::Tab) {
 		scn = Scene("./bin/scene.json", w, h);

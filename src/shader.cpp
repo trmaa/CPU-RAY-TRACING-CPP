@@ -21,8 +21,9 @@ const int index = x + y * buff_v.x;
 
 glm::vec3 sc = scn.sky_color();
 sf::Color col = sf::Color(sc.r * 255, sc.g * 255, sc.b * 255);
-Ray ray = cam.ray[index];
+
 cam.cast(x, y, buff_v);
+Ray& ray = cam.ray[index];
 
 int bounces = 4;
 for (int i = 0; i < bounces; i++) {
