@@ -1,5 +1,4 @@
 {
-	"res": [240, 125],
 	"sky": [1,1,1],
 	"sphere": [
 		{
@@ -8,7 +7,7 @@
 			"color": [255, 255, 255],
 			"emission": 1,
 			"roughness": 0,
-			"texture": "./bin/texture/stars.jpg"
+			"texture": "./bin/texture/sky_day.jpg"
 		},
 		{
 			"center": [-20, -5, 0],
@@ -16,15 +15,15 @@
 			"color": [200, 255, 255],
 			"emission": 0,
 			"roughness": 0,
-			"texture": "./bin/texture/wall.jpg"
+			"texture": ""
 		},
 		{
 			"center": [30, -10, 0],
 			"radius": 20,
 			"color": [255, 255, 255],
-			"emission": 0,
+			"emission": 1,
 			"roughness": 5000,
-			"texture": "./bin/texture/logs.jpg"
+			"texture": "./bin/texture/wood.jpg"
 		}
 	],
 	"triangle": [
@@ -32,7 +31,7 @@
 			"center": [-500,10,-500], 
 			"s0": [0,0,1000], "s1": [1000,0,0],
 			"color": [255,255,255],
-			"emission": 1,
+			"emission": 0,
 			"roughness": 50,
 			"texture": "./bin/texture/chess.jpg"
 		},
@@ -40,7 +39,7 @@
 			"center": [500,10,500], 
 			"s0": [0,0,-1000], "s1": [-1000,0,0],
 			"color": [255,255,255],
-			"emission": 1,
+			"emission": 0,
 			"roughness": 50,
 			"texture": "./bin/texture/chess.jpg"
 		}
