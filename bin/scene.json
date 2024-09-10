@@ -1,48 +1,173 @@
 {
-	"res": [450, 450],
-	"sky": [1,1,1],
-	"sphere": [
-		{
-			"center": [0,-20,0],
+    "res": [
+        800,
+        450
+    ],
+    "sky": [
+        0.8,
+        0.9,
+        1
+    ],
+    "sphere": [
+        {
+			"center": [0,0,0],
 			"radius": 1000,
 			"color": [255, 255, 255],
 			"emission": 1,
 			"roughness": 0,
 			"texture": "./bin/texture/sky_day.jpg"
-		},
-		{
-			"center": [-20, -5, 0],
-			"radius": 15,
-			"color": [200, 255, 255],
-			"emission": 0,
-			"roughness": 0,
-			"texture": ""
-		},
-		{
-			"center": [30, -10, 0],
-			"radius": 20,
-			"color": [255, 255, 255],
-			"emission": 1,
-			"roughness": 5000,
-			"texture": "./bin/texture/wood.jpg"
 		}
-	],
-	"triangle": [
-		{
-			"center": [-500,10,-500], 
-			"s0": [0,0,1000], "s1": [1000,0,0],
-			"color": [255,255,255],
-			"emission": 0,
-			"roughness": 50,
-			"texture": "./bin/texture/chess.jpg"
-		},
-		{
-			"center": [500,10,500], 
-			"s0": [0,0,-1000], "s1": [-1000,0,0],
-			"color": [255,255,255],
-			"emission": 0,
-			"roughness": 50,
-			"texture": "./bin/texture/chess.jpg"
-		}
-	]
+    ],
+    "triangle": [
+        {
+            "center": [
+                20.0,
+                -7e-06,
+                20.0
+            ],
+            "s0": [
+                0.0,
+                0.0,
+                -40.0
+            ],
+            "s1": [
+                -40.0,
+                1.4e-05,
+                -40.0
+            ],
+            "color": [
+                255,
+                255,
+                255
+            ],
+            "emission": 0,
+            "roughness": 0,
+            "texture": "./bin/texture/wall.jpg"
+        },
+        {
+            "center": [
+                -8e-06,
+                -25.0,
+                0.0
+            ],
+            "s0": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "s1": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "color": [
+                255,
+                255,
+                255
+            ],
+            "emission": 0,
+            "roughness": 0,
+            "texture": "./bin/texture/wall.jpg"
+        },
+        {
+            "center": [
+                -20.0,
+                7e-06,
+                -20.0
+            ],
+            "s0": [
+                40.0,
+                -1.4e-05,
+                0.0
+            ],
+            "s1": [
+                19.999992,
+                -25.000007,
+                20.0
+            ],
+            "color": [
+                255,
+                255,
+                255
+            ],
+            "emission": 0,
+            "roughness": 0,
+            "texture": "./bin/texture/wall.jpg"
+        },
+        {
+            "center": [
+                20.0,
+                -7e-06,
+                20.0
+            ],
+            "s0": [
+                -40.0,
+                1.4e-05,
+                0.0
+            ],
+            "s1": [
+                -20.000008,
+                -24.999993,
+                -20.0
+            ],
+            "color": [
+                255,
+                255,
+                255
+            ],
+            "emission": 0,
+            "roughness": 0,
+            "texture": "./bin/texture/wall.jpg"
+        },
+        {
+            "center": [
+                -20.0,
+                7e-06,
+                20.0
+            ],
+            "s0": [
+                0.0,
+                0.0,
+                -40.0
+            ],
+            "s1": [
+                19.999992,
+                -25.000007,
+                -20.0
+            ],
+            "color": [
+                255,
+                255,
+                255
+            ],
+            "emission": 0,
+            "roughness": 0,
+            "texture": "./bin/texture/wall.jpg"
+        },
+        {
+            "center": [
+                20.0,
+                -7e-06,
+                -20.0
+            ],
+            "s0": [
+                0.0,
+                0.0,
+                40.0
+            ],
+            "s1": [
+                -20.000008,
+                -24.999993,
+                20.0
+            ],
+            "color": [
+                255,
+                255,
+                255
+            ],
+            "emission": 0,
+            "roughness": 0,
+            "texture": "./bin/texture/wall.jpg"
+        }
+    ]
 }

@@ -28,7 +28,7 @@ class Triangle:
         self.color = [255, 255, 255]
         self.emission = 0
         self.roughness = 0
-        self.texture = ""
+        self.texture = "./bin/texture/bricks.jpg"
 
     def to_dict(self):
         return {
@@ -41,7 +41,7 @@ class Triangle:
             "texture": self.texture
         }
 
-obj_file_path = './bin/models/last.obj'
+obj_file_path = './bin/models/piramid.obj'
 vertices, faces = parse_obj_file(obj_file_path)
 
 triangles = []
@@ -59,13 +59,13 @@ for face in faces:
     triangles.append(triangle.to_dict())
 
 json_content = {
-    "res": [16*3, 9*3],
+    "res": [80, 45],
     "sky": [0.8, 0.9, 1],
     "sphere": [],
     "triangle": triangles
 }
 
-json_file_path = './bin/last.json'
+json_file_path = './bin/scene.json'
 
 with open(json_file_path, 'w') as json_file:
     json.dump(json_content, json_file, indent=4)

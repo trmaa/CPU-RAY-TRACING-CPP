@@ -35,8 +35,8 @@ public:
     const glm::vec3& angle() { return this->_angle; }
 
     Camera(const int& w, const int& h)
-        : _position(244.0f,-66.f, -270.f), 
-        _angle(glm::vec3(0.2f, -4.f, 0.0f)), 
+        : _position(-22.2f,-65.f, 133.2f), 
+        _angle(glm::vec3(0.4f, 4.9f, 0.0f)), 
         _direction(0.0f), _speed(100.0f), _far(400.f*w/192) {
         for (int y = 0; y < h; y++) {
             for (int x = 0; x < w; x++) {
