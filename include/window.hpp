@@ -85,31 +85,37 @@ public:
         this->_frames += 1;
 
         sf::Color lastCol;
-        std::for_each(std::execution::par, y_values.begin(), y_values.end(), [&](int y) {
-            std::for_each(std::execution::par, x_values.begin(), x_values.end(), [&](int x) {
+        for (size_t y_idx = 0; y_idx < y_values.size(); ++y_idx) {
+            int y = y_values[y_idx];
+
+            // Iterating over x_values
+            for (size_t x_idx = 0; x_idx < x_values.size(); ++x_idx) {
+                int x = x_values[x_idx];
+                
                 const int index = buff_v.x * y + x;
                 sf::Color col = shader(x, y, buff_v, cam, scn, lastCol);
                 sf::Color fcolor;
 
-                //acumulation
+                // Accumulation
                 this->_acumulation[index] += glm::vec3(col.r, col.g, col.b);
 
                 fcolor = sf::Color(
-                        this->_acumulation[index].r/this->_frames, 
-                        this->_acumulation[index].g/this->_frames, 
-                        this->_acumulation[index].b/this->_frames);
-#if ANTIALIASING            
-                this->_buffer.setPixel(x, y, fcolor);
+                    this->_acumulation[index].r / this->_frames, 
+                    this->_acumulation[index].g / this->_frames, 
+                    this->_acumulation[index].b / this->_frames);
                 
-                // antialiasing
-                if (x < 1 || x > buff_v.x-1 || y < 1 || y > buff_v.y-1) {
-                    return;
+#if ANTIALIASING
+                this->_buffer.setPixel(x, y, fcolor);
+
+                // Antialiasing
+                if (x < 1 || x > buff_v.x - 1 || y < 1 || y > buff_v.y - 1) {
+                    continue;
                 }
 
                 float r = 0.f, g = 0.f, b = 0.f;
                 for (int offx = -1; offx <= 1; offx += 1) {
                     for (int offy = -1; offy <= 1; offy += 1) {
-                        if(offx == 0 && offy == 0) {
+                        if (offx == 0 && offy == 0) {
                             r += this->_buffer.getPixel(x + offx, y + offy).r * 2; 
                             g += this->_buffer.getPixel(x + offx, y + offy).g * 2; 
                             b += this->_buffer.getPixel(x + offx, y + offy).b * 2;
@@ -128,8 +134,8 @@ public:
                                    static_cast<sf::Uint8>(b));
 #endif            
                 this->_buffer.setPixel(x, y, resetAccumulation ? col : fcolor);
-            });
-        });
+            }
+        }
 
         this->_texture.loadFromImage(this->_buffer);
         this->_sprite.setTexture(this->_texture);

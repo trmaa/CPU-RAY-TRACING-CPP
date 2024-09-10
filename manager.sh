@@ -41,7 +41,7 @@ clean() {
 
 build() {
 	g++ -c src/main.cpp src/shader.cpp -I./include
-	g++ main.o shader.o -o ./bin/app -L./lib -lsfml-graphics -lsfml-window -lsfml-system -ltbb
+	g++ main.o shader.o -o ./bin/app -L./lib -lsfml-graphics -lsfml-window -lsfml-system -ltbb 
 	rm ./*.o
 }
 
