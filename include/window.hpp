@@ -139,9 +139,12 @@ public:
 
         this->_texture.loadFromImage(this->_buffer);
         this->_sprite.setTexture(this->_texture);
-        float scale = static_cast<float>(this->getSize().x) / buff_v.x;
-        this->_sprite.setScale(scale, scale);
+        
+        float scale_x = (float)this->getSize().x/this->_buffer.getSize().x;
+		float scale_y = (float)this->getSize().y/this->_buffer.getSize().y;
 
+		this->_sprite.setScale(scale_x, scale_y);
+        
         this->clear(); 
 
         this->draw(this->_sprite);
