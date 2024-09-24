@@ -14,6 +14,8 @@
 #include <glm/geometric.hpp>
 #include <vector>
 
+#define BRIGHT 0
+
 sf::Color shader(int& x, int& y, glm::ivec2& buff_v, Camera& cam, Scene& scn, sf::Color& lastCol) 
 {
 
@@ -25,9 +27,9 @@ sf::Color col = sf::Color(sc.r * 255, sc.g * 255, sc.b * 255);
 cam.cast(x, y, buff_v);
 Ray& ray = cam.ray[index];
 
-int bounces = 4;
+int bounces = 3;
 for (int i = 0; i < bounces; i++) {
-    float importance = static_cast<float>(bounces - i*(1)) / bounces;
+    float importance = static_cast<float>(bounces - i*(2)) / bounces;
     importance = importance<0?0:importance;
 
     std::vector<float> times;
@@ -90,9 +92,13 @@ for (int i = 0; i < bounces; i++) {
         lastCol = sf::Color(lc.r, lc.g, lc.b);
     }
 
+#if BRIGHT
     float bright = glm::dot(glm::normalize(normal), glm::normalize(glm::vec3(-1,-1,-1)));
     bright = bright>1?1:bright;
     bright = bright<0?0:bright;
+#else
+    float bright = 1;
+#endif
 
     glm::vec3 color = bright * glm::vec3(lastCol.r, lastCol.g, lastCol.b) * glm::normalize(glm::vec3(tC.r, tC.g, tC.b) * importance);
     col = sf::Color(color.r, color.g, color.b);

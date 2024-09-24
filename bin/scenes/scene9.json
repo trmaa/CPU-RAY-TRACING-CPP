@@ -1,0 +1,56 @@
+{
+	"res": [800, 450],
+	"sky": [0.5,0.5,0.5],
+	"sphere": [
+		{
+			"center": [0,0,0],
+			"radius": 1000,
+			"color": [230, 255, 255],
+			"emission": 1,
+			"roughness": 0,
+			"texture": ""
+		},
+		{
+			"center": [-30, -5, 0],
+			"radius": 15,
+			"color": [200, 255, 255],
+			"emission": 0,
+			"roughness": 0,
+			"texture": ""
+		},
+		{
+			"center": [0, -5, 100],
+			"radius": 15,
+			"color": [255, 255, 200],
+			"emission": 0,
+			"roughness": 200,
+			"texture": ""
+		},
+		{
+			"center": [30, -10, 0],
+			"radius": 20,
+			"color": [255, 200, 200],
+			"emission": 0,
+			"roughness": 2500,
+			"texture": ""
+		}
+	],
+	"triangle": [
+		{
+			"center": [-500,10,-500], 
+			"s0": [0,0,1000], "s1": [1000,0,0],
+			"color": [200,255,200],
+			"emission": 0,
+			"roughness": 5000,
+			"texture": ""
+		},
+		{
+			"center": [500,10,500], 
+			"s0": [0,0,-1000], "s1": [-1000,0,0],
+			"color": [200,255,200],
+			"emission": 0,
+			"roughness": 5000,
+			"texture": ""
+		}
+	]
+}
