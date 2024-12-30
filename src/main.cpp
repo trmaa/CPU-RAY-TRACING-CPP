@@ -15,10 +15,16 @@ Scene scn("./bin/scene.json", w, h);
 Window win(w, h, "rtx");
 Camera cam(w, h);
 
-void loop(float& dt, sf::Event& ev) {
-    win.repaint(dt, cam, scn, ev);
-    cam.move(dt, ev);
+sf::Clock clck;
+sf::Time elapsed;
+float dt;
 
+void loop(sf::Event& ev) {
+    win.repaint(dt, cam, scn, ev);
+    cam.move(dt);
+    cam.handle_mouse_movement(win);
+
+    /*
     glm::vec3 pos = cam.position();
     glm::vec3 dir = cam.angle();
     std::cout << "pos: " << std::to_string(pos.x) << " - "
@@ -27,10 +33,11 @@ void loop(float& dt, sf::Event& ev) {
     std::cout << "dir: " << std::to_string(dir.x) << " - "
                          << std::to_string(dir.y) << " - "
                          << std::to_string(dir.z) << std::endl;
+    */
 
     if (ev.key.code == sf::Keyboard::Tab) {
-		scn = Scene("./bin/scene.json", w, h);
-	}
+        scn = Scene("./bin/scene.json", w, h);
+    }
     if (ev.key.code == sf::Keyboard::F1) {
         scene_id++;
         if (scene_id > 8) {
@@ -38,17 +45,16 @@ void loop(float& dt, sf::Event& ev) {
         }
         std::string command = "./scripts/change_scene.sh " + std::to_string(scene_id);
         std::system(command.c_str());
-	}
+    }
 }
 
 int main(int argc, char* argv[]) {
     std::cout << "starting..." << std::endl;
+    cam.lock_mouse(win);
 
-    sf::Clock clck;
-    sf::Event ev;
-    sf::Time elapsed;
-    float dt;
-    while (win.isOpen()) { 
+
+    while (win.isOpen()) {
+        sf::Event ev;
         while (win.pollEvent(ev)) {
             if (ev.type == sf::Event::Closed) {
                 win.close();
@@ -60,7 +66,7 @@ int main(int argc, char* argv[]) {
         elapsed = clck.restart();
         dt = elapsed.asSeconds();
 
-        loop(dt, ev);
+        loop(ev);
     }
 
     std::system("clear");

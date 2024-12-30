@@ -3,56 +3,20 @@
     "arguments": [
       "/usr/bin/g++",
       "-c",
-      "-I./include/",
-      "-I./lib/",
-      "-o",
-      "./bin/app",
-      "./src/camera.cpp"
+      "-I./include",
+      "src/main.cpp"
     ],
-    "directory": "/home/pablo/Desktop/Ray-Tracing-renderer-real-time-C-vanilla",
-    "file": "/home/pablo/Desktop/Ray-Tracing-renderer-real-time-C-vanilla/src/camera.cpp",
-    "output": "/home/pablo/Desktop/Ray-Tracing-renderer-real-time-C-vanilla/bin/app"
+    "directory": "/home/pablo/CPU-RAY-TRACING-CPP",
+    "file": "/home/pablo/CPU-RAY-TRACING-CPP/src/main.cpp"
   },
   {
     "arguments": [
       "/usr/bin/g++",
       "-c",
-      "-I./include/",
-      "-I./lib/",
-      "-o",
-      "./bin/app",
-      "./src/main.cpp"
+      "-I./include",
+      "src/shader.cpp"
     ],
-    "directory": "/home/pablo/Desktop/Ray-Tracing-renderer-real-time-C-vanilla",
-    "file": "/home/pablo/Desktop/Ray-Tracing-renderer-real-time-C-vanilla/src/main.cpp",
-    "output": "/home/pablo/Desktop/Ray-Tracing-renderer-real-time-C-vanilla/bin/app"
-  },
-  {
-    "arguments": [
-      "/usr/bin/g++",
-      "-c",
-      "-I./include/",
-      "-I./lib/",
-      "-o",
-      "./bin/app",
-      "./src/shader.cpp"
-    ],
-    "directory": "/home/pablo/Desktop/Ray-Tracing-renderer-real-time-C-vanilla",
-    "file": "/home/pablo/Desktop/Ray-Tracing-renderer-real-time-C-vanilla/src/shader.cpp",
-    "output": "/home/pablo/Desktop/Ray-Tracing-renderer-real-time-C-vanilla/bin/app"
-  },
-  {
-    "arguments": [
-      "/usr/bin/g++",
-      "-c",
-      "-I./include/",
-      "-I./lib/",
-      "-o",
-      "./bin/app",
-      "./src/window.cpp"
-    ],
-    "directory": "/home/pablo/Desktop/Ray-Tracing-renderer-real-time-C-vanilla",
-    "file": "/home/pablo/Desktop/Ray-Tracing-renderer-real-time-C-vanilla/src/window.cpp",
-    "output": "/home/pablo/Desktop/Ray-Tracing-renderer-real-time-C-vanilla/bin/app"
+    "directory": "/home/pablo/CPU-RAY-TRACING-CPP",
+    "file": "/home/pablo/CPU-RAY-TRACING-CPP/src/shader.cpp"
   }
 ]
