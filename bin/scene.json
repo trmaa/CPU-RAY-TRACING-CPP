@@ -8,7 +8,7 @@
 			"color": [255, 255, 255],
 			"emission": 1,
 			"roughness": 0,
-			"texture": "./bin/texture/stars.jpg"
+			"texture": "./bin/texture/sky_day.jpg"
 		},
 		{
 			"center": [-20, -5, 0],
