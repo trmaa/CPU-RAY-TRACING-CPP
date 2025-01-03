@@ -1,3 +1,7 @@
-./mapmeker_src/node_modules/*
-./bin/mapmaker/src/node_modules/*
-./cache/
+compile_commands.json
+lib/
+include/SFML/
+include/glm/
+.cache/
+
+.git/

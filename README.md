@@ -1,4 +1,7 @@
 # Ray tracing
+
+!!! IMPORTANT: this project depends on some libraries and files which need to be drag and dropped to the root of the project. Those files can be found at the releases from the repository...
+
 This app works propperly only on linux and when build with `./manager.sh build run`.
 Tis is a work for school: [my thesis](./bin/thesis.pdf).
 
