@@ -1,7 +1,0 @@
-compile_commands.json
-lib/
-include/SFML/
-include/glm/
-.cache/
-
-.git/

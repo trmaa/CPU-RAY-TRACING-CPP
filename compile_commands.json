@@ -1,0 +1,22 @@
+[
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-c",
+      "-I./include",
+      "src/main.cpp"
+    ],
+    "directory": "/home/pablo/CPU-RAY-TRACING-CPP",
+    "file": "/home/pablo/CPU-RAY-TRACING-CPP/src/main.cpp"
+  },
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-c",
+      "-I./include",
+      "src/shader.cpp"
+    ],
+    "directory": "/home/pablo/CPU-RAY-TRACING-CPP",
+    "file": "/home/pablo/CPU-RAY-TRACING-CPP/src/shader.cpp"
+  }
+]
