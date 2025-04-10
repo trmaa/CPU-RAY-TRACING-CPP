@@ -8,8 +8,8 @@
 #include "camera.hpp"
 #include "scene.hpp"
 
-static int w = static_cast<int>(16*15);
-static int h = static_cast<int>(9*15);
+static int w = static_cast<int>(16*10);
+static int h = static_cast<int>(9*10);
 int scene_id = 1;
 Scene scn("./bin/scene.json", w, h);
 Window win(w, h, "rtx");

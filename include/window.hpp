@@ -18,8 +18,6 @@
 #include <glm/glm.hpp>
 #include <string>
 #include <vector>
-#include <algorithm>
-#include <execution>
 
 sf::Color shader(int& x, int& y, glm::ivec2& buff_v, Camera& cam, Scene& scn, sf::Color& lastCol);
 
@@ -47,7 +45,7 @@ public:
 
     Window(const int& w, const int& h, std::string text)
         : _viewport(w, h), _frames(0), _acumulation(w * h, glm::vec3(0.f, 0.f, 0.f)), x_values(w,0), y_values(h,0) {
-        this->create(sf::VideoMode(1280, 720), text, sf::Style::None);
+        this->create(sf::VideoMode(1280, 720), text, sf::Style::Fullscreen);
         this->_buffer.create(w, h);
 
         if (!this->_font.loadFromFile("./bin/fonts/pixelmix.ttf")) {
