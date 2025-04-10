@@ -4,7 +4,7 @@
 #include <cstdlib>
 
 inline float rando_float() {
-	return rand()/(RAND_MAX+1.f);
+    return rand()/(RAND_MAX+1.f);
 }
 
 #endif

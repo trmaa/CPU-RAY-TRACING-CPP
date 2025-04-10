@@ -44,7 +44,8 @@ public:
     const sf::Image& buffer() { return this->_buffer; }
 
     Window(const int& w, const int& h, std::string text)
-        : _viewport(w, h), _frames(0), _acumulation(w * h, glm::vec3(0.f, 0.f, 0.f)), x_values(w,0), y_values(h,0) {
+        : _viewport(w, h), _frames(0), _acumulation(w * h, 
+	glm::vec3(0.f, 0.f, 0.f)), x_values(w,0), y_values(h,0) {
         this->create(sf::VideoMode(1280, 720), text, sf::Style::Fullscreen);
         this->_buffer.create(w, h);
 

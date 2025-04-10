@@ -15,7 +15,8 @@ struct Material {
     float roughness;
     sf::Image texture;
 
-    Material(glm::vec3 c, float e, float r, const std::string& txtrPath): color(c), emission(e), roughness(r) {
+    Material(glm::vec3 c, float e, float r, const std::string& txtrPath)
+	: color(c), emission(e), roughness(r) {
         if (!texture.loadFromFile(txtrPath)) {
             texture.create(1,1);
             texture.setPixel(0, 0, sf::Color(c.r, c.g, c.b));
@@ -25,7 +26,10 @@ struct Material {
     ~Material() = default;
 
     const sf::Color col() const { 
-        return sf::Color(static_cast<sf::Uint8>(this->color.r * 255), static_cast<sf::Uint8>(this->color.g * 255), static_cast<sf::Uint8>(this->color.b * 255)); 
+        return sf::Color(
+	    static_cast<sf::Uint8>(this->color.r * 255), 
+	    static_cast<sf::Uint8>(this->color.g * 255), 
+	    static_cast<sf::Uint8>(this->color.b * 255)); 
     }
 
     const sf::Color txtr(const glm::vec3 normal) const {
@@ -41,7 +45,10 @@ struct Material {
         int y = static_cast<int>((texHeight - v) * texHeight) % texHeight;
 
         sf::Color color = texture.getPixel(x, y);
-        return sf::Color(color.r*this->color.r/255.f, color.g*this->color.g/255.f, color.b*this->color.b/255.f);
+        return sf::Color(
+	    color.r*this->color.r/255.f, 
+	    color.g*this->color.g/255.f, 
+	    color.b*this->color.b/255.f);
     }
 
     sf::Color txtr(glm::vec3 hitp, glm::vec3 center, glm::vec3 normal) const {
@@ -72,7 +79,10 @@ struct Material {
         unsigned int texY = static_cast<unsigned int>(v * texHeight);
 
         sf::Color color = texture.getPixel(texX, texY);
-        return sf::Color(color.r*this->color.r/255.f, color.g*this->color.g/255.f, color.b*this->color.b/255.f);
+        return sf::Color(
+	    color.r*this->color.r/255.f, 
+	    color.g*this->color.g/255.f, 
+	    color.b*this->color.b/255.f);
     }
 };
 
